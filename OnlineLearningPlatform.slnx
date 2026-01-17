@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Application/Application.csproj" />
+  <Project Path="Domain/Domain.csproj" />
+  <Project Path="Infrastructure/Infrastructure.csproj" />
+  <Project Path="MVC/MVC.csproj" Id="98a9f9f1-7f5f-4236-80e6-0354b98e6d8f" />
+  <Project Path="RazorPage/RazorPage.csproj" Id="85ec1b4d-4fdb-4a50-bc80-840d6f2431b8" />
+</Solution>

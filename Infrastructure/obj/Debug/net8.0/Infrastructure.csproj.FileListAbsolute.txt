@@ -1,0 +1,17 @@
+D:\PRN222\OnlinePlatform\Infrastructure\bin\Debug\net8.0\Infrastructure.deps.json
+D:\PRN222\OnlinePlatform\Infrastructure\bin\Debug\net8.0\Infrastructure.dll
+D:\PRN222\OnlinePlatform\Infrastructure\bin\Debug\net8.0\Infrastructure.pdb
+D:\PRN222\OnlinePlatform\Infrastructure\bin\Debug\net8.0\Application.dll
+D:\PRN222\OnlinePlatform\Infrastructure\bin\Debug\net8.0\Domain.dll
+D:\PRN222\OnlinePlatform\Infrastructure\bin\Debug\net8.0\Application.pdb
+D:\PRN222\OnlinePlatform\Infrastructure\bin\Debug\net8.0\Domain.pdb
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.AssemblyReference.cache
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfoInputs.cache
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfo.cs
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.CoreCompileInputs.cache
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\Infrastr.15EFFBFE.Up2Date
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\Infrastructure.dll
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
+D:\PRN222\OnlinePlatform\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
