@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-lg mt-5">
+            <div class="card-body p-4">
+
+                <h3 class="text-center mb-4">Đăng nhập</h3>
+
+                <form method="post" asp-controller="Home" asp-action="Login">
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="Nhập username" required />
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                    </div>
+
+                    <!-- Remember -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    </div>
+
+                </form>
+
+                <hr />
+
+                <div class="text-center">
+                    <a href="#">Quên mật khẩu?</a>
+                </div>
+
+                <div class="text-center mt-2">
+                    <span>Chưa có tài khoản?</span>
+                    <a href="#">Đăng ký</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
