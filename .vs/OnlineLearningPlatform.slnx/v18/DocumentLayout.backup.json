@@ -3,60 +3,36 @@
   "WorkspaceRootPath": "D:\\PRN222\\OnlinePlatform\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\repositories\\answeroptionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\answeroptionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\enrollmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\enrollmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\irepositories\\iansweroptionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\irepositories\\iansweroptionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\repositories\\submissionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\submissionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|d:\\prn222\\onlineplatform\\domain\\requests\\payment\\createnewpaymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\requests\\payment\\createnewpaymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\repositories\\quizattemptrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\quizattemptrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\repositories\\quizrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\quizrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\repositories\\questionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\questionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\repositories\\paymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\paymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\irepositories\\isubmissionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\irepositories\\isubmissionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\irepositories\\iquizattemptrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\irepositories\\iquizattemptrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\irepositories\\iquizrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\irepositories\\iquizrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\irepositories\\iquestionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\irepositories\\iquestionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\irepositories\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\irepositories\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\repositories\\lessonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\lessonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\irepositories\\ilessonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\irepositories\\ilessonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 542,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -86,184 +62,106 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IAnswerOptionRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IAnswerOptionRepository.cs",
-              "RelativeDocumentMoniker": "Application\\IRepositories\\IAnswerOptionRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IAnswerOptionRepository.cs",
-              "RelativeToolTip": "Application\\IRepositories\\IAnswerOptionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:29:34.343Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AnswerOptionRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\AnswerOptionRepository.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\AnswerOptionRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\AnswerOptionRepository.cs",
-              "RelativeToolTip": "Infrastructure\\Repositories\\AnswerOptionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:29:09.062Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SubmissionRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\SubmissionRepository.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\SubmissionRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\SubmissionRepository.cs",
-              "RelativeToolTip": "Infrastructure\\Repositories\\SubmissionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Title": "CreateNewPaymentRequest.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Domain\\Requests\\Payment\\CreateNewPaymentRequest.cs",
+              "RelativeDocumentMoniker": "Domain\\Requests\\Payment\\CreateNewPaymentRequest.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Domain\\Requests\\Payment\\CreateNewPaymentRequest.cs",
+              "RelativeToolTip": "Domain\\Requests\\Payment\\CreateNewPaymentRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:27:48.287Z",
+              "WhenOpened": "2026-01-21T05:53:29.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PaymentService.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\PaymentService.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\PaymentService.cs",
+              "ViewState": "AgIAABcAAACAmZmZmZkVwCAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T05:50:53.263Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "QuizAttemptRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\QuizAttemptRepository.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\QuizAttemptRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\QuizAttemptRepository.cs",
-              "RelativeToolTip": "Infrastructure\\Repositories\\QuizAttemptRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "Application\\IUnitOfWork.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IUnitOfWork.cs",
+              "RelativeToolTip": "Application\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:27:21.012Z",
+              "WhenOpened": "2026-01-21T05:43:13.472Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EnrollmentService.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\EnrollmentService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\EnrollmentService.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\EnrollmentService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\EnrollmentService.cs",
+              "ViewState": "AgIAABwAAACAmZmZmZkRwCMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T05:39:13.206Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "QuizRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\QuizRepository.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\QuizRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\QuizRepository.cs",
-              "RelativeToolTip": "Infrastructure\\Repositories\\QuizRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "MVC\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "MVC\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABwAAADAmZmZmZktwCgAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:26:57.31Z",
+              "WhenOpened": "2026-01-21T03:44:10.904Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "QuestionRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\QuestionRepository.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\QuestionRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\QuestionRepository.cs",
-              "RelativeToolTip": "Infrastructure\\Repositories\\QuestionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:26:09.905Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ISubmissionRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\ISubmissionRepository.cs",
-              "RelativeDocumentMoniker": "Application\\IRepositories\\ISubmissionRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\ISubmissionRepository.cs",
-              "RelativeToolTip": "Application\\IRepositories\\ISubmissionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:24:48.836Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IQuizAttemptRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IQuizAttemptRepository.cs",
-              "RelativeDocumentMoniker": "Application\\IRepositories\\IQuizAttemptRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IQuizAttemptRepository.cs",
-              "RelativeToolTip": "Application\\IRepositories\\IQuizAttemptRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:24:15.253Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IQuizRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IQuizRepository.cs",
-              "RelativeDocumentMoniker": "Application\\IRepositories\\IQuizRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IQuizRepository.cs",
-              "RelativeToolTip": "Application\\IRepositories\\IQuizRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:23:50.61Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "IQuestionRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IQuestionRepository.cs",
-              "RelativeDocumentMoniker": "Application\\IRepositories\\IQuestionRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IQuestionRepository.cs",
-              "RelativeToolTip": "Application\\IRepositories\\IQuestionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:23:27.78Z",
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Auth\\Login.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Auth\\Login.cshtml",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Auth\\Login.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Auth\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-21T03:44:06.905Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "PaymentRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\PaymentRepository.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\PaymentRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\PaymentRepository.cs",
-              "RelativeToolTip": "Infrastructure\\Repositories\\PaymentRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:22:27.636Z",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-20T18:51:51.359Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "IPaymentRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IPaymentRepository.cs",
-              "RelativeDocumentMoniker": "Application\\IRepositories\\IPaymentRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\IPaymentRepository.cs",
-              "RelativeToolTip": "Application\\IRepositories\\IPaymentRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:22:47.982Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "ILessonRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\ILessonRepository.cs",
-              "RelativeDocumentMoniker": "Application\\IRepositories\\ILessonRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IRepositories\\ILessonRepository.cs",
-              "RelativeToolTip": "Application\\IRepositories\\ILessonRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:21:31.344Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "LessonRepository.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\LessonRepository.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\LessonRepository.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Repositories\\LessonRepository.cs",
-              "RelativeToolTip": "Infrastructure\\Repositories\\LessonRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T08:21:03.502Z",
+              "DocumentIndex": 7,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-20T18:51:48.247Z",
               "EditorCaption": ""
             }
           ]

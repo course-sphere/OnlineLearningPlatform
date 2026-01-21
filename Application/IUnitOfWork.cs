@@ -5,6 +5,9 @@ namespace Application
     public interface IUnitOfWork
     {
         public IUserRepository Users { get; }
+        public ILessonRepository Lessons { get; }
+        public ICourseRepository Courses { get; }
+        public IEnrollmentRepository Enrollments { get; }
         Task SaveChangeAsync();
     }
 }
