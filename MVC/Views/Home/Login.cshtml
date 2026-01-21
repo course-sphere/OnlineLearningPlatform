@@ -7,44 +7,44 @@
         <div class="card shadow-lg mt-5">
             <div class="card-body p-4">
 
-                <h3 class="text-center mb-4">Đăng nhập</h3>
+                <h3 class="text-center mb-4">Sign In</h3>
 
-                <form method="post" asp-controller="Home" asp-action="Login">
+                <!-- Login with Google -->
+                <div class="d-grid mb-3">
+                    <button class="btn btn-outline-danger">
+                        <i class="bi bi-google"></i> Sign in with Google
+                    </button>
+                </div>
 
-                    <!-- Username -->
+                <div class="text-center text-muted mb-3">or</div>
+
+                <!-- Login form -->
+                <form method="post">
+
                     <div class="mb-3">
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Nhập username" required />
+                        <label class="form-label">Username or Email</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Enter your username or email" />
                     </div>
 
-                    <!-- Password -->
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Enter your password" />
                     </div>
 
-                    <!-- Remember -->
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
-                    </div>
-
-                    <!-- Button -->
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                        <button class="btn btn-primary">Sign In</button>
                     </div>
 
                 </form>
 
-                <hr />
-
-                <div class="text-center">
-                    <a href="#">Quên mật khẩu?</a>
-                </div>
-
-                <div class="text-center mt-2">
-                    <span>Chưa có tài khoản?</span>
-                    <a href="#">Đăng ký</a>
+                <div class="text-center mt-3">
+                    <a asp-action="Register">
+                        Don’t have an account? Sign up
+                    </a>
                 </div>
 
             </div>

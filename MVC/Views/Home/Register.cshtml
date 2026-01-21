@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg mt-5">
+            <div class="card-body p-4">
+
+                <h3 class="text-center mb-4">Create an Account</h3>
+
+                <!-- Register with Google -->
+                <div class="d-grid mb-3">
+                    <button class="btn btn-outline-danger">
+                        <i class="bi bi-google"></i> Sign up with Google
+                    </button>
+                </div>
+
+                <div class="text-center text-muted mb-3">or</div>
+
+                <form method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Enter username" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel"
+                               class="form-control"
+                               placeholder="Enter phone number" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email"
+                               class="form-control"
+                               placeholder="Enter email address" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Enter password" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Confirm your password" />
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-success">Sign Up</button>
+                    </div>
+
+                </form>
+
+                <div class="text-center mt-3">
+                    <a asp-action="Login">
+                        Already have an account? Sign in
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
