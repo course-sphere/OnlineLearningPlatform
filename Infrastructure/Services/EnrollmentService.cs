@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.IServices;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Requests.Enrollment;
 using Domain.Responses;
 
@@ -27,13 +28,22 @@ namespace Infrastructure.Services
             try
             {
                 var claim = _service.GetUserClaim();
-                var enrollment = await _unitOfWork.Enrollments.GetAsync(e => e.CourseId == request.CourseId && e.UserId == claim.UserId);
-                if (enrollment != null)
+                var existingEnrollment = await _unitOfWork.Enrollments.GetAsync(e => e.CourseId == request.CourseId && e.UserId == claim.UserId);
+                if (existingEnrollment != null)
                 {
                     return response.SetBadRequest(message: "Enrollment had created with Course");
                 }
 
-                return null;//var payment = await _paymentService
+                var payment = await _unitOfWork.Payments.GetAsync(p => p.CourseId == request.CourseId && p.UserId == claim.UserId && p.IsSuccess == true);
+                if (payment == null)
+                {
+                    return response.SetBadRequest(message: "Payment not found for this course or not success");
+                }
+
+                var enrollment = _mapper.Map<Enrollment>(request);
+                await _unitOfWork.Enrollments.AddAsync(enrollment);
+                await _unitOfWork.SaveChangeAsync();
+                return response.SetOk("Create");
             }
             catch (Exception ex)
             {
