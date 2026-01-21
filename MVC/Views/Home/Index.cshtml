@@ -1,58 +1,210 @@
-﻿@* @{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div> *@
-@{
+﻿@{
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4 fw-bold">Welcome to LMS System</h1>
-    <p class="lead">
-        Learn – Practice – Improve with online courses
-    </p>
-</div>
+<!-- HERO -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
 
-<hr />
-
-<div class="row mt-4">
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">📘 Courses</h5>
-                <p class="card-text">
-                    Browse all available courses and start learning today.
+            <div class="col-md-6">
+                <h1 class="fw-bold display-5 mb-3">
+                    Learn without limits
+                </h1>
+                <p class="text-muted fs-5 mb-4">
+                    Build skills with online courses, certificates, and degrees
+                    from top instructors.
                 </p>
-                <a class="btn btn-primary">View Courses</a>
+
+                <div class="d-flex gap-3">
+                    <a asp-action="Register" class="btn btn-primary btn-lg">
+                        Join for Free
+                    </a>
+                    <a href="#courses" class="btn btn-outline-secondary btn-lg">
+                        Browse Courses
+                    </a>
+                </div>
             </div>
+
+            <div class="col-md-6 text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+                     class="img-fluid"
+                     style="max-height:380px;"
+                     alt="Learning illustration">
+            </div>
+
         </div>
     </div>
+</section>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">📝 Quizzes</h5>
-                <p class="card-text">
-                    Test your knowledge with interactive quizzes.
-                </p>
-                <a class="btn btn-success">Take Quiz</a>
-            </div>
+<!-- TRUSTED -->
+<section class="py-4 border-bottom bg-white">
+    <div class="container text-center">
+        <p class="text-muted mb-3">
+            Trusted by learners from
+        </p>
+
+        <div class="d-flex justify-content-center gap-5 flex-wrap">
+            <span class="fw-semibold text-secondary">Google</span>
+            <span class="fw-semibold text-secondary">Meta</span>
+            <span class="fw-semibold text-secondary">IBM</span>
+            <span class="fw-semibold text-secondary">Microsoft</span>
+            <span class="fw-semibold text-secondary">AWS</span>
         </div>
     </div>
+</section>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">🎓 Certificates</h5>
-                <p class="card-text">
-                    Earn certificates after completing courses.
-                </p>
-                <a class="btn btn-warning">View Certificates</a>
+<!-- COURSES -->
+<section id="courses" class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold">Popular Courses</h3>
+            <a href="#" class="text-decoration-none fw-semibold">
+                View all →
+            </a>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Course Card -->
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="https://source.unsplash.com/400x300/?programming"
+                         class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h6 class="fw-semibold">
+                            Web Development Fundamentals
+                        </h6>
+                        <p class="text-muted small mb-1">
+                            by John Doe
+                        </p>
+                        <span class="badge bg-warning text-dark">
+                            ★ 4.8
+                        </span>
+                    </div>
+                </div>
             </div>
+
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="https://source.unsplash.com/400x300/?ai"
+                         class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h6 class="fw-semibold">
+                            AI for Beginners
+                        </h6>
+                        <p class="text-muted small mb-1">
+                            by Andrew Ng
+                        </p>
+                        <span class="badge bg-warning text-dark">
+                            ★ 4.9
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="https://source.unsplash.com/400x300/?cloud"
+                         class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h6 class="fw-semibold">
+                            Cloud Computing with AWS
+                        </h6>
+                        <p class="text-muted small mb-1">
+                            by Amazon
+                        </p>
+                        <span class="badge bg-warning text-dark">
+                            ★ 4.7
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="https://source.unsplash.com/400x300/?data"
+                         class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h6 class="fw-semibold">
+                            Data Analysis with Python
+                        </h6>
+                        <p class="text-muted small mb-1">
+                            by IBM
+                        </p>
+                        <span class="badge bg-warning text-dark">
+                            ★ 4.8
+                        </span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
+</section>
+
+<!-- WHY -->
+<section class="bg-light py-5">
+    <div class="container text-center">
+
+        <h3 class="fw-bold mb-4">
+            Why choose LMS System?
+        </h3>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-laptop fs-1 text-primary"></i>
+                    <h6 class="fw-semibold mt-3">
+                        Learn Anywhere
+                    </h6>
+                    <p class="text-muted small">
+                        Access courses anytime on any device
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-award fs-1 text-primary"></i>
+                    <h6 class="fw-semibold mt-3">
+                        Certificates
+                    </h6>
+                    <p class="text-muted small">
+                        Earn certificates to boost your career
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-graph-up fs-1 text-primary"></i>
+                    <h6 class="fw-semibold mt-3">
+                        Career Growth
+                    </h6>
+                    <p class="text-muted small">
+                        Skills designed for real-world jobs
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 bg-primary text-white text-center">
+    <div class="container">
+        <h3 class="fw-bold mb-3">
+            Start learning today
+        </h3>
+        <p class="mb-4">
+            Join thousands of learners worldwide
+        </p>
+        <a asp-action="Register" class="btn btn-light btn-lg fw-semibold">
+            Get Started
+        </a>
+    </div>
+</section>

@@ -172,7 +172,7 @@
               "RelativeDocumentMoniker": "MVC\\Views\\Home\\Register.cshtml",
               "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\OnlineLearningPlatform\\MVC\\Views\\Home\\Register.cshtml",
               "RelativeToolTip": "MVC\\Views\\Home\\Register.cshtml",
-              "ViewState": "AgIAADIAAAAAAAAAAAAQwEkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADIAAAAAAAAAAAAUwD8AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-01-21T02:25:52.55Z",
               "EditorCaption": ""
@@ -187,8 +187,7 @@
               "RelativeToolTip": "MVC\\Views\\Home\\Login.cshtml",
               "ViewState": "AgIAAB4AAAAAAAAAAAAQwDUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-20T10:14:01.851Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T10:14:01.851Z"
             },
             {
               "$type": "Document",
@@ -212,8 +211,7 @@
               "RelativeToolTip": "MVC\\Controllers\\HomeController.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAWwCMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-18T13:58:28.155Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-18T13:58:28.155Z"
             },
             {
               "$type": "Document",
@@ -225,8 +223,7 @@
               "RelativeToolTip": "MVC\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAEIAAAAAAAAAAAAAADsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-20T08:47:27.189Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T08:47:27.189Z"
             },
             {
               "$type": "Document",
@@ -238,8 +235,7 @@
               "RelativeToolTip": "MVC\\Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAADoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-18T13:48:38.59Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-18T13:48:38.59Z"
             },
             {
               "$type": "Document",
@@ -251,8 +247,7 @@
               "RelativeToolTip": "MVC\\Views\\Shared\\_Header.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-20T08:47:56.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T08:47:56.41Z"
             },
             {
               "$type": "Document",
