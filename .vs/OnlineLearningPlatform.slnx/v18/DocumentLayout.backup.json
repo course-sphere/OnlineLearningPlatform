@@ -85,6 +85,20 @@
           "SelectedChildIndex": 6,
           "Children": [
             {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Course\\Index.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Course\\Index.cshtml",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Course\\Index.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Course\\Index.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAmwBIAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-21T11:58:11.775Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             },
@@ -99,20 +113,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Course\\Index.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Course\\Index.cshtml",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Course\\Index.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Course\\Index.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAmwBIAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T11:58:11.775Z",
-              "IsPinned": true,
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -133,8 +133,8 @@
               "Title": "PaymentService.cs",
               "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Services\\PaymentService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs*",
-              "RelativeToolTip": "Infrastructure\\Services\\PaymentService.cs*",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\PaymentService.cs",
               "ViewState": "AgIAAFQAAABAMzMzMzMpwGMAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-21T12:24:13.101Z",
