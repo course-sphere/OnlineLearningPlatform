@@ -2,7 +2,7 @@
 
 namespace Application.IRepositories
 {
-    public interface IAssignmentRepository : IGenericRepository<Assignment>
+    public interface IModuleRepository : IGenericRepository<Module>
     {
     }
 }

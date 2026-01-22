@@ -9,10 +9,10 @@ namespace Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Question> builder)
         {
             builder.HasKey(q => q.QuestionId);
-            builder.HasOne(q => q.Quiz)
-                   .WithMany(z => z.Questions)
-                   .HasForeignKey(q => q.QuizId)
-                   .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(q => q.GradedItem)
+                  .WithMany(g => g.Questions)
+                  .HasForeignKey(q => q.GradedItemId)
+                  .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

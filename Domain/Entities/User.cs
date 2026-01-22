@@ -9,18 +9,12 @@
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string? Image { get; set; }
-        public UserRole Role { get; set; }
         public bool IsVerfied { get; set; }
+        public string? Bio { get; set; }
+        public string? Title { get; set; } //ex: "Senior Lecturer"
         public List<Enrollment>? Enrollments { get; set; }
         public List<Payment>? Payments { get; set; }
-        public List<QuizAttempt>? Attempts { get; set; }
-        public List<Submission>? Submissions { get; set; }  
-    }
-
-    public enum UserRole
-    {
-        Admin,
-        Instructor,
-        Student
+        public List<GradedAttempt>? GradedAttempts { get; set; }
+        public List<UserRoleMapping>? Roles { get; set; } = new();
     }
 }

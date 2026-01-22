@@ -40,13 +40,13 @@ builder.Configuration.AddJsonFile("appsetting.json", optional: true, reloadOnCha
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<HttpClient>();
-builder.Services.AddScoped<IAuthService, AuthService>();
+//builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IFirebaseStorageService, FirebaseStorageService>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<ICourseService, CourseService>();
-builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
-builder.Services.AddScoped<IClaimService, ClaimService>();
-builder.Services.AddScoped<ILessonService, LessonService>();
+//builder.Services.AddScoped<IPaymentService, PaymentService>();
+//builder.Services.AddScoped<ICourseService, CourseService>();
+//builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+//builder.Services.AddScoped<IClaimService, ClaimService>();
+//builder.Services.AddScoped<ILessonService, LessonService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

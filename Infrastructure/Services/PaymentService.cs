@@ -1,4 +1,4 @@
-﻿using Application;
+﻿/*using Application;
 using Application.IServices;
 using Domain.Entities;
 using Domain.Requests.Payment;
@@ -123,3 +123,4 @@ namespace Infrastructure.Services
         }
     }
 }
+*/

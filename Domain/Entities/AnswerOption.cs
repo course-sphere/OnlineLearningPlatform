@@ -5,13 +5,11 @@
         public Guid AnswerOptionId { get; set; }
         public Guid QuestionId { get; set; }
         public string Text { get; set; }
-        public OptionType Type { get; set; }
+        public string? Explanation { get; set; }
+        public int OrderIndex { get; set; }
+        public bool IsCorrect { get; set; }
+        public decimal Weight { get; set; } = 1;
         public Question? Question { get; set; }
-    }
-
-    public enum OptionType
-    {
-        Correct,
-        Incorrect
+        public List<SubmissionAnswerOption>? SubmissionAnswerOptions { get; set; }
     }
 }

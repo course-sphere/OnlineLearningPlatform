@@ -34,6 +34,18 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Explanation")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("OrderIndex")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uuid");
 
@@ -41,61 +53,20 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uuid");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("numeric");
 
                     b.HasKey("AnswerOptionId");
 
                     b.HasIndex("QuestionId");
 
                     b.ToTable("AnswerOptions");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Assignment", b =>
-                {
-                    b.Property<Guid>("AssignmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("MaxScore")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("AssignmentId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Assignments");
                 });
 
             modelBuilder.Entity("Domain.Entities.Course", b =>
@@ -116,11 +87,20 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsPublished")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
+
+                    b.Property<string>("RejectReason")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -152,6 +132,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
@@ -173,6 +156,94 @@ namespace Infrastructure.Migrations
                     b.ToTable("Enrollments");
                 });
 
+            modelBuilder.Entity("Domain.Entities.GradedAttempt", b =>
+                {
+                    b.Property<Guid>("GradedAttemptId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("AttemptNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("GradedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("GradedItemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal?>("Score")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("GradedAttemptId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GradedAttempts");
+                });
+
+            modelBuilder.Entity("Domain.Entities.GradedItem", b =>
+                {
+                    b.Property<Guid>("GradedItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsAutoGraded")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("LessonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("MaxScore")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("GradedItemId");
+
+                    b.HasIndex("LessonId");
+
+                    b.ToTable("GradedItems");
+                });
+
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
                 {
                     b.Property<Guid>("LessonId")
@@ -181,6 +252,56 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("EstimatedMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Index")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsGraded")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("ModuleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("OrderIndex")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("LessonId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Lessons");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Module", b =>
+                {
+                    b.Property<Guid>("ModuleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CourseId")
                         .HasColumnType("uuid");
@@ -191,13 +312,19 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
                     b.Property<int>("Index")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("ParentLessonId")
-                        .HasColumnType("uuid");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Title")
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -207,13 +334,11 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uuid");
 
-                    b.HasKey("LessonId");
+                    b.HasKey("ModuleId");
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("ParentLessonId");
-
-                    b.ToTable("Lessons");
+                    b.ToTable("Modules");
                 });
 
             modelBuilder.Entity("Domain.Entities.Payment", b =>
@@ -233,6 +358,12 @@ namespace Infrastructure.Migrations
 
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSuccess")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("Method")
                         .HasColumnType("integer");
@@ -271,11 +402,23 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Explanation")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("GradedItemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("IsRequired")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("OrderIndex")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("Points")
                         .HasColumnType("numeric");
-
-                    b.Property<Guid>("QuizId")
-                        .HasColumnType("uuid");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");
@@ -288,99 +431,18 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("QuestionId");
 
-                    b.HasIndex("QuizId");
+                    b.HasIndex("GradedItemId");
 
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Quiz", b =>
+            modelBuilder.Entity("Domain.Entities.QuestionSubmission", b =>
                 {
-                    b.Property<Guid>("QuizId")
+                    b.Property<Guid>("QuestionSubmissionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<TimeOnly?>("TimeLimit")
-                        .HasColumnType("time without time zone");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("TotalPoint")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("QuizId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Quizzes");
-                });
-
-            modelBuilder.Entity("Domain.Entities.QuizAttempt", b =>
-                {
-                    b.Property<Guid>("QuizAttemptId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("AttemptedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("QuizId")
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Score")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("QuizAttemptId");
-
-                    b.HasIndex("QuizId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("QuizAttempts");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Submission", b =>
-                {
-                    b.Property<Guid>("SubmissionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AssignmentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
+                    b.Property<string>("AnswerText")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
@@ -392,6 +454,18 @@ namespace Infrastructure.Migrations
                     b.Property<string>("FileUrl")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("GradedAttemptId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsAutoGraded")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uuid");
+
                     b.Property<decimal?>("Score")
                         .HasColumnType("numeric");
 
@@ -401,16 +475,85 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
+                    b.HasKey("QuestionSubmissionId");
+
+                    b.HasIndex("GradedAttemptId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("QuestionSubmissions");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Role", b =>
+                {
+                    b.Property<Guid>("RoleId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.HasKey("SubmissionId");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasIndex("AssignmentId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasIndex("UserId");
+                    b.HasKey("RoleId");
 
-                    b.ToTable("Submissions");
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
+                            Code = "STUDENT",
+                            Name = "Student"
+                        },
+                        new
+                        {
+                            RoleId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
+                            Code = "INSTRUCTOR",
+                            Name = "Instructor"
+                        },
+                        new
+                        {
+                            RoleId = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"),
+                            Code = "ADMIN",
+                            Name = "Admin"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.SubmissionAnswerOption", b =>
+                {
+                    b.Property<Guid>("SubmissionAnswerOptionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AnswerOptionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("QuestionSubmissionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Weight")
+                        .ValueGeneratedOnAdd()
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)")
+                        .HasDefaultValue(1m);
+
+                    b.HasKey("SubmissionAnswerOptionId");
+
+                    b.HasIndex("AnswerOptionId");
+
+                    b.HasIndex("QuestionSubmissionId");
+
+                    b.ToTable("SubmissionAnswerOptions");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -418,6 +561,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -436,6 +582,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsVerfied")
                         .HasColumnType("boolean");
 
@@ -450,8 +599,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -461,7 +610,102 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CreatedAt = new DateTime(2026, 1, 22, 8, 54, 2, 196, DateTimeKind.Utc).AddTicks(5551),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Email = "Student1@gmail.com",
+                            FullName = "Student1",
+                            IsDeleted = false,
+                            IsVerfied = true,
+                            PasswordHash = new byte[] { 252, 31, 85, 113, 161, 243, 176, 196, 228, 104, 124, 91, 210, 152, 63, 43, 97, 78, 112, 26, 237, 131, 160, 146, 124, 54, 53, 216, 235, 86, 237, 15, 1, 6, 161, 93, 13, 105, 186, 60, 141, 144, 16, 56, 151, 140, 224, 140, 206, 74, 63, 49, 233, 190, 56, 163, 14, 224, 71, 95, 70, 45, 132, 125 },
+                            PasswordSalt = new byte[] { 57, 200, 123, 30, 60, 63, 163, 50, 87, 185, 246, 15, 230, 72, 69, 134, 229, 147, 205, 28, 83, 154, 147, 6, 171, 205, 151, 208, 71, 54, 182, 69, 41, 76, 131, 89, 28, 77, 173, 214, 61, 217, 188, 222, 66, 177, 123, 23, 77, 19, 246, 234, 172, 103, 241, 170, 28, 211, 123, 9, 236, 208, 123, 187, 207, 85, 185, 125, 191, 122, 188, 26, 169, 82, 79, 112, 108, 117, 66, 134, 228, 194, 59, 149, 192, 70, 21, 109, 48, 242, 98, 218, 157, 255, 19, 34, 127, 128, 202, 39, 129, 168, 131, 71, 146, 218, 53, 195, 115, 173, 175, 232, 231, 54, 115, 24, 211, 169, 127, 158, 213, 246, 177, 64, 248, 159, 29, 107 }
+                        },
+                        new
+                        {
+                            UserId = new Guid("22222222-2222-2222-2222-222222222222"),
+                            CreatedAt = new DateTime(2026, 1, 22, 8, 54, 2, 196, DateTimeKind.Utc).AddTicks(5619),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Email = "Student2@gmail.com",
+                            FullName = "Student2",
+                            IsDeleted = false,
+                            IsVerfied = true,
+                            PasswordHash = new byte[] { 158, 139, 237, 129, 89, 104, 117, 36, 247, 175, 183, 217, 69, 236, 26, 119, 171, 150, 183, 106, 226, 33, 3, 95, 60, 96, 150, 54, 196, 65, 149, 195, 183, 116, 10, 11, 110, 215, 115, 165, 247, 195, 62, 24, 209, 80, 209, 239, 134, 245, 92, 24, 67, 199, 207, 200, 186, 49, 58, 246, 42, 198, 121, 117 },
+                            PasswordSalt = new byte[] { 32, 107, 99, 51, 162, 76, 70, 196, 12, 249, 223, 94, 154, 22, 255, 232, 221, 170, 116, 166, 26, 189, 173, 97, 207, 209, 191, 124, 124, 179, 226, 234, 206, 152, 203, 109, 188, 114, 9, 157, 159, 213, 32, 176, 214, 154, 23, 187, 193, 121, 168, 160, 71, 23, 197, 214, 102, 117, 63, 68, 151, 249, 118, 228, 121, 19, 3, 167, 60, 165, 10, 103, 172, 147, 99, 34, 246, 95, 224, 152, 185, 203, 21, 43, 238, 28, 146, 176, 159, 23, 246, 52, 214, 82, 43, 255, 43, 91, 235, 111, 114, 57, 81, 189, 50, 227, 237, 95, 47, 73, 127, 113, 165, 224, 157, 115, 133, 16, 5, 216, 70, 180, 85, 245, 183, 254, 138, 255 }
+                        },
+                        new
+                        {
+                            UserId = new Guid("33333333-3333-3333-3333-333333333333"),
+                            CreatedAt = new DateTime(2026, 1, 22, 8, 54, 2, 196, DateTimeKind.Utc).AddTicks(5623),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Email = "Employer@gmail.com",
+                            FullName = "Instructor",
+                            IsDeleted = false,
+                            IsVerfied = true,
+                            PasswordHash = new byte[] { 128, 183, 60, 61, 222, 191, 218, 251, 12, 147, 191, 24, 48, 45, 92, 185, 88, 49, 145, 27, 224, 112, 151, 194, 225, 112, 102, 15, 34, 107, 248, 97, 141, 208, 191, 183, 63, 34, 137, 26, 45, 7, 7, 223, 110, 10, 218, 74, 38, 21, 41, 56, 247, 45, 64, 249, 197, 109, 34, 22, 152, 38, 41, 214 },
+                            PasswordSalt = new byte[] { 236, 12, 168, 205, 42, 92, 198, 73, 157, 68, 190, 124, 110, 12, 189, 217, 137, 99, 128, 110, 141, 206, 241, 130, 113, 60, 55, 106, 43, 172, 203, 48, 18, 97, 129, 128, 100, 90, 110, 71, 26, 4, 83, 56, 218, 237, 184, 43, 22, 53, 84, 204, 16, 21, 33, 125, 86, 135, 45, 96, 107, 173, 179, 6, 5, 99, 173, 212, 121, 150, 213, 51, 187, 206, 187, 89, 68, 253, 134, 251, 204, 139, 74, 182, 24, 222, 81, 190, 164, 206, 136, 187, 17, 199, 227, 183, 56, 17, 209, 116, 176, 197, 3, 34, 251, 72, 134, 248, 252, 9, 147, 152, 100, 20, 12, 213, 112, 150, 115, 72, 190, 85, 49, 203, 59, 193, 243, 229 }
+                        },
+                        new
+                        {
+                            UserId = new Guid("44444444-4444-4444-4444-444444444444"),
+                            CreatedAt = new DateTime(2026, 1, 22, 8, 54, 2, 196, DateTimeKind.Utc).AddTicks(5625),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Email = "Admin@gmail.com",
+                            FullName = "Admin",
+                            IsDeleted = false,
+                            IsVerfied = true,
+                            PasswordHash = new byte[] { 60, 23, 8, 11, 174, 255, 37, 214, 143, 49, 177, 162, 83, 115, 225, 56, 131, 201, 210, 24, 226, 217, 59, 61, 82, 231, 156, 62, 16, 73, 76, 131, 2, 35, 36, 211, 187, 167, 0, 207, 9, 168, 71, 67, 130, 157, 174, 17, 68, 248, 203, 10, 70, 80, 41, 108, 246, 248, 19, 58, 228, 30, 188, 108 },
+                            PasswordSalt = new byte[] { 130, 190, 216, 129, 26, 171, 238, 89, 119, 158, 130, 37, 210, 128, 50, 146, 154, 65, 66, 40, 90, 127, 173, 137, 116, 14, 127, 215, 213, 90, 222, 137, 136, 21, 111, 83, 191, 204, 94, 246, 18, 232, 88, 190, 47, 122, 227, 25, 226, 4, 169, 241, 246, 231, 53, 87, 21, 203, 180, 16, 94, 92, 240, 183, 125, 66, 28, 205, 35, 150, 184, 216, 190, 46, 193, 170, 4, 96, 152, 255, 66, 181, 132, 125, 220, 123, 142, 139, 79, 137, 205, 193, 250, 31, 183, 221, 241, 127, 238, 235, 252, 142, 16, 121, 129, 18, 174, 173, 23, 240, 79, 226, 153, 218, 104, 254, 119, 25, 204, 200, 178, 72, 60, 86, 48, 213, 226, 250 }
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.UserRoleMapping", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoleMappings");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            RoleId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
+                        },
+                        new
+                        {
+                            UserId = new Guid("22222222-2222-2222-2222-222222222222"),
+                            RoleId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
+                        },
+                        new
+                        {
+                            UserId = new Guid("33333333-3333-3333-3333-333333333333"),
+                            RoleId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb")
+                        },
+                        new
+                        {
+                            UserId = new Guid("33333333-3333-3333-3333-333333333333"),
+                            RoleId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
+                        },
+                        new
+                        {
+                            UserId = new Guid("44444444-4444-4444-4444-444444444444"),
+                            RoleId = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc")
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.AnswerOption", b =>
@@ -473,17 +717,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Assignment", b =>
-                {
-                    b.HasOne("Domain.Entities.Course", "Course")
-                        .WithMany("Assignments")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Domain.Entities.Enrollment", b =>
@@ -505,22 +738,56 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.GradedAttempt", b =>
+                {
+                    b.HasOne("Domain.Entities.GradedItem", "GradedItem")
+                        .WithMany("GradedAttempts")
+                        .HasForeignKey("GradedAttemptId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("GradedAttempts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GradedItem");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.GradedItem", b =>
+                {
+                    b.HasOne("Domain.Entities.Lesson", "Lesson")
+                        .WithMany("GradedItems")
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+                });
+
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
                 {
-                    b.HasOne("Domain.Entities.Course", "Course")
+                    b.HasOne("Domain.Entities.Module", "Module")
                         .WithMany("Lessons")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Module", b =>
+                {
+                    b.HasOne("Domain.Entities.Course", "Course")
+                        .WithMany("Modules")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Lesson", "ParentLesson")
-                        .WithMany()
-                        .HasForeignKey("ParentLessonId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("Course");
-
-                    b.Navigation("ParentLesson");
                 });
 
             modelBuilder.Entity("Domain.Entities.Payment", b =>
@@ -544,101 +811,132 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Question", b =>
                 {
-                    b.HasOne("Domain.Entities.Quiz", "Quiz")
+                    b.HasOne("Domain.Entities.GradedItem", "GradedItem")
                         .WithMany("Questions")
-                        .HasForeignKey("QuizId")
+                        .HasForeignKey("GradedItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Quiz");
+                    b.Navigation("GradedItem");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Quiz", b =>
+            modelBuilder.Entity("Domain.Entities.QuestionSubmission", b =>
                 {
-                    b.HasOne("Domain.Entities.Course", "Course")
-                        .WithMany("Quizzes")
-                        .HasForeignKey("CourseId")
+                    b.HasOne("Domain.Entities.GradedAttempt", "GradedAttempt")
+                        .WithMany("QuestionSubmissions")
+                        .HasForeignKey("GradedAttemptId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Course");
+                    b.HasOne("Domain.Entities.Question", "Question")
+                        .WithMany("QuestionSubmissions")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("GradedAttempt");
+
+                    b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("Domain.Entities.QuizAttempt", b =>
+            modelBuilder.Entity("Domain.Entities.SubmissionAnswerOption", b =>
                 {
-                    b.HasOne("Domain.Entities.Quiz", "Quiz")
-                        .WithMany("Attempts")
-                        .HasForeignKey("QuizId")
+                    b.HasOne("Domain.Entities.AnswerOption", "AnswerOption")
+                        .WithMany("SubmissionAnswerOptions")
+                        .HasForeignKey("AnswerOptionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.QuestionSubmission", "QuestionSubmission")
+                        .WithMany("SelectedOptions")
+                        .HasForeignKey("QuestionSubmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AnswerOption");
+
+                    b.Navigation("QuestionSubmission");
+                });
+
+            modelBuilder.Entity("Domain.Entities.UserRoleMapping", b =>
+                {
+                    b.HasOne("Domain.Entities.Role", "Role")
+                        .WithMany("Roles")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("Attempts")
+                        .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Quiz");
+                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Submission", b =>
+            modelBuilder.Entity("Domain.Entities.AnswerOption", b =>
                 {
-                    b.HasOne("Domain.Entities.Assignment", "Assignment")
-                        .WithMany("Submissions")
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("Submissions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Assignment");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Assignment", b =>
-                {
-                    b.Navigation("Submissions");
+                    b.Navigation("SubmissionAnswerOptions");
                 });
 
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
-                    b.Navigation("Assignments");
-
                     b.Navigation("Enrollments");
 
-                    b.Navigation("Lessons");
+                    b.Navigation("Modules");
+                });
 
-                    b.Navigation("Quizzes");
+            modelBuilder.Entity("Domain.Entities.GradedAttempt", b =>
+                {
+                    b.Navigation("QuestionSubmissions");
+                });
+
+            modelBuilder.Entity("Domain.Entities.GradedItem", b =>
+                {
+                    b.Navigation("GradedAttempts");
+
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Lesson", b =>
+                {
+                    b.Navigation("GradedItems");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Module", b =>
+                {
+                    b.Navigation("Lessons");
                 });
 
             modelBuilder.Entity("Domain.Entities.Question", b =>
                 {
                     b.Navigation("AnswerOptions");
+
+                    b.Navigation("QuestionSubmissions");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Quiz", b =>
+            modelBuilder.Entity("Domain.Entities.QuestionSubmission", b =>
                 {
-                    b.Navigation("Attempts");
+                    b.Navigation("SelectedOptions");
+                });
 
-                    b.Navigation("Questions");
+            modelBuilder.Entity("Domain.Entities.Role", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Navigation("Attempts");
-
                     b.Navigation("Enrollments");
+
+                    b.Navigation("GradedAttempts");
 
                     b.Navigation("Payments");
 
-                    b.Navigation("Submissions");
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

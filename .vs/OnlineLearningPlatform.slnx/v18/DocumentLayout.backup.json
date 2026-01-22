@@ -3,76 +3,40 @@
   "WorkspaceRootPath": "D:\\PRN222\\OnlinePlatform\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\payment\\success.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\payment\\success.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|d:\\prn222\\onlineplatform\\domain\\requests\\user\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\requests\\user\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|d:\\prn222\\onlineplatform\\domain\\requests\\payment\\createnewpaymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\requests\\payment\\createnewpaymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\course\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\course\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\libraries\\vnpaylibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\libraries\\vnpaylibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|d:\\prn222\\onlineplatform\\domain\\entities\\gradeditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\gradeditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\course\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\course\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|d:\\prn222\\onlineplatform\\domain\\entities\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\payment\\fail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\payment\\fail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\payment\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\payment\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\enrollment\\confirm.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\enrollment\\confirm.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\iservices\\icourseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\iservices\\icourseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\mvc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\mvc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|d:\\prn222\\onlineplatform\\domain\\responses\\course\\courseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\responses\\course\\courseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\mymapper\\mapperconfigurationprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\mymapper\\mapperconfigurationprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\configurations\\questionconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\questionconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -82,20 +46,110 @@
       "DocumentGroups": [
         {
           "DockedHeight": 542,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RegisterRequest.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Domain\\Requests\\User\\RegisterRequest.cs",
+              "RelativeDocumentMoniker": "Domain\\Requests\\User\\RegisterRequest.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Domain\\Requests\\User\\RegisterRequest.cs",
+              "RelativeToolTip": "Domain\\Requests\\User\\RegisterRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T08:57:00.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\AuthService.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\AuthService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\AuthService.cs",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAAwJoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T08:56:22.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\AppDbContext.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\AppDbContext.cs",
+              "RelativeToolTip": "Infrastructure\\AppDbContext.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T08:49:52.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Program.cs",
+              "RelativeDocumentMoniker": "MVC\\Program.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Program.cs",
+              "RelativeToolTip": "MVC\\Program.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAWwCoAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T08:49:08.881Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Course\\Index.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Course\\Index.cshtml",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Course\\Index.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Course\\Index.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAmwBIAAABDAAAAAAAAAA==",
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Auth\\Register.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Auth\\Register.cshtml",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Auth\\Register.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Auth\\Register.cshtml",
+              "ViewState": "AgIAADIAAAAAAAAAAAAmwEkAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T11:58:11.775Z",
-              "IsPinned": true,
+              "WhenOpened": "2026-01-22T08:48:54.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "MVC\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "MVC\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAiwF4AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T08:48:41.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GradedItem.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Domain\\Entities\\GradedItem.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\GradedItem.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Domain\\Entities\\GradedItem.cs",
+              "RelativeToolTip": "Domain\\Entities\\GradedItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T08:48:22.034Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Question.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Domain\\Entities\\Question.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Question.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Domain\\Entities\\Question.cs",
+              "RelativeToolTip": "Domain\\Entities\\Question.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T08:47:06.167Z",
               "EditorCaption": ""
             },
             {
@@ -116,211 +170,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CreateNewPaymentRequest.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Domain\\Requests\\Payment\\CreateNewPaymentRequest.cs",
-              "RelativeDocumentMoniker": "Domain\\Requests\\Payment\\CreateNewPaymentRequest.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Domain\\Requests\\Payment\\CreateNewPaymentRequest.cs",
-              "RelativeToolTip": "Domain\\Requests\\Payment\\CreateNewPaymentRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T12:27:37.121Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PaymentService.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Services\\PaymentService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs",
-              "RelativeToolTip": "Infrastructure\\Services\\PaymentService.cs",
-              "ViewState": "AgIAAFQAAABAMzMzMzMpwGMAAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T12:24:13.101Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\appsettings.json",
-              "RelativeDocumentMoniker": "MVC\\appsettings.json",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\appsettings.json",
-              "RelativeToolTip": "MVC\\appsettings.json",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-01-21T12:24:50.957Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Success.cshtml",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Payment\\Success.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Payment\\Success.cshtml",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Payment\\Success.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Payment\\Success.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T12:17:01.855Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Checkout.cshtml",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Payment\\Checkout.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Payment\\Checkout.cshtml",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Payment\\Checkout.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Payment\\Checkout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T12:16:27.445Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PaymentController.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Controllers\\PaymentController.cs",
-              "RelativeDocumentMoniker": "MVC\\Controllers\\PaymentController.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Controllers\\PaymentController.cs",
-              "RelativeToolTip": "MVC\\Controllers\\PaymentController.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAwwDkAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T12:15:35.32Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "VnPayLibrary.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Libraries\\VnPayLibrary.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Libraries\\VnPayLibrary.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Libraries\\VnPayLibrary.cs",
-              "RelativeToolTip": "Infrastructure\\Libraries\\VnPayLibrary.cs",
-              "ViewState": "AgIAAFIAAABgZmZmZmYxwFYAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T12:44:58.672Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Confirm.cshtml",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Enrollment\\Confirm.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Enrollment\\Confirm.cshtml",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Enrollment\\Confirm.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Enrollment\\Confirm.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T12:09:47.838Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "MVC.csproj",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\MVC.csproj",
-              "RelativeDocumentMoniker": "MVC\\MVC.csproj",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\MVC.csproj",
-              "RelativeToolTip": "MVC\\MVC.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-21T11:55:32.166Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Detail.cshtml",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Course\\Detail.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Course\\Detail.cshtml",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Course\\Detail.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Course\\Detail.cshtml",
-              "ViewState": "AgIAABcAAAAAAAAAAAAAACMAAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T12:06:55.272Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "Fail.cshtml",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Payment\\Fail.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Payment\\Fail.cshtml",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Payment\\Fail.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Payment\\Fail.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T12:17:21.229Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "_Header.cshtml",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Shared\\_Header.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Header.cshtml",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Views\\Shared\\_Header.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Shared\\_Header.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T12:05:27.691Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "CourseController.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\Controllers\\CourseController.cs",
-              "RelativeDocumentMoniker": "MVC\\Controllers\\CourseController.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\Controllers\\CourseController.cs",
-              "RelativeToolTip": "MVC\\Controllers\\CourseController.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAMwDEAAAA8AAAAAAAAAA==",
+              "Title": "QuestionConfig.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Configurations\\QuestionConfig.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\QuestionConfig.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Configurations\\QuestionConfig.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\QuestionConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T11:55:33.751Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "MapperConfigurationProfile.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\MyMapper\\MapperConfigurationProfile.cs",
-              "RelativeDocumentMoniker": "Application\\MyMapper\\MapperConfigurationProfile.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\MyMapper\\MapperConfigurationProfile.cs",
-              "RelativeToolTip": "Application\\MyMapper\\MapperConfigurationProfile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T11:53:08.167Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ICourseService.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IServices\\ICourseService.cs",
-              "RelativeDocumentMoniker": "Application\\IServices\\ICourseService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IServices\\ICourseService.cs",
-              "RelativeToolTip": "Application\\IServices\\ICourseService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T11:52:36.715Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "CourseResponse.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Domain\\Responses\\Course\\CourseResponse.cs",
-              "RelativeDocumentMoniker": "Domain\\Responses\\Course\\CourseResponse.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Domain\\Responses\\Course\\CourseResponse.cs",
-              "RelativeToolTip": "Domain\\Responses\\Course\\CourseResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T11:50:42.069Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CourseService.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\CourseService.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Services\\CourseService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\CourseService.cs",
-              "RelativeToolTip": "Infrastructure\\Services\\CourseService.cs",
-              "ViewState": "AgIAADoAAABAMzMzMzMpwEcAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T11:49:24.911Z"
+              "WhenOpened": "2026-01-22T08:47:03.759Z",
+              "EditorCaption": ""
             }
           ]
         }

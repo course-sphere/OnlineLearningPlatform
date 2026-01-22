@@ -6,34 +6,39 @@ namespace Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private AppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public IUserRepository Users { get; set; }
-        public IAnswerOptionRepository AnswerOptions { get; set; }
-        public IAssignmentRepository Assignments { get; set; }
-        public IQuestionRepository Questions { get; set; }
-        public IQuizRepository Quizzes { get; set; }
-        public ICourseRepository Courses { get; set; }
-        public IEnrollmentRepository Enrollments { get; set; }
-        public ILessonRepository Lessons { get; set; }
-        public IPaymentRepository Payments { get; set; }
-        public IQuizAttemptRepository QuizAttempts { get; set; }
-        public ISubmissionRepository Submissions { get; set; }
+        public IUserRepository Users { get; }
+        public IAnswerOptionRepository AnswerOptions { get; }
+        public IQuestionRepository Questions { get; }
+        public ICourseRepository Courses { get; }
+        public IEnrollmentRepository Enrollments { get; }
+        public ILessonRepository Lessons { get; }
+        public IPaymentRepository Payments { get; }
+
+        public IGradedItemRepository GradedItems { get; }
+        public IGradedAttemptRepository GradedAttempts { get; }
+
+        public IQuestionSubmissionRepository QuestionSubmissions { get; }
+        public ISubmissionAnswerOptionRepository SubmissionAnswerOptions { get; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
+
             Users = new UserRepository(context);
             AnswerOptions = new AnswerOptionRepository(context);
-            Assignments = new AssignmentRepository(context);
             Questions = new QuestionRepository(context);
-            Quizzes = new QuizRepository(context);
             Courses = new CourseRepository(context);
             Enrollments = new EnrollmentRepository(context);
             Lessons = new LessonRepository(context);
             Payments = new PaymentRepository(context);
-            QuizAttempts = new QuizAttemptRepository(context);
-            Submissions = new SubmissionRepository(context);
+
+            GradedItems = new GradedItemRepository(context);
+            GradedAttempts = new GradedAttemptRepository(context);
+
+            QuestionSubmissions = new QuestionSubmissionRepository(context);
+            SubmissionAnswerOptions = new SubmissionAnswerOptionRepository(context);
         }
 
         public async Task SaveChangeAsync()
@@ -41,11 +46,10 @@ namespace Infrastructure
             try
             {
                 await _context.SaveChangesAsync();
-
             }
             catch (Exception ex)
             {
-                throw new Exception(message: ex.Message);
+                throw new Exception("Error while saving changes", ex);
             }
         }
     }
