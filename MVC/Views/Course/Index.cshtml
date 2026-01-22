@@ -1,0 +1,45 @@
+﻿@model List<Domain.Responses.Course.CourseResponse>
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Available Courses</h2>
+
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var course in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <a asp-action="Detail" asp-route-id="@course.CourseId">
+                            <img src="https://via.placeholder.com/300x160" class="card-img-top" alt="@course.Title">
+                        </a>
+
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">@course.Title</h5>
+                            <p class="card-text text-muted">@course.Description</p>
+                        </div>
+
+                        <div class="card-footer bg-white border-0 pb-3">
+                            <div class="d-grid gap-2">
+                                <a asp-action="Detail"
+                                   asp-route-id="@course.CourseId"
+                                   class="btn btn-outline-primary">
+                                    View Detail
+                                </a>
+                                <a asp-action="Detail"
+                                   asp-route-id="@course.CourseId"
+                                   class="btn btn-primary">
+                                    Enroll Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center">No courses available at the moment.</p>
+        }
+    </div>
+</div>

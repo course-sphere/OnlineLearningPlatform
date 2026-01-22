@@ -1,0 +1,47 @@
+﻿@model Domain.Responses.Course.CourseResponse
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold">@Model.Title</h1>
+            <p class="lead mt-3">@Model.Description</p>
+
+            <hr />
+
+            <h3 class="mb-4">Course Content</h3>
+            @* <div class="accordion" id="syllabus">
+                @foreach (var lesson in Model.Lessons.OrderBy(l => l.Index))
+                {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lesson-@lesson.LessonId">
+                                @lesson.Index. @lesson.Title
+                            </button>
+                        </h2>
+                        <div id="lesson-@lesson.LessonId" class="accordion-collapse collapse" data-bs-parent="#syllabus">
+                            <div class="accordion-body">
+                                @lesson.Content
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div> *@
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow border-0 sticky-top" style="top: 20px;">
+                <img src="https://via.placeholder.com/400x225" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="text-primary mb-3">Free / Price</h3>
+                    <form asp-controller="Payment" asp-action="Checkout" method="post">
+                        <input type="hidden" name="courseId" value="@Model.CourseId" />
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            Enroll Now
+                        </button>
+                    </form>
+                    <p class="text-center text-muted mt-2 small">7-day money back guarantee</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

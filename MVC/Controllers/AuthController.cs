@@ -1,7 +1,12 @@
 ﻿using Application.IServices;
 using Domain.Requests.User;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace MVC.Controllers
 {
@@ -30,10 +35,20 @@ namespace MVC.Controllers
                 TempData["Error"] = result.ErrorMessage;
                 return View(request);
             }
+            var jwt = result.Result.ToString();
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(jwt);
 
+            var claims = token.Claims.ToList();
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(identity));
             TempData["Success"] = "Login successful!";
 
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("PostLogin");
         }
 
         [HttpGet]
@@ -57,7 +72,24 @@ namespace MVC.Controllers
                 return View(request);
             }
             TempData["Success"] = "Register successfully! Please login.";
-            return RedirectToAction("Login", "Auth");
+            return RedirectToAction(nameof(Login));
+        }
+
+        [Authorize]
+        public IActionResult PostLogin()
+        {
+            if (User.IsInRole("Instructor"))
+            {
+                return RedirectToAction("Index", "Instructor");
+            }
+            else if (User.IsInRole("Student"))
+            {
+                return RedirectToAction("Index", "Student");
+            }
+            else
+            {
+                return RedirectToAction(nameof(Login));
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Requests.Course;
 using Domain.Responses;
+using Domain.Responses.Course;
 
 namespace Infrastructure.Services
 {
@@ -22,7 +23,7 @@ namespace Infrastructure.Services
             _service = service;
         }
 
-        public async Task<ApiResponse> CreateNewCourse(CreateNewCourseRequest request)
+        public async Task<ApiResponse> CreateNewCourseAsync(CreateNewCourseRequest request)
         {
             ApiResponse response = new ApiResponse();
             try
@@ -34,7 +35,41 @@ namespace Infrastructure.Services
                 await _unitOfWork.Courses.AddAsync(course);
                 await _unitOfWork.SaveChangeAsync();
 
-                return response.SetOk($"Course {course.Title} has been created successfully.");
+                return response.SetOk(course.CourseId);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(message: ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> GetAllCourseForMemberAsync()
+        {
+            ApiResponse response = new ApiResponse();
+                        try
+            {
+                var courses = await _unitOfWork.Courses.GetAllAsync();
+                var courseResponses = _mapper.Map<List<CourseResponse>>(courses);
+                return response.SetOk(courseResponses);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(message: ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> GetCourseDetailAsync(Guid courseId)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == courseId);
+                if (course == null)
+                {
+                    return response.SetNotFound("Course not found");
+                }
+                var courseResponse = _mapper.Map<CourseResponse>(course);
+                return response.SetOk(courseResponse);
             }
             catch (Exception ex)
             {

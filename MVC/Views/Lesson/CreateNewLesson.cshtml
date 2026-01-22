@@ -1,0 +1,49 @@
+﻿@model Domain.Requests.Lesson.CreateNewLessonRequest
+
+@{
+    ViewData["Title"] = "Create New Lesson";
+}
+
+<h2 class="mb-4">Create New Lesson</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="CreateNewLesson" method="post">
+    <input type="hidden" asp-for="CourseId" />
+    <input type="hidden" asp-for="ParentLessonId" />
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" placeholder="Lesson title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" class="form-control" rows="4"
+                  placeholder="Lesson content (optional)"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Index" class="form-label"></label>
+        <input asp-for="Index" class="form-control" type="number" min="1" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Create Lesson
+    </button>
+
+    <a asp-action="Index"
+       asp-controller="Course"
+       asp-route-id="@Model.CourseId"
+       class="btn btn-secondary ms-2">
+        Cancel
+    </a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

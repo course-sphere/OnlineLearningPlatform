@@ -21,22 +21,25 @@ namespace Infrastructure.Libraries
             {
                 if (!string.IsNullOrEmpty(key) && key.StartsWith("vnp_"))
                 {
-                    vnPay._responseData.Add(key, value);
+                    vnPay.AddResponseData(key, value);
                 }
             }
 
             var orderId = Convert.ToInt64(vnPay.GetResponseData("vnp_TxnRef"));
             var vnPayTranId = Convert.ToInt64(vnPay.GetResponseData("vnp_TransactionNo"));
             var vnpResponseCode = vnPay.GetResponseData("vnp_ResponseCode");
-            var vnpSecureHash = collection.FirstOrDefault(x => x.Key == "vnp_SecureHash").Value;
+            var vnpSecureHash =
+                collection.FirstOrDefault(k => k.Key == "vnp_SecureHash").Value; //hash của dữ liệu trả về
             var orderInfo = vnPay.GetResponseData("vnp_OrderInfo");
 
-            var checkSignature = vnPay.ValidateSignature(vnpSecureHash, hashSecret);
+            var checkSignature =
+                vnPay.ValidateSignature(vnpSecureHash, hashSecret); //check Signature
 
-            if (!checkSignature) return new PaymentResponse()
-            {
-                Success = false
-            };
+            if (!checkSignature)
+                return new PaymentResponse()
+                {
+                    Success = false
+                };
 
             return new PaymentResponse()
             {
@@ -49,43 +52,6 @@ namespace Infrastructure.Libraries
                 Token = vnpSecureHash,
                 VnPayResponseCode = vnpResponseCode
             };
-        }
-
-        public string CreateRequestUrl(string baseUrl, string vnpHashSecret)
-        {
-            var data = new StringBuilder();
-
-            foreach (var (key, value) in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
-            {
-                data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
-            }
-            var queryString = data.ToString();
-
-            baseUrl += "?" + queryString;
-            var signData = queryString;
-            if (signData.Length > 0) signData = signData.Remove(data.Length - 1, 1);
-
-            var vnpSecureHash = HmacSha512(vnpHashSecret, signData);
-            baseUrl += "vnp_SecureHash=" + vnpSecureHash;
-
-            return baseUrl;
-        }
-        public void AddRequestData(string key, string value)
-        {
-            if (!string.IsNullOrEmpty(value)) _requestData.Add(key, value);
-        }
-
-        public string GetResponseData(string key)
-        {
-            return _responseData.TryGetValue(key, out var value) ? value : string.Empty;
-        }
-
-        public bool ValidateSignature(string inputHash, string secretKey
-            )
-        {
-            var rspRaw = GetResponseData();
-            var myCheckSum = HmacSha512(secretKey, rspRaw);
-            return myCheckSum.Equals(inputHash, StringComparison.InvariantCultureIgnoreCase);
         }
         public string GetIpAddress(HttpContext context)
         {
@@ -114,18 +80,119 @@ namespace Infrastructure.Libraries
 
             return "127.0.0.1";
         }
+        //public string GetIpAddress(HttpContext context)
+        //{
+        //    string ipAddress = string.Empty;
+        //    try
+        //    {
+        //        // Ưu tiên lấy IP từ header nếu bạn chạy qua Proxy/Load Balancer
+        //        ipAddress = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+
+        //        if (string.IsNullOrEmpty(ipAddress))
+        //        {
+        //            ipAddress = context.Connection.RemoteIpAddress?.ToString();
+        //        }
+
+        //        // Nếu là IPv6 của localhost hoặc IP nội bộ không hợp lệ, ép về 127.0.0.1
+        //        if (string.IsNullOrEmpty(ipAddress) || ipAddress == "::1" || ipAddress.StartsWith("172."))
+        //        {
+        //            ipAddress = "127.0.0.1";
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        ipAddress = "127.0.0.1";
+        //    }
+        //    return ipAddress;
+        //}
+        public void AddRequestData(string key, string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                _requestData.Add(key, value);
+            }
+        }
+
+        public void AddResponseData(string key, string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                _responseData.Add(key, value);
+            }
+        }
+
+        public string GetResponseData(string key)
+        {
+            return _responseData.TryGetValue(key, out var retValue) ? retValue : string.Empty;
+        }
+
+        public string CreateRequestUrl(string baseUrl, string vnpHashSecret)
+        {
+            var data = new StringBuilder();
+
+            foreach (var (key, value) in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
+            {
+                data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
+            }
+
+            var querystring = data.ToString();
+
+            baseUrl += "?" + querystring;
+            var signData = querystring;
+            if (signData.Length > 0)
+            {
+                signData = signData.Remove(data.Length - 1, 1);
+            }
+
+            var vnpSecureHash = HmacSha512(vnpHashSecret, signData);
+            baseUrl += "vnp_SecureHash=" + vnpSecureHash;
+
+            return baseUrl;
+        }
+
+        public bool ValidateSignature(string inputHash, string secretKey)
+        {
+            var rspRaw = GetResponseData();
+            var myChecksum = HmacSha512(secretKey, rspRaw);
+            return myChecksum.Equals(inputHash, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private string HmacSha512(string key, string inputData)
+        {
+            var hash = new StringBuilder();
+            var keyBytes = Encoding.UTF8.GetBytes(key);
+            var inputBytes = Encoding.UTF8.GetBytes(inputData);
+            using (var hmac = new HMACSHA512(keyBytes))
+            {
+                var hashValue = hmac.ComputeHash(inputBytes);
+                foreach (var theByte in hashValue)
+                {
+                    hash.Append(theByte.ToString("x2"));
+                }
+            }
+
+            return hash.ToString();
+        }
+
         private string GetResponseData()
         {
             var data = new StringBuilder();
-            if (_responseData.ContainsKey("vnp_SecureHashType")) _responseData.Remove("vnp_SecureHashType");
+            if (_responseData.ContainsKey("vnp_SecureHashType"))
+            {
+                _responseData.Remove("vnp_SecureHashType");
+            }
 
-            if (_responseData.ContainsKey("vnp_SecureHash")) _responseData.Remove("vnp_SecureHash");
+            if (_responseData.ContainsKey("vnp_SecureHash"))
+            {
+                _responseData.Remove("vnp_SecureHash");
+            }
 
             foreach (var (key, value) in _responseData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
             {
                 data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
             }
 
+            //remove last '&'
             if (data.Length > 0)
             {
                 data.Remove(data.Length - 1, 1);
@@ -133,25 +200,7 @@ namespace Infrastructure.Libraries
 
             return data.ToString();
         }
-        private string HmacSha512(string key, string inputData)
-        {
-
-            var hash = new StringBuilder();
-            var keyBytes = Encoding.UTF8.GetBytes(key);
-            var inputBytes = Encoding.UTF8.GetBytes(inputData);
-            using (var hmac = new HMACSHA512(keyBytes))
-            {
-                var hashBytes = hmac.ComputeHash(inputBytes);
-                foreach (var b in hashBytes)
-                {
-                    hash.Append(b.ToString("x2"));
-                }
-            }
-
-            return hash.ToString();
-        }
     }
-
 
     public class VnPayCompare : IComparer<string>
     {

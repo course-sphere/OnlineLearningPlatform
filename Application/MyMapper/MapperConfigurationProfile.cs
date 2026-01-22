@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Domain.Requests.Course;
 using Domain.Requests.Enrollment;
+using Domain.Requests.Lesson;
+using Domain.Responses.Course;
 
 namespace Application.MyMapper
 {
@@ -12,6 +15,12 @@ namespace Application.MyMapper
 
             //Enrollment
             CreateMap<CreateNewEnrollementRequest, Enrollment>();
+
+            //Course
+            CreateMap<CreateNewCourseRequest, Course>();
+            CreateMap<Course, CourseResponse>();
+            //Lesson
+            CreateMap<CreateNewLessonRequest, Lesson>();
         }
     }
 }

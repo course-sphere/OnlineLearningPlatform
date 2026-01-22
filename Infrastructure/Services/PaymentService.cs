@@ -54,7 +54,8 @@ namespace Infrastructure.Services
                 pay.AddRequestData("vnp_CurrCode", _config["Vnpay:CurrCode"]);
                 pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
                 pay.AddRequestData("vnp_Locale", _config["Vnpay:Locale"]);
-                pay.AddRequestData("vnp_OrderInfo", $"{course.Title} {course.Description} {course.Price}");
+                pay.AddRequestData("vnp_OrderInfo", $"{course.Price}");
+                pay.AddRequestData("vnp_OrderType", "VnPay");
                 pay.AddRequestData("vnp_ReturnUrl", urlCallBack);
                 pay.AddRequestData("vnp_TxnRef", tick);
 
@@ -97,8 +98,7 @@ namespace Infrastructure.Services
                             }
 
                             await _unitOfWork.SaveChangeAsync();
-                            var redirectUrl = "";
-                            return response.SetOk(redirectUrl);
+                            return response.SetOk();
                         }
                         else
                         {
