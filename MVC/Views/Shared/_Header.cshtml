@@ -1,26 +1,48 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">
             LMS System
         </a>
 
+        <!-- Toggle -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+
+            <!-- Left menu -->
+            <ul class="navbar-nav me-3">
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </li>
+            </ul>
+
+            <!-- Search bar -->
+            <form class="d-flex flex-grow-1 me-3">
+                <input class="form-control me-2"
+                       type="search"
+                       placeholder="Search courses..."
+                       aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+
+            <!-- Right menu -->
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Login">Login</a>
+                    <a class="nav-link" asp-controller="Home" asp-action="Login">
+                        Login
+                    </a>
                 </li>
             </ul>
+
         </div>
     </div>
 </nav>
