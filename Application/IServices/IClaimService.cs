@@ -1,9 +1,9 @@
-﻿//using Domain.DTOs;
+﻿using Domain.DTOs;
 
-//namespace Application.IServices
-//{
-//    public interface IClaimService
-//    {
-//        ClaimDTO GetUserClaim();
-//    }
-//}
+namespace Application.IServices
+{
+    public interface IClaimService
+    {
+        ClaimDTO GetUserClaim();
+    }
+}

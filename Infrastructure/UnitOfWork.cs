@@ -15,10 +15,9 @@ namespace Infrastructure
         public IEnrollmentRepository Enrollments { get; }
         public ILessonRepository Lessons { get; }
         public IPaymentRepository Payments { get; }
-
+        public IModuleRepository Modules { get; }
         public IGradedItemRepository GradedItems { get; }
         public IGradedAttemptRepository GradedAttempts { get; }
-
         public IQuestionSubmissionRepository QuestionSubmissions { get; }
         public ISubmissionAnswerOptionRepository SubmissionAnswerOptions { get; }
 
@@ -33,12 +32,11 @@ namespace Infrastructure
             Enrollments = new EnrollmentRepository(context);
             Lessons = new LessonRepository(context);
             Payments = new PaymentRepository(context);
-
             GradedItems = new GradedItemRepository(context);
             GradedAttempts = new GradedAttemptRepository(context);
-
             QuestionSubmissions = new QuestionSubmissionRepository(context);
             SubmissionAnswerOptions = new SubmissionAnswerOptionRepository(context);
+            Modules = new ModuleRepository(context);
         }
 
         public async Task SaveChangeAsync()

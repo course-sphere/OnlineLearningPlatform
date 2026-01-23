@@ -17,6 +17,7 @@
 
     public enum CourseStatus
     {
+        Draft,
         PendingApproval,
         Published,
         Rejected

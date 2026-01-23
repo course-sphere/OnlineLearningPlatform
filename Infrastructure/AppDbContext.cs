@@ -29,9 +29,7 @@ namespace Infrastructure
         public DbSet<Module> Modules { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }  
         public DbSet<Lesson> Lessons { get; set; } 
-        public DbSet<Role> Roles { get; set; }
         public DbSet<SubmissionAnswerOption> SubmissionAnswerOptions { get; set; }
-        public DbSet<UserRoleMapping> UserRoleMappings { get; set; }
         public DbSet<QuestionSubmission> QuestionSubmissions { get; set; }
         public DbSet<AnswerOption> AnswerOptions { get; set; }
     }

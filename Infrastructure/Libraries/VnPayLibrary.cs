@@ -80,31 +80,7 @@ namespace Infrastructure.Libraries
 
             return "127.0.0.1";
         }
-        //public string GetIpAddress(HttpContext context)
-        //{
-        //    string ipAddress = string.Empty;
-        //    try
-        //    {
-        //        // Ưu tiên lấy IP từ header nếu bạn chạy qua Proxy/Load Balancer
-        //        ipAddress = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-
-        //        if (string.IsNullOrEmpty(ipAddress))
-        //        {
-        //            ipAddress = context.Connection.RemoteIpAddress?.ToString();
-        //        }
-
-        //        // Nếu là IPv6 của localhost hoặc IP nội bộ không hợp lệ, ép về 127.0.0.1
-        //        if (string.IsNullOrEmpty(ipAddress) || ipAddress == "::1" || ipAddress.StartsWith("172."))
-        //        {
-        //            ipAddress = "127.0.0.1";
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        ipAddress = "127.0.0.1";
-        //    }
-        //    return ipAddress;
-        //}
+     
         public void AddRequestData(string key, string value)
         {
             if (!string.IsNullOrEmpty(value))

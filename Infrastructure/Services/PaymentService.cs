@@ -1,4 +1,4 @@
-﻿/*using Application;
+﻿using Application;
 using Application.IServices;
 using Domain.Entities;
 using Domain.Requests.Payment;
@@ -42,7 +42,7 @@ namespace Infrastructure.Services
                 var payment = new Payment();
                 payment.Amount = course.Price;
                 payment.CourseId = request.CourseId;
-                payment.Method = PaymentMethod.VnPay;
+                payment.Method = "VnPay";
 
                 var urlCallBack = $"{_config["PaymentCallBack:ReturnUrl"]}?userId={claim.UserId}&amount={payment.Amount}";
 
@@ -90,7 +90,7 @@ namespace Infrastructure.Services
                             if (collection.TryGetValue("amount", out var amountValue) && int.TryParse(amountValue, out int amount))
                             {
                                 var course = await _unitOfWork.Courses.GetAsync(c => c.Price == amount);
-                                if (course == null) return response.SetBadRequest("Invalid payment amount");  
+                                if (course == null) return response.SetBadRequest("Invalid payment amount");
                             }
                             else
                             {
@@ -123,4 +123,3 @@ namespace Infrastructure.Services
         }
     }
 }
-*/
