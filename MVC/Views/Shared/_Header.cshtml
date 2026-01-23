@@ -1,13 +1,16 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
 
-        <!-- Logo -->
-        <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">
+        <!-- LOGO -->
+        <a class="navbar-brand fw-bold"
+           asp-controller="Home"
+           asp-action="Index">
             LMS System
         </a>
 
-        <!-- Toggle mobile -->
-        <button class="navbar-toggler" type="button"
+        <!-- TOGGLE MOBILE -->
+        <button class="navbar-toggler"
+                type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -15,29 +18,37 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
 
-            <!-- Left menu -->
-            <ul class="navbar-nav me-3">
+            <!-- LEFT MENU -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index">
+                    <a class="nav-link"
+                       asp-controller="Home"
+                       asp-action="Index">
                         Home
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Course" asp-action="Index">
+                    <a class="nav-link"
+                       asp-controller="Course"
+                       asp-action="Index">
                         Course For You
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Course" asp-action="CreateNewCourse">
+                    <a class="nav-link"
+                       asp-controller="Course"
+                       asp-action="CreateNewCourse">
                         Create Your Course
                     </a>
                 </li>
+
             </ul>
 
-            <!-- Search bar -->
-            <form class="d-flex flex-grow-1 me-3">
+            <!-- SEARCH -->
+            <form class="d-flex me-3" role="search">
                 <input class="form-control me-2"
                        type="search"
                        placeholder="Search courses..."
@@ -47,19 +58,44 @@
                 </button>
             </form>
 
-            <!-- Right menu -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Auth" asp-action="Login">
-                        Login
-                    </a>
-                </li>
+            <!-- RIGHT MENU -->
+            <ul class="navbar-nav mb-2 mb-lg-0">
 
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Auth" asp-action="Register">
-                        Register
-                    </a>
-                </li>
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <span class="navbar-text me-2 text-white">
+                            Hello, @User.Identity.Name
+                        </span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Auth"
+                           asp-action="Logout">
+                            Logout
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Auth"
+                           asp-action="Login">
+                            Login
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Auth"
+                           asp-action="Register">
+                            Register
+                        </a>
+                    </li>
+                }
+
             </ul>
 
         </div>

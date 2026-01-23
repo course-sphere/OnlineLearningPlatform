@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -17,6 +21,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -38,58 +46,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "_Header.cshtml",
-              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Header.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Header.cshtml",
-              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Header.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Shared\\_Header.cshtml",
-              "ViewState": "AgIAACYAAAAAAAAAAAAgwDAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-23T15:26:10.692Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "_Footer.cshtml",
-              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Footer.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Footer.cshtml",
-              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Footer.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Shared\\_Footer.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-23T15:25:42.275Z",
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "MVC\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "MVC\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T15:54:58.581Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAUAAAAAAAAAAAApwBoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-23T15:25:17.22Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Auth\\Login.cshtml",
-              "RelativeDocumentMoniker": "MVC\\Views\\Auth\\Login.cshtml",
-              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Auth\\Login.cshtml",
-              "RelativeToolTip": "MVC\\Views\\Auth\\Login.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAgwDUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-23T15:23:21.667Z",
+              "WhenOpened": "2026-01-23T15:36:17.122Z",
               "EditorCaption": ""
             },
             {
@@ -98,7 +80,58 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Header.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Header.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Header.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Header.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Shared\\_Header.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T15:26:10.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_Footer.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Footer.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Footer.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Footer.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Shared\\_Footer.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T15:25:42.275Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAACIAAAAAAAAAAAAkwD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T15:25:17.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Auth\\Login.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Auth\\Login.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Auth\\Login.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Auth\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T15:23:21.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\appsettings.json",
               "RelativeDocumentMoniker": "MVC\\appsettings.json",
@@ -106,12 +139,11 @@
               "RelativeToolTip": "MVC\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-01-23T15:19:30.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-23T15:19:30.901Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "PaymentService.cs",
               "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\Infrastructure\\Services\\PaymentService.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Services\\PaymentService.cs",
@@ -119,12 +151,11 @@
               "RelativeToolTip": "Infrastructure\\Services\\PaymentService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:52:34.284Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-21T16:52:34.284Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "IUnitOfWork.cs",
               "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\Application\\IUnitOfWork.cs",
               "RelativeDocumentMoniker": "Application\\IUnitOfWork.cs",
