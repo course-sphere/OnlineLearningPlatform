@@ -8,23 +8,23 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\huy\\.nuget\\packages\\": {},
+    "C:\\Users\\tamin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PRN222\\OnlinePlatform\\RazorPage\\RazorPage.csproj",
+      "projectUniqueName": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\RazorPage\\RazorPage.csproj",
       "projectName": "RazorPage",
-      "projectPath": "D:\\PRN222\\OnlinePlatform\\RazorPage\\RazorPage.csproj",
-      "packagesPath": "C:\\Users\\huy\\.nuget\\packages\\",
-      "outputPath": "D:\\PRN222\\OnlinePlatform\\RazorPage\\obj\\",
+      "projectPath": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\RazorPage\\RazorPage.csproj",
+      "packagesPath": "C:\\Users\\tamin\\.nuget\\packages\\",
+      "outputPath": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\RazorPage\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\huy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tamin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -52,7 +52,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -76,7 +76,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
