@@ -1,17 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\PRN222\\OnlinePlatform\\",
+  "WorkspaceRootPath": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\libraries\\vnpaylibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\libraries\\vnpaylibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\mvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\infrastructure\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\academy\\ky7\\prn222\\project_gr\\ui\\onlinelearningplatform\\application\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -22,58 +38,101 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{6d4078d1-5951-4ed1-ac0e-0a8099c1cce5}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "VnPayLibrary.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Libraries\\VnPayLibrary.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Libraries\\VnPayLibrary.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Libraries\\VnPayLibrary.cs",
-              "RelativeToolTip": "Infrastructure\\Libraries\\VnPayLibrary.cs",
-              "ViewState": "AgIAAEgAAACAZmZmZmYswHEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:54:19.799Z",
+              "Title": "_Header.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Header.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Header.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Header.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Shared\\_Header.cshtml",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T15:26:10.692Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "_Footer.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Footer.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Footer.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Footer.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Shared\\_Footer.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T15:25:42.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T15:25:17.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Auth\\Login.cshtml",
+              "RelativeDocumentMoniker": "MVC\\Views\\Auth\\Login.cshtml",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\Views\\Auth\\Login.cshtml",
+              "RelativeToolTip": "MVC\\Views\\Auth\\Login.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAgwDUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T15:23:21.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\appsettings.json",
+              "RelativeDocumentMoniker": "MVC\\appsettings.json",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\MVC\\appsettings.json",
+              "RelativeToolTip": "MVC\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-23T15:19:30.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "PaymentService.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\Infrastructure\\Services\\PaymentService.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Services\\PaymentService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\PaymentService.cs",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\Infrastructure\\Services\\PaymentService.cs",
               "RelativeToolTip": "Infrastructure\\Services\\PaymentService.cs",
-              "ViewState": "AgIAABgAAABgZmZmZuY8wCoAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-21T16:52:34.284Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "IUnitOfWork.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IUnitOfWork.cs",
+              "DocumentMoniker": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\Application\\IUnitOfWork.cs",
               "RelativeDocumentMoniker": "Application\\IUnitOfWork.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IUnitOfWork.cs",
+              "ToolTip": "D:\\academy\\KY7\\PRN222\\Project_GR\\UI\\OnlineLearningPlatform\\Application\\IUnitOfWork.cs",
               "RelativeToolTip": "Application\\IUnitOfWork.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:47:16.643Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-21T16:47:16.643Z"
             }
           ]
         }

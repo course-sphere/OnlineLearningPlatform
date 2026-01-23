@@ -2,25 +2,52 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>Đăng nhập</h2>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-lg mt-5">
+            <div class="card-body p-4">
 
-@if (ViewBag.Error != null)
-{
-    <p style="color:red">@ViewBag.Error</p>
-}
+                <h3 class="text-center mb-4">Sign In</h3>
 
-<form method="post">
-    <div>
-        <label>Email</label><br />
-        <input type="email" name="email" required />
+                <!-- Login with Google -->
+                <div class="d-grid mb-3">
+                    <button class="btn btn-outline-danger">
+                        <i class="bi bi-google"></i> Sign in with Google
+                    </button>
+                </div>
+
+                <div class="text-center text-muted mb-3">or</div>
+
+                <!-- Login form -->
+                <form method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label">Username or Email</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Enter your username or email" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Enter your password" />
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-primary">Sign In</button>
+                    </div>
+
+                </form>
+
+                <div class="text-center mt-3">
+                    <a asp-action="Register">
+                        Don’t have an account? Sign up
+                    </a>
+                </div>
+
+            </div>
+        </div>
     </div>
-
-    <div style="margin-top:10px">
-        <label>Mật khẩu</label><br />
-        <input type="password" name="password" required />
-    </div>
-
-    <div style="margin-top:15px">
-        <button type="submit">Đăng nhập</button>
-    </div>
-</form>
+</div>
