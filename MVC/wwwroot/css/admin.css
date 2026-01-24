@@ -29,7 +29,7 @@
 }
 
 .admin-header {
-    background: #000; /* ĐEN – không trong suốt */
+    background: #000; 
     color: #fff;
     padding: 15px 20px;
     display: flex;
