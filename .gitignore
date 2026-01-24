@@ -1,0 +1,20 @@
+# =====================
+# .NET build artifacts
+# =====================
+**/bin/
+**/obj/
+
+# NuGet
+**/packages/
+**/*.nuget.*
+
+# Executables
+**/apphost
+
+# IDE
+.vs/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
