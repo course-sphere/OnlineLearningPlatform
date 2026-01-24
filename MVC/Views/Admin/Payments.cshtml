@@ -1,24 +1,144 @@
 ﻿@{
     Layout = "_AdminLayout";
+    ViewData["Title"] = "Payments Management";
 }
 
-<h1>Manage Payments</h1>
+<div class="table-container">
+    <div class="table-header">
+        <h2>Manage Payments</h2>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-primary">
+                <i class="fas fa-download"></i> Export
+            </button>
+            <button class="btn btn-primary">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </div>
+    </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Payment ID</th>
-            <th>User</th>
-            <th>Amount</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>#PM001</td>
-            <td>test@gmail.com</td>
-            <td>$50</td>
-            <td>Success</td>
-        </tr>
-    </tbody>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Payment ID</th>
+                <th>User</th>
+                <th>Course</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>#PM001</strong></td>
+                <td>test@gmail.com</td>
+                <td>Web Development Bootcamp</td>
+                <td><strong>$50.00</strong></td>
+                <td>
+                    <span class="vnpay-logo">VNPAY</span>
+                </td>
+                <td>2024-01-24</td>
+                <td><span class="status-badge status-success">Success</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-receipt"></i> Invoice
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>#PM002</strong></td>
+                <td>student@edu.com</td>
+                <td>Python for Beginners</td>
+                <td><strong>$35.00</strong></td>
+                <td>
+                    <span class="vnpay-logo">VNPAY</span>
+                </td>
+                <td>2024-01-24</td>
+                <td><span class="status-badge status-success">Success</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-receipt"></i> Invoice
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>#PM003</strong></td>
+                <td>user@example.com</td>
+                <td>Digital Marketing Course</td>
+                <td><strong>$75.00</strong></td>
+                <td>
+                    <span class="vnpay-logo">VNPAY</span>
+                </td>
+                <td>2024-01-23</td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-receipt"></i> Invoice
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>#PM004</strong></td>
+                <td>john.doe@mail.com</td>
+                <td>Data Science Fundamentals</td>
+                <td><strong>$120.00</strong></td>
+                <td>
+                    <span class="vnpay-logo">VNPAY</span>
+                </td>
+                <td>2024-01-23</td>
+                <td><span class="status-badge status-success">Success</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-receipt"></i> Invoice
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>#PM005</strong></td>
+                <td>sarah@company.com</td>
+                <td>UI/UX Design Masterclass</td>
+                <td><strong>$90.00</strong></td>
+                <td>
+                    <span class="vnpay-logo">VNPAY</span>
+                </td>
+                <td>2024-01-22</td>
+                <td><span class="status-badge status-success">Success</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-receipt"></i> Invoice
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <div class="pagination-info">
+            Showing 1-5 of 23 payments
+        </div>
+        <div class="pagination-buttons">
+            <button class="btn">Previous</button>
+            <button class="btn btn-primary">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button class="btn">Next</button>
+        </div>
+    </div>
+</div>

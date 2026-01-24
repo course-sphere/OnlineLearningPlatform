@@ -3,10 +3,59 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h1>Dashboard</h1>
+<h1>Dashboard Overview</h1>
 
 <div class="dashboard-cards">
-    <div class="card">Total Users<br><b>120</b></div>
-    <div class="card">Total Revenue<br><b>$5,400</b></div>
-    <div class="card">Payments Today<br><b>23</b></div>
+    <div class="card">
+        <div class="card-title">Total Users</div>
+        <div class="card-value">120</div>
+    </div>
+    <div class="card">
+        <div class="card-title">Total Revenue</div>
+        <div class="card-value">$5,400</div>
+    </div>
+    <div class="card">
+        <div class="card-title">Payments Today</div>
+        <div class="card-value">23</div>
+    </div>
+    <div class="card">
+        <div class="card-title">Active Courses</div>
+        <div class="card-value">15</div>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="table-header">
+        <h2>Recent Activities</h2>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>User</th>
+                <th>Activity</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>10:30 AM</td>
+                <td>test@gmail.com</td>
+                <td>Payment received</td>
+                <td><span class="status-badge status-success">Success</span></td>
+            </tr>
+            <tr>
+                <td>09:15 AM</td>
+                <td>user@example.com</td>
+                <td>New registration</td>
+                <td><span class="status-badge status-success">Success</span></td>
+            </tr>
+            <tr>
+                <td>08:45 AM</td>
+                <td>student@edu.com</td>
+                <td>Course enrollment</td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+            </tr>
+        </tbody>
+    </table>
 </div>

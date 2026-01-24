@@ -2,22 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewData["Title"] - Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Panel</title>
     <link rel="stylesheet" href="~/css/admin.css" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
     <div class="admin-wrapper">
         @Html.Partial("_AdminSidebar")
-
         <div class="admin-main">
             @Html.Partial("_AdminHeader")
-
             <div class="admin-content">
                 @RenderBody()
             </div>
-
             @Html.Partial("_AdminFooter")
         </div>
     </div>
+
+    <script>
+        // Toggle Sidebar
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const sidebar = document.querySelector('.admin-sidebar');
+
+            // Lấy trạng thái từ localStorage
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed) {
+                sidebar.classList.add('collapsed');
+            }
+
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+            });
+
+            // Active menu highlight
+            const currentPath = window.location.pathname;
+            const menuLinks = document.querySelectorAll('.sidebar-menu a');
+
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Search functionality
+            const searchForm = document.querySelector('.search-box');
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const searchTerm = searchInput.value.trim();
+                    if (searchTerm) {
+                        console.log('Searching for:', searchTerm);
+                        // Thêm logic search ở đây
+                        // window.location.href = '/Admin/Search?q=' + encodeURIComponent(searchTerm);
+                    }
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        searchBtn.click();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
