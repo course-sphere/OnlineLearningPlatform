@@ -161,5 +161,92 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(message: ex.Message);
             }
         }
+
+        public async Task<ApiResponse> GetCoursesByInstructorAsync()
+        {
+            ApiResponse response = new ApiResponse();
+
+            try
+            {
+                var claim = _service.GetUserClaim();
+                var courses = await _unitOfWork.Courses
+                    .GetAllAsync(c => c.CreatedBy == claim.UserId && !c.IsDeleted);
+
+                var result = _mapper.Map<List<CourseResponse>>(courses);
+                return response.SetOk(result);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> GetEnrolledCoursesForStudentAsync()
+        {
+            ApiResponse response = new ApiResponse();
+
+            try
+            {
+                var studentId = _service.GetUserClaim().UserId;
+                var enrollments = await _unitOfWork.Enrollments
+                    .GetAllAsync(e => e.UserId == studentId);
+
+                var courseIds = enrollments
+                    .Select(e => e.CourseId)
+                    .Distinct()
+                    .ToList();
+
+                var courses = await _unitOfWork.Courses
+                    .GetAllAsync(c => courseIds.Contains(c.CourseId));
+
+                var result = _mapper.Map<List<CourseResponse>>(courses);
+                return response.SetOk(result);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> ApproveCourseAsync(ApproveCourseRequest request)
+        {
+            ApiResponse response = new ApiResponse();
+
+            try
+            {
+                var course = await _unitOfWork.Courses
+                    .GetAsync(c => c.CourseId == request.CourseId && !c.IsDeleted);
+
+                if (course == null)
+                    return response.SetNotFound("Course not found");
+                if (request.Status == false && string.IsNullOrEmpty(request.RejectReason))
+                    return response.SetBadRequest("Reject reason is required when rejecting a course");
+                if (request.Status == false)
+                {
+                    course.Status = CourseStatus.Rejected;
+                    course.RejectReason = request.RejectReason;
+                    course.UpdatedAt = DateTime.UtcNow;
+                    course.UpdatedBy = _service.GetUserClaim().UserId;
+                    _unitOfWork.Courses.Update(course);
+                    await _unitOfWork.SaveChangeAsync();
+                    return response.SetOk("Course rejected successfully");
+                }
+                else 
+                {
+                    course.Status = CourseStatus.Published;
+                    course.UpdatedAt = DateTime.UtcNow;
+                    course.RejectReason = "";
+                    course.UpdatedBy = _service.GetUserClaim().UserId;
+                    _unitOfWork.Courses.Update(course);
+                    await _unitOfWork.SaveChangeAsync();
+                    return response.SetOk("Course approved successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+
     }
 }

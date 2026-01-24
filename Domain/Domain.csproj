@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Requests\Assignment\" />
     <Folder Include="Requests\AnswerOption\" />
-    <Folder Include="Requests\UserLessonProgress\" />
   </ItemGroup>
 
 </Project>

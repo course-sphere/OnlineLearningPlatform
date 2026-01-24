@@ -11,6 +11,7 @@ namespace Application
         public IPaymentRepository Payments { get; }
         public IModuleRepository Modules { get; }
         public ILessonResourceRepository LessonResources { get; }
+        public IUserLessonProgressRepository LessonProgresses { get; }
         Task SaveChangeAsync();
     }
 }

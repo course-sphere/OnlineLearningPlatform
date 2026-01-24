@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Requests.Module;
 using Domain.Responses;
+using Domain.Responses.Module;
 
 namespace Infrastructure.Services
 {
@@ -41,6 +42,94 @@ namespace Infrastructure.Services
             catch (Exception ex)
             {
                 return response.SetBadRequest(message: ex.Message);
+            }
+        }
+        public async Task<ApiResponse> DeleteModuleAsync(Guid moduleId)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var module = await _unitOfWork.Modules
+                    .GetAsync(m => m.ModuleId == moduleId && !m.IsDeleted);
+
+                if (module == null)
+                    return response.SetNotFound("Module not found");
+
+                module.IsDeleted = true;
+                module.UpdatedAt = DateTime.UtcNow;
+                module.UpdatedBy = _service.GetUserClaim().UserId;
+
+                _unitOfWork.Modules.Update(module);
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Module deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+        public async Task<ApiResponse> GetModuleDetailAsync(Guid moduleId)
+        {
+            ApiResponse response = new ApiResponse();
+
+            try
+            {
+                var module = await _unitOfWork.Modules
+                    .GetAsync(m => m.ModuleId == moduleId && !m.IsDeleted);
+
+                if (module == null)
+                    return response.SetNotFound("Module not found");
+
+                var result = _mapper.Map<ModuleResponse>(module);
+                return response.SetOk(result);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+        public async Task<ApiResponse> GetModulesByCourseAsync(Guid courseId)
+        {
+            ApiResponse response = new ApiResponse();
+
+            try
+            {
+                var modules = await _unitOfWork.Modules
+                    .GetAllAsync(m => m.CourseId == courseId && !m.IsDeleted);
+
+                var result = _mapper.Map<List<ModuleResponse>>(modules);
+                return response.SetOk(result);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+        public async Task<ApiResponse> UpdateModuleAsync(UpdateModuleRequest request)
+        {
+            ApiResponse response = new ApiResponse();
+
+            try
+            {
+                var module = await _unitOfWork.Modules
+                    .GetAsync(m => m.ModuleId == request.ModuleId && !m.IsDeleted);
+
+                if (module == null)
+                    return response.SetNotFound("Module not found");
+
+                _mapper.Map(request, module);
+                module.UpdatedAt = DateTime.UtcNow;
+                module.UpdatedBy = _service.GetUserClaim().UserId;
+
+                _unitOfWork.Modules.Update(module);
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Module updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
             }
         }
     }

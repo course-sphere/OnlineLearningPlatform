@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Requests.Lesson;
 using Domain.Responses;
+using Domain.Responses.Lesson;
 
 namespace Infrastructure.Services
 {
@@ -11,14 +12,12 @@ namespace Infrastructure.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IFirebaseStorageService _firebaseStorageService;
         private readonly IClaimService _service;
 
-        public LessonService(IUnitOfWork unitOfWork, IMapper mapper, IFirebaseStorageService firebaseStorageService, IClaimService service)
+        public LessonService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService service)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _firebaseStorageService = firebaseStorageService;
             _service = service;
         }
 
@@ -46,5 +45,91 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(message: ex.Message);
             }
         }
+        public async Task<ApiResponse> UpdateLessonAsync(Guid lessonId, UpdateLessonRequest request)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var lesson = await _unitOfWork.Lessons.GetAsync(l => l.LessonId == lessonId);
+                if (lesson == null)
+                    return response.SetNotFound("Lesson not found");
+
+                _mapper.Map(request, lesson);
+                lesson.UpdatedBy = _service.GetUserClaim().UserId;
+
+                await _unitOfWork.SaveChangeAsync();
+                return response.SetOk("Lesson updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+        public async Task<ApiResponse> DeleteLessonAsync(Guid lessonId)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var lesson = await _unitOfWork.Lessons.GetAsync(l => l.LessonId == lessonId);
+                if (lesson == null)
+                    return response.SetNotFound("Lesson not found");
+
+                _unitOfWork.Lessons.RemoveIdAsync(lesson.LessonId);
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Lesson deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+        public async Task<ApiResponse> GetLessonsByModuleAsync(Guid moduleId)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var lessons = await _unitOfWork.Lessons.GetAllAsync(
+                    l => l.ModuleId == moduleId
+                );
+
+                var result = new
+                {
+                    Total = lessons.Count(),
+                    VideoCount = lessons.Count(l => l.Type == LessonType.Video),
+                    ReadingCount = lessons.Count(l => l.Type == LessonType.Reading),
+                    PracticeCount = lessons.Count(l => l.Type == LessonType.PracticeAssignment),
+                    GradedCount = lessons.Count(l => l.Type == LessonType.GradedAssignment),
+                    Lessons = _mapper.Map<List<LessonResponse>>(lessons)
+                };
+
+                return response.SetOk(result);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> GetLessonDetailAsync(Guid lessonId)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var lesson = await _unitOfWork.Lessons.GetAsync(
+                    l => l.LessonId == lessonId);
+
+                if (lesson == null)
+                    return response.SetNotFound("Lesson not found");
+
+                var result = _mapper.Map<LessonDetailResponse>(lesson);
+                return response.SetOk(result);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+
     }
 }
