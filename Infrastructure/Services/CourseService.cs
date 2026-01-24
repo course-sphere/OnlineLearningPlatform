@@ -31,7 +31,11 @@ namespace Infrastructure.Services
                 var claim = _service.GetUserClaim();
                 var course = _mapper.Map<Course>(request);
                 course.CreatedBy = claim.UserId;
-
+                if (request.ImageFile != null)
+                {
+                    var imageUrl = await _firebaseStorageService.UploadCourseImage(request.Title, request.ImageFile);
+                    course.Image = imageUrl;
+                }
                 await _unitOfWork.Courses.AddAsync(course);
                 await _unitOfWork.SaveChangeAsync();
 
@@ -43,12 +47,12 @@ namespace Infrastructure.Services
             }
         }
 
-        public async Task<ApiResponse> GetAllCourseForMemberAsync()
+        public async Task<ApiResponse> GetAllCourseAsync()
         {
             ApiResponse response = new ApiResponse();
             try
             {
-                var courses = await _unitOfWork.Courses.GetAllAsync();
+                var courses = await _unitOfWork.Courses.GetAllAsync(c => c.Status == CourseStatus.Published);
                 var courseResponses = _mapper.Map<List<CourseResponse>>(courses);
                 return response.SetOk(courseResponses);
             }
@@ -116,6 +120,41 @@ namespace Infrastructure.Services
                 _unitOfWork.Courses.Update(course);
                 await _unitOfWork.SaveChangeAsync();
                 return response.SetOk("Course deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(message: ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> GetAllCourseForAdminAsync(CourseStatus status)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var courses = await _unitOfWork.Courses.GetAllAsync(c => c.Status == status);
+                if (courses == null) return null;
+
+                var result = new List<GetAllCourseForAdminResponse>();
+
+                foreach (var course in courses)
+                {
+                    var modules = await _unitOfWork.Modules.GetAllAsync(m => m.CourseId == course.CourseId);
+                    var moduleIds = modules.Select(m => m.ModuleId).ToList();
+
+                    var lessons = await _unitOfWork.Lessons.GetAllAsync(l => moduleIds.Contains(l.ModuleId));
+                    var lessonIds = lessons.Select(l => l.LessonId).ToList();
+
+                    var courseMapping = _mapper.Map<GetAllCourseForAdminResponse>(course);
+
+                    courseMapping.ModuleCount = modules.Count;
+                    courseMapping.LessonCount = lessons.Count;
+                    courseMapping.VideoCount = lessons.Count(l => l.Type == LessonType.Video);
+                    courseMapping.ReadingCount = lessons.Count(l => l.Type == LessonType.Reading);
+
+                    result.Add(courseMapping);
+                }
+                return response.SetOk(result);
             }
             catch (Exception ex)
             {

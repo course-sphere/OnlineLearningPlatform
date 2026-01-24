@@ -1,4 +1,4 @@
-﻿@model Domain.Requests.Lesson.CreateNewLessonRequest
+﻿@model Domain.Requests.Lesson.CreateNewLessonForModuleRequest
 
 @{
     ViewData["Title"] = "Create New Lesson";
@@ -12,8 +12,7 @@
 }
 
 <form asp-action="CreateNewLesson" method="post">
-    <input type="hidden" asp-for="CourseId" />
-    <input type="hidden" asp-for="ParentLessonId" />
+    <input type="hidden" asp-for="ModuleId" />
 
     <div class="mb-3">
         <label asp-for="Title" class="form-label"></label>
@@ -28,8 +27,8 @@
     </div>
 
     <div class="mb-3">
-        <label asp-for="Index" class="form-label"></label>
-        <input asp-for="Index" class="form-control" type="number" min="1" />
+        <label asp-for="OrderIndex" class="form-label"></label>
+        <input asp-for="OrderIndex" class="form-control" type="number" min="1" />
     </div>
 
     <button type="submit" class="btn btn-primary">
@@ -38,7 +37,7 @@
 
     <a asp-action="Index"
        asp-controller="Course"
-       asp-route-id="@Model.CourseId"
+       asp-route-id="@Model.ModuleId"
        class="btn btn-secondary ms-2">
         Cancel
     </a>

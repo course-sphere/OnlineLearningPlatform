@@ -32,5 +32,7 @@ namespace Infrastructure
         public DbSet<SubmissionAnswerOption> SubmissionAnswerOptions { get; set; }
         public DbSet<QuestionSubmission> QuestionSubmissions { get; set; }
         public DbSet<AnswerOption> AnswerOptions { get; set; }
+        public DbSet<UserLessonProgress> UserLessonProgresses { get; set; }
+        public DbSet<LessonResource> LessonResources { get; set; }
     }
 }

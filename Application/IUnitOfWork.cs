@@ -10,6 +10,7 @@ namespace Application
         public IEnrollmentRepository Enrollments { get; }
         public IPaymentRepository Payments { get; }
         public IModuleRepository Modules { get; }
+        public ILessonResourceRepository LessonResources { get; }
         Task SaveChangeAsync();
     }
 }

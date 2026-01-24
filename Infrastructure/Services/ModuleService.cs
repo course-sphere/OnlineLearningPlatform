@@ -36,7 +36,7 @@ namespace Infrastructure.Services
                 await _unitOfWork.Modules.AddAsync(module);
                 await _unitOfWork.SaveChangeAsync();
 
-                return response.SetOk("");
+                return response.SetOk($"Created Module {module.Index} {module.Name} successfully ^^");
             }
             catch (Exception ex)
             {

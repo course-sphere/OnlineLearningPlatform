@@ -22,25 +22,24 @@ namespace Infrastructure.Services
             _service = service;
         }
 
-        public async Task<ApiResponse> CreateNewLesson(CreateNewLessonRequest request)
+        public async Task<ApiResponse> CreateNewLessonForModuleAsync(CreateNewLessonForModuleRequest request)
         {
             ApiResponse response = new ApiResponse();
             try
             {
                 var claim = _service.GetUserClaim();
 
+                var module = await _unitOfWork.Modules.GetAsync(m => m.ModuleId == request.ModuleId);
+                if (module == null)
+                {
+                    return response.SetNotFound(message: "Module not found or may have been automatically deleted due to inactivity!!! Please check your course");
+                }
                 var lesson = _mapper.Map<Lesson>(request);
                 lesson.CreatedBy = claim.UserId;
                 await _unitOfWork.Lessons.AddAsync(lesson);
                 await _unitOfWork.SaveChangeAsync();
-                if (!request.ParentLessonId.HasValue)
-                {
-                    return response.SetOk($"Lesson {lesson.Title} has been created successfully."
-                    );
-                }
-                var parentLesson = await _unitOfWork.Lessons.GetAsync(l => l.LessonId == request.ParentLessonId.Value);
 
-                return response.SetOk($"Lesson {lesson.Title} has been created successfully under {parentLesson.Title}");
+                return response.SetOk($"Lesson {lesson.OrderIndex} {lesson.Title} has been created successfully");
             }
             catch (Exception ex)
             {

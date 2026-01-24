@@ -20,8 +20,9 @@ namespace Application.MyMapper
             CreateMap<CreateNewCourseRequest, Course>();
             CreateMap<Course, CourseResponse>();
             CreateMap<UpdateCourseRequest, Course>();
+            CreateMap<Course, GetAllCourseForAdminResponse>();
             //Lesson
-            CreateMap<CreateNewLessonRequest, Lesson>();
+            CreateMap<CreateNewLessonForModuleRequest, Lesson>();
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Application.IServices
 {
     public interface ILessonService
     {
-        Task<ApiResponse> CreateNewLesson(CreateNewLessonRequest request);
+        Task<ApiResponse> CreateNewLessonForModuleAsync(CreateNewLessonForModuleRequest request);
     }
 }

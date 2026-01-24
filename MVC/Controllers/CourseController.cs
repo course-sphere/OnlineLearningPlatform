@@ -62,7 +62,7 @@ namespace MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var result = await _service.GetAllCourseForMemberAsync();
+            var result = await _service.GetAllCourseAsync();
 
             if (result.IsSuccess)
             {

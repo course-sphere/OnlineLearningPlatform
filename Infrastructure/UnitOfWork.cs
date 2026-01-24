@@ -20,7 +20,7 @@ namespace Infrastructure
         public IGradedAttemptRepository GradedAttempts { get; }
         public IQuestionSubmissionRepository QuestionSubmissions { get; }
         public ISubmissionAnswerOptionRepository SubmissionAnswerOptions { get; }
-
+        public ILessonResourceRepository LessonResources { get; }
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -37,6 +37,7 @@ namespace Infrastructure
             QuestionSubmissions = new QuestionSubmissionRepository(context);
             SubmissionAnswerOptions = new SubmissionAnswerOptionRepository(context);
             Modules = new ModuleRepository(context);
+            LessonResources = new LessonResourceRepository(context);
         }
 
         public async Task SaveChangeAsync()

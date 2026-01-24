@@ -27,11 +27,6 @@ namespace Infrastructure.Services
             ApiResponse response = new ApiResponse();
             try
             {
-                var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById(_config["TimeZoneId"]);
-                var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);
-                var tick = DateTime.Now.Ticks.ToString();
-                var pay = new VnPayLibrary();
-
                 var claim = _service.GetUserClaim();
                 var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == request.CourseId);
                 if (course == null)
@@ -39,17 +34,40 @@ namespace Infrastructure.Services
                     return response.SetNotFound(message: "Course not found");
                 }
 
-                var payment = new Payment();
-                payment.Amount = course.Price;
-                payment.CourseId = request.CourseId;
-                payment.Method = "VnPay";
+                var enrollment = await _unitOfWork.Enrollments.GetAsync(e => e.UserId == claim.UserId && e.CourseId == course.CourseId);
 
-                var urlCallBack = $"{_config["PaymentCallBack:ReturnUrl"]}?userId={claim.UserId}&amount={payment.Amount}";
+                if (enrollment == null)
+                {
+                    enrollment = new Enrollment
+                    {
+                        EnrollmentId = Guid.NewGuid(),
+                        UserId = claim.UserId,
+                        CourseId = course.CourseId,
+                        Status = EnrollmentStatus.PendingPayment
+                    };
+
+                    await _unitOfWork.Enrollments.AddAsync(enrollment);
+                }
+                else
+                {
+                    enrollment.Status = EnrollmentStatus.PendingPayment;
+                    enrollment.UpdatedAt = DateTime.UtcNow;
+                }
+                await _unitOfWork.SaveChangeAsync();
+
+                var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById(_config["TimeZoneId"]);
+                var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);
+                var tick = DateTime.Now.Ticks.ToString();
+                var pay = new VnPayLibrary();
+
+                var txnRef = $"{claim.UserId}|{course.CourseId}|{DateTime.UtcNow.Ticks}";
+
+                var urlCallBack = $"{_config["PaymentCallBack:ReturnUrl"]}?userId={claim.UserId}&amount={course.Price}";
 
                 pay.AddRequestData("vnp_Version", _config["Vnpay:Version"]);
                 pay.AddRequestData("vnp_Command", _config["Vnpay:Command"]);
                 pay.AddRequestData("vnp_TmnCode", _config["Vnpay:TmnCode"]);
-                pay.AddRequestData("vnp_Amount", ((int)payment.Amount * 100).ToString());
+                pay.AddRequestData("vnp_Amount", ((int)course.Price * 100).ToString());
                 pay.AddRequestData("vnp_CreateDate", timeNow.ToString("yyyyMMddHHmmss"));
                 pay.AddRequestData("vnp_CurrCode", _config["Vnpay:CurrCode"]);
                 pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
@@ -57,7 +75,7 @@ namespace Infrastructure.Services
                 pay.AddRequestData("vnp_OrderInfo", $"{course.Price}");
                 pay.AddRequestData("vnp_OrderType", "VnPay");
                 pay.AddRequestData("vnp_ReturnUrl", urlCallBack);
-                pay.AddRequestData("vnp_TxnRef", tick);
+                pay.AddRequestData("vnp_TxnRef", txnRef);
 
                 var paymentUrl = pay.CreateRequestUrl(_config["Vnpay:BaseUrl"], _config["Vnpay:HashSecret"]);
 
@@ -77,44 +95,68 @@ namespace Infrastructure.Services
                 var pay = new VnPayLibrary();
                 var vnPayResponse = pay.GetFullResponseData(collection, _config["Vnpay:HashSecret"]);
 
-                if (!vnPayResponse.VnPayResponseCode.Equals("00")) return response.SetBadRequest(message: "Payment Cancel!!!");
+                if (!collection.TryGetValue("vnp_TxnRef", out var txnRefValue))
+                    return response.SetBadRequest("Missing vnp_TxnRef");
 
-                if (collection.TryGetValue("userId", out var userIdValue) && Guid.TryParse(userIdValue, out Guid userId))
+                var parts = txnRefValue.ToString().Split('|');
+                if (parts.Length < 2)
+                    return response.SetBadRequest("Invalid TxnRef format");
+
+                if (!Guid.TryParse(parts[0], out Guid userId))
+                    return response.SetBadRequest("Invalid userId");
+
+                if (!Guid.TryParse(parts[1], out Guid courseId))
+                    return response.SetBadRequest("Invalid courseId");
+
+                var enrollment = await _unitOfWork.Enrollments.GetAsync(e =>
+                    e.UserId == userId &&
+                    e.CourseId == courseId
+                );
+
+                if (enrollment == null)
+                    return response.SetNotFound("Enrollment not found");
+
+                if (enrollment.Status != EnrollmentStatus.PendingPayment)
                 {
-                    if (vnPayResponse.Success)
-                    {
-                        var user = await _unitOfWork.Users.GetAsync(u => u.UserId == userId);
-
-                        if (user != null)
-                        {
-                            if (collection.TryGetValue("amount", out var amountValue) && int.TryParse(amountValue, out int amount))
-                            {
-                                var course = await _unitOfWork.Courses.GetAsync(c => c.Price == amount);
-                                if (course == null) return response.SetBadRequest("Invalid payment amount");
-                            }
-                            else
-                            {
-                                return response.SetBadRequest("Parse error");
-                            }
-
-                            await _unitOfWork.SaveChangeAsync();
-                            return response.SetOk();
-                        }
-                        else
-                        {
-                            return response.SetNotFound("User Not Found");
-                        }
-                    }
-                    else
-                    {
-                        return response.SetBadRequest(message
-                            : "VNPay API Response Fail");
-                    }
+                    return response.SetOk("Payment already processed");
                 }
-                else
+                   
+                if (vnPayResponse.VnPayResponseCode != "00")
                 {
-                    return response.SetBadRequest("Invalid or missing userId from callback url");
+                    enrollment.Status = EnrollmentStatus.Cancelled;
+
+                    await _unitOfWork.Payments.AddAsync(new Payment
+                    {
+                        PaymentId = Guid.NewGuid(),
+                        UserId = userId,
+                        CourseId = courseId,
+                        Amount = enrollment.Course!.Price,
+                        Method = "VnPay",
+                    });
+
+                    await _unitOfWork.SaveChangeAsync();
+                    return response.SetBadRequest("Payment failed");
                 }
+
+                var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == enrollment.CourseId);
+                if (course == null) return response.SetNotFound("Course not found");
+                // 2️⃣ Tạo Payment
+                var payment = new Payment
+                {
+                    PaymentId = Guid.NewGuid(),
+                    UserId = userId,
+                    CourseId = courseId,
+                    Amount = course.Price,
+                    Method = "VnPay",
+                    IsSuccess = true,
+                };
+
+                enrollment.Status = EnrollmentStatus.Active;
+
+                await _unitOfWork.Payments.AddAsync(payment);
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Payment created successfully ^^");
             }
             catch (Exception ex)
             {

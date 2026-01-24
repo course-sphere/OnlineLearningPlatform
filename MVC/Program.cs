@@ -47,6 +47,8 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 builder.Services.AddScoped<IClaimService, ClaimService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
+builder.Services.AddScoped<ILessonResourceService, LessonResourceService>();
+builder.Services.AddScoped<IModuleService, ModuleService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
