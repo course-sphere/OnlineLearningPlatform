@@ -1,26 +1,10 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-            LMS System
-        </a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">Login</a>
-                </li>
-            </ul>
-        </div>
+﻿<div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="text-xl font-bold">
+        LMS System
     </div>
-</nav>
+
+    <nav class="space-x-6 text-sm font-medium">
+        <a href="/" class="text-gray-600 hover:text-black">Home</a>
+        <a href="/Home/UiPlayground" class="text-gray-600 hover:text-black">UI Playground</a>
+    </nav>
+</div>

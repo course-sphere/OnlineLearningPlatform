@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "UI Playground";
+}
+
+<div class="max-w-7xl mx-auto p-8 space-y-10">
+
+    <h1 class="text-3xl font-bold">UI Playground</h1>
+
+    <!-- Tailwind test -->
+    <section class="p-6 rounded-xl bg-slate-900 text-white">
+        <p class="text-lg font-semibold">
+            TailwindCSS is working ✅
+        </p>
+        <p class="text-sm opacity-80">
+            Utility classes applied correctly
+        </p>
+    </section>
+
+    <!-- Alpine test -->
+    <section x-data="{ count: 0 }" class="p-6 border rounded-xl">
+        <p class="mb-4">
+            Alpine counter:
+            <span class="font-bold text-blue-600" x-text="count"></span>
+        </p>
+        <button
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            x-on:click="count++">
+            Increment
+        </button>
+    </section>
+
+    <!-- Flowbite test -->
+    <section>
+        <button
+            data-modal-target="testModal"
+            data-modal-toggle="testModal"
+            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+            Open Flowbite Modal
+        </button>
+
+        <div id="testModal" tabindex="-1"
+             class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+                <h3 class="text-lg font-semibold mb-2">Flowbite Modal</h3>
+                <p class="mb-4 text-sm text-gray-600">
+                    Flowbite is working correctly ✅
+                </p>
+                <button
+                    data-modal-hide="testModal"
+                    class="px-4 py-2 bg-red-600 text-white rounded-lg">
+                    Close
+                </button>
+            </div>
+        </div>
+    </section>
+
+</div>
