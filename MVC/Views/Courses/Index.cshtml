@@ -1,0 +1,222 @@
+@{
+    ViewData["Title"] = "All Courses";
+}
+
+<div x-data="courseCatalog()" class="container mx-auto px-4 py-8">
+
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-2">All Courses</h1>
+        <p class="text-gray-500">Explore our collection of courses</p>
+    </div>
+
+    <!-- Search & Sort -->
+    <div class="flex flex-col md:flex-row gap-4 mb-6">
+        <input
+            x-model="search"
+            type="text"
+            placeholder="Search courses..."
+            class="w-full md:w-1/2 rounded-lg border px-4 py-2" />
+
+        <select
+            x-model="sortBy"
+            class="w-48 rounded-lg border px-4 py-2">
+            <option value="popular">Most Popular</option>
+            <option value="rating">Highest Rated</option>
+            <option value="price-low">Price: Low → High</option>
+            <option value="price-high">Price: High → Low</option>
+        </select>
+    </div>
+
+    <div class="flex gap-8">
+        <!-- FILTER SIDEBAR -->
+        <aside class="hidden lg:block w-64">
+            <div class="sticky top-20 space-y-6 rounded-xl border bg-white p-5">
+
+                <!-- Category -->
+                <div>
+                    <h3 class="font-semibold mb-3">Category</h3>
+                    <template x-for="cat in categories" :key="cat">
+                        <label class="flex items-center gap-2 mb-2 text-sm">
+                            <input type="checkbox"
+                                   x-model="selectedCategories"
+                                   :value="cat"
+                                   class="h-4 w-4 rounded border-gray-300">
+                            <span x-text="cat"></span>
+                        </label>
+                    </template>
+                </div>
+
+                <!-- Level -->
+                <div>
+                    <h3 class="font-semibold mb-3">Level</h3>
+                    <template x-for="lvl in levels" :key="lvl">
+                        <label class="flex items-center gap-2 mb-2 text-sm capitalize">
+                            <input type="checkbox"
+                                   x-model="selectedLevels"
+                                   :value="lvl"
+                                   class="h-4 w-4 rounded border-gray-300">
+                            <span x-text="lvl"></span>
+                        </label>
+                    </template>
+                </div>
+
+                <!-- Price -->
+                <div>
+                    <h3 class="font-semibold mb-2">Max Price</h3>
+                    <input type="range"
+                           min="0"
+                           max="200"
+                           step="10"
+                           x-model="price"
+                           class="w-full">
+                    <div class="text-sm text-gray-500 mt-1">
+                        Up to $<span x-text="price"></span>
+                    </div>
+                </div>
+
+                <button
+                    x-show="hasFilters()"
+                    x-on:click="clearFilters"
+                    class="w-full rounded-lg border py-2 text-sm hover:bg-gray-50">
+                    Clear filters
+                </button>
+            </div>
+        </aside>
+
+        <!-- COURSE GRID -->
+        <div class="flex-1">
+            <p class="text-sm text-gray-500 mb-4">
+                <span x-text="filtered.length"></span> courses found
+            </p>
+
+            <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <template x-for="course in paginatedCourses()" :key="course.id">
+                    <a :href="`/Courses/Detail/${course.id}`"
+                       class="group rounded-xl border bg-white hover:shadow-lg transition overflow-hidden">
+
+                        <div class="aspect-video bg-gray-100"></div>
+
+                        <div class="p-4 space-y-3">
+                            <div class="flex gap-2">
+                                <span class="text-xs px-2 py-0.5 rounded bg-gray-100" x-text="course.category"></span>
+                                <span class="text-xs px-2 py-0.5 rounded border capitalize" x-text="course.level"></span>
+                            </div>
+
+                            <h3 class="font-semibold group-hover:text-indigo-600"
+                                x-text="course.title"></h3>
+
+                            <div class="text-sm text-gray-500" x-text="course.instructor"></div>
+
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <span>⭐ <span x-text="course.rating"></span></span>
+                                <span>👥 <span x-text="course.students"></span></span>
+                                <span>⏱ <span x-text="course.duration"></span></span>
+                            </div>
+
+                            <div class="font-bold text-lg">$<span x-text="course.price"></span></div>
+                        </div>
+                    </a>
+                </template>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="flex justify-center items-center gap-2 mt-8">
+                <button
+                    x-on:click="prevPage"
+                    :disabled="page === 1"
+                    class="px-3 py-1 border rounded disabled:opacity-40">
+                    Prev
+                </button>
+
+                <template x-for="p in totalPages()" :key="p">
+                    <button
+                        x-on:click="page = p"
+                        :class="page === p ? 'bg-black text-white' : 'border'"
+                        class="px-3 py-1 rounded">
+                        <span x-text="p"></span>
+                    </button>
+                </template>
+
+                <button
+                    x-on:click="nextPage"
+                    :disabled="page === totalPages()"
+                    class="px-3 py-1 border rounded disabled:opacity-40">
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function courseCatalog() {
+    return {
+        search: '',
+        sortBy: 'popular',
+        price: 200,
+        page: 1,
+        pageSize: 6,
+
+        categories: ['Web Development', 'Data Science', 'Design', 'Mobile'],
+        levels: ['beginner', 'intermediate', 'advanced'],
+
+        selectedCategories: [],
+        selectedLevels: [],
+
+        courses: [
+            { id: 1, title: 'Web Dev Bootcamp', category: 'Web Development', level: 'beginner', price: 89, rating: 4.8, students: 12500, duration: '42h', instructor: 'Jane Smith' },
+            { id: 2, title: 'Advanced React', category: 'Web Development', level: 'advanced', price: 79, rating: 4.9, students: 5600, duration: '28h', instructor: 'Jane Smith' },
+            { id: 3, title: 'Python for Data Science', category: 'Data Science', level: 'intermediate', price: 99, rating: 4.7, students: 4300, duration: '35h', instructor: 'Mike Johnson' },
+            { id: 4, title: 'UI/UX Fundamentals', category: 'Design', level: 'beginner', price: 69, rating: 4.6, students: 3900, duration: '20h', instructor: 'Sarah Lee' },
+            { id: 5, title: 'React Native Mobile Apps', category: 'Mobile', level: 'intermediate', price: 84, rating: 4.5, students: 2100, duration: '30h', instructor: 'John Doe' },
+            { id: 6, title: 'CSS Mastery', category: 'Design', level: 'advanced', price: 59, rating: 4.4, students: 1800, duration: '18h', instructor: 'Emily Chen' },
+            { id: 7, title: 'Node.js API', category: 'Web Development', level: 'intermediate', price: 75, rating: 4.6, students: 3200, duration: '26h', instructor: 'Mike Johnson' },
+            { id: 8, title: 'Data Visualization', category: 'Data Science', level: 'advanced', price: 92, rating: 4.7, students: 2900, duration: '22h', instructor: 'Sarah Lee' }
+        ],
+
+        get filtered() {
+            let list = this.courses.filter(c =>
+                c.title.toLowerCase().includes(this.search.toLowerCase()) &&
+                c.price <= this.price &&
+                (this.selectedCategories.length === 0 || this.selectedCategories.includes(c.category)) &&
+                (this.selectedLevels.length === 0 || this.selectedLevels.includes(c.level))
+            )
+
+            if (this.sortBy === 'popular') list.sort((a,b)=>b.students-a.students)
+            if (this.sortBy === 'rating') list.sort((a,b)=>b.rating-a.rating)
+            if (this.sortBy === 'price-low') list.sort((a,b)=>a.price-b.price)
+            if (this.sortBy === 'price-high') list.sort((a,b)=>b.price-a.price)
+
+            return list
+        },
+
+        paginatedCourses() {
+            const start = (this.page - 1) * this.pageSize
+            return this.filtered.slice(start, start + this.pageSize)
+        },
+
+        totalPages() {
+            return Math.ceil(this.filtered.length / this.pageSize)
+        },
+
+        nextPage() {
+            if (this.page < this.totalPages()) this.page++
+        },
+
+        prevPage() {
+            if (this.page > 1) this.page--
+        },
+
+        hasFilters() {
+            return this.selectedCategories.length || this.selectedLevels.length || this.price < 200
+        },
+
+        clearFilters() {
+            this.selectedCategories = []
+            this.selectedLevels = []
+            this.price = 200
+        }
+    }
+}
+</script>

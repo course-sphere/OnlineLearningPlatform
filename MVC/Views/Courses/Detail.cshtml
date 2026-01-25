@@ -1,0 +1,202 @@
+@{
+    ViewData["Title"] = "Course Detail";
+}
+
+<div x-data="courseDetail()" class="bg-gray-50 min-h-screen">
+
+    <section class="container mx-auto px-6 mt-8">
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600 via-teal-500 to-emerald-500 text-white shadow-xl">
+
+            <!-- subtle overlay -->
+            <div class="absolute inset-0 bg-black/10"></div>
+
+            <div class="relative grid md:grid-cols-2 gap-10 p-10 items-center">
+
+                <!-- LEFT CONTENT -->
+                <div>
+                    <span class="inline-flex items-center gap-2 bg-white/15 backdrop-blur px-4 py-1.5 rounded-full text-sm mb-5">
+                        <span>Web Development</span>
+                        <span class="opacity-60">•</span>
+                        <span>Beginner</span>
+                    </span>
+
+                    <h1 class="text-4xl lg:text-5xl font-bold leading-tight mb-4">
+                        Complete Web Development Bootcamp
+                    </h1>
+
+                    <p class="text-white/90 text-lg mb-6 max-w-xl">
+                        Learn HTML, CSS, JavaScript, React and build real-world projects step by step.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-6 text-sm text-white/90">
+                        <span class="flex items-center gap-1">
+                            ⭐ <strong>4.8</strong>
+                            <span class="opacity-80">(3,200 reviews)</span>
+                        </span>
+                        <span>👥 12,500 students</span>
+                        <span>⏱ 42 hours</span>
+                    </div>
+                </div>
+
+                <!-- RIGHT PREVIEW -->
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl group">
+                    <img
+                        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80"
+                        alt="Course preview"
+                        class="w-full h-full object-cover aspect-video group-hover:scale-105 transition-transform duration-500" />
+
+                    <!-- play overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                        <div class="flex items-center gap-3 bg-white/90 text-gray-900 px-6 py-3 rounded-full shadow-lg backdrop-blur">
+                            <span class="text-xl">▶</span>
+                            <span class="font-medium">Preview course</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CONTENT -->
+    <div class="container mx-auto px-6 py-10 grid lg:grid-cols-3 gap-8">
+
+        <!-- MAIN -->
+        <div class="lg:col-span-2 space-y-10">
+
+            <!-- WHAT YOU WILL LEARN -->
+            <div class="bg-white rounded-xl border p-6">
+                <h2 class="text-xl font-semibold mb-4 text-cyan-600">
+                    What you will learn
+                </h2>
+
+                <ul class="grid sm:grid-cols-2 gap-3 text-sm">
+                    <template x-for="item in learning">
+                        <li class="flex gap-2">
+                            <span class="text-cyan-500">✔</span>
+                            <span x-text="item"></span>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+
+            <!-- COURSE CONTENT -->
+            <div class="bg-white rounded-xl border">
+                <div class="p-6 border-b">
+                    <h2 class="text-xl font-semibold text-cyan-600">
+                        Course content
+                    </h2>
+                </div>
+
+                <div class="divide-y">
+                    <template x-for="module in modules">
+                        <div class="p-6">
+                            <h3 class="font-semibold mb-2" x-text="module.title"></h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <template x-for="lesson in module.lessons">
+                                    <li class="flex justify-between">
+                                        <span>▶ <span x-text="lesson.title"></span></span>
+                                        <span x-text="lesson.duration"></span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- COMMENTS -->
+            <div class="bg-white rounded-xl border p-6">
+                <h2 class="text-xl font-semibold mb-4 text-cyan-600">
+                    Discussion
+                </h2>
+
+                <div class="space-y-6">
+                    <template x-for="c in comments">
+                        <div class="border rounded-lg p-4">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium" x-text="c.user"></span>
+                                <span class="text-xs text-gray-400" x-text="c.time"></span>
+                            </div>
+                            <p class="text-sm text-gray-700" x-text="c.content"></p>
+                        </div>
+                    </template>
+
+                    <textarea
+                        placeholder="Write a comment..."
+                        class="w-full border rounded-lg p-3 text-sm"></textarea>
+
+                    <button
+                        class="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700">
+                        Post comment
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="space-y-6">
+            <div class="bg-white rounded-xl border p-6 sticky top-24">
+                <div class="text-3xl font-bold mb-4 text-cyan-600">$89</div>
+
+                <button class="w-full bg-cyan-600 text-white py-3 rounded-lg mb-3 hover:bg-cyan-700">
+                    Enroll now
+                </button>
+
+                <button class="w-full border py-3 rounded-lg">
+                    Add to wishlist
+                </button>
+
+                <ul class="mt-6 space-y-3 text-sm text-gray-600">
+                    <li>✔ Full lifetime access</li>
+                    <li>✔ Certificate of completion</li>
+                    <li>✔ Access on mobile & TV</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script>
+function courseDetail() {
+    return {
+        learning: [
+            'Build real-world web applications',
+            'Master HTML, CSS, JavaScript',
+            'Understand React fundamentals',
+            'Deploy applications to production'
+        ],
+
+        modules: [
+            {
+                title: 'Introduction',
+                lessons: [
+                    { title: 'Welcome', duration: '5:00' },
+                    { title: 'How the internet works', duration: '10:00' }
+                ]
+            },
+            {
+                title: 'HTML & CSS',
+                lessons: [
+                    { title: 'HTML basics', duration: '20:00' },
+                    { title: 'CSS fundamentals', duration: '25:00' }
+                ]
+            }
+        ],
+
+        comments: [
+            {
+                user: 'John Doe',
+                content: 'This course is amazing so far!',
+                time: '2 days ago'
+            },
+            {
+                user: 'Sarah Lee',
+                content: 'Very clear explanations 👍',
+                time: '1 day ago'
+            }
+        ]
+    }
+}
+</script>

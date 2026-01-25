@@ -1,0 +1,48 @@
+@model dynamic
+
+<a href="/courses/@Model.Id"
+   class="group block overflow-hidden rounded-xl border bg-white transition hover:shadow-lg">
+    
+    <!-- Thumbnail -->
+    <div class="relative aspect-video overflow-hidden">
+        <img src="@Model.Thumbnail"
+             alt="@Model.Title"
+             class="h-full w-full object-cover transition-transform group-hover:scale-105" />
+    </div>
+
+    <div class="p-4 space-y-3">
+        <!-- Category & Level -->
+        <div class="flex gap-2">
+            <span class="text-xs px-2 py-0.5 rounded bg-gray-100">
+                @Model.Category
+            </span>
+            <span class="text-xs px-2 py-0.5 rounded border capitalize">
+                @Model.Level
+            </span>
+        </div>
+
+        <!-- Title -->
+        <h3 class="font-semibold line-clamp-2 group-hover:text-indigo-600">
+            @Model.Title
+        </h3>
+
+        <!-- Instructor -->
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+            <img src="@Model.InstructorAvatar"
+                 class="h-6 w-6 rounded-full" />
+            <span>@Model.InstructorName</span>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex items-center gap-4 text-sm text-gray-500">
+            <span>⭐ @Model.Rating</span>
+            <span>👥 @Model.Students</span>
+            <span>⏱ @Model.Duration</span>
+        </div>
+
+        <!-- Price -->
+        <div class="flex justify-between items-center pt-2">
+            <span class="text-lg font-bold">$@Model.Price</span>
+        </div>
+    </div>
+</a>

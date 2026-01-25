@@ -1,0 +1,134 @@
+@{
+    ViewData["Title"] = "My Wallet";
+}
+
+<div class="min-h-screen bg-slate-50 px-6 py-10">
+    <div class="max-w-6xl mx-auto space-y-10">
+
+        <!-- PAGE TITLE -->
+        <div>
+            <h1 class="text-3xl font-bold text-slate-900">My Wallet</h1>
+            <p class="text-slate-500 mt-1">
+                Manage your balance and track all wallet transactions
+            </p>
+        </div>
+
+        <!-- BALANCE CARD -->
+        <div class="rounded-3xl p-8 shadow-2xl border border-slate-300
+            bg-slate-900 text-white">
+
+            <p class="text-sm uppercase tracking-wide text-slate-300 mb-2">
+                Available balance
+            </p>
+
+            <div class="flex items-end gap-3 mb-8">
+                <span class="text-5xl font-extrabold text-white">
+                    $150.01
+                </span>
+                <span class="text-slate-300 mb-1 text-lg">
+                    USD
+                </span>
+            </div>
+
+            <div class="flex flex-wrap gap-4">
+                <button
+                    class="px-6 py-3 rounded-xl
+                        bg-emerald-500 text-slate-900
+                        font-semibold hover:bg-emerald-400 shadow">
+                    + Add funds
+                </button>
+
+                <button
+                    class="px-6 py-3 rounded-xl
+                        border border-slate-500
+                        text-slate-200 hover:bg-slate-800">
+                    Withdraw
+                </button>
+            </div>
+        </div>
+
+
+        <!-- TRANSACTION HISTORY -->
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div class="p-6 border-b">
+                <h2 class="text-xl font-semibold text-slate-900">
+                    Transaction history
+                </h2>
+                <p class="text-sm text-slate-500">
+                    Recent wallet activities
+                </p>
+            </div>
+
+            <div class="divide-y">
+
+                <!-- TRANSACTION: DEPOSIT -->
+                <div class="p-6 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-semibold">
+                            +
+                        </div>
+
+                        <div>
+                            <p class="font-medium text-slate-900">
+                                Wallet deposit
+                            </p>
+                            <p class="text-sm text-slate-500">
+                                Feb 1, 2024 · Completed
+                            </p>
+                        </div>
+                    </div>
+
+                    <span class="text-lg font-semibold text-emerald-600">
+                        + $100.00
+                    </span>
+                </div>
+
+                <!-- TRANSACTION: PURCHASE -->
+                <div class="p-6 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-semibold">
+                            −
+                        </div>
+
+                        <div>
+                            <p class="font-medium text-slate-900">
+                                Purchase · Web Dev Bootcamp
+                            </p>
+                            <p class="text-sm text-slate-500">
+                                Feb 2, 2024 · Completed
+                            </p>
+                        </div>
+                    </div>
+
+                    <span class="text-lg font-semibold text-rose-600">
+                        − $89.99
+                    </span>
+                </div>
+
+                <!-- TRANSACTION: REFUND -->
+                <div class="p-6 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-semibold">
+                            +
+                        </div>
+
+                        <div>
+                            <p class="font-medium text-slate-900">
+                                Refund · React Course
+                            </p>
+                            <p class="text-sm text-slate-500">
+                                Feb 8, 2024 · Completed
+                            </p>
+                        </div>
+                    </div>
+
+                    <span class="text-lg font-semibold text-emerald-600">
+                        + $39.99
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

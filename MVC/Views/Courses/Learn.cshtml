@@ -1,0 +1,728 @@
+@{
+    ViewData["Title"] = "Course Learning";
+}
+
+<div x-data="learningCourse()" x-init="init()" class="h-[calc(100vh-64px)] flex bg-gray-50">
+
+    <!-- SIDEBAR -->
+    <aside class="w-96 bg-white border-r overflow-y-auto">
+        <!-- Course Header -->
+        <div class="p-6 border-b">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <h2 class="font-semibold text-sm leading-snug" x-text="course.title"></h2>
+                    <p class="text-xs text-gray-500 mt-1" x-text="course.instructor"></p>
+                </div>
+                <span class="text-xs px-2 py-1 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-100">
+                    Learning
+                </span>
+            </div>
+
+            <!-- Progress -->
+            <div class="mt-4">
+                <div class="flex justify-between text-xs mb-1 text-gray-600">
+                    <span>Progress</span>
+                    <span><span x-text="progressPercent()"></span>%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                    <div class="bg-gradient-to-r from-cyan-500 to-teal-500 h-2 rounded-full"
+                         :style="`width:${progressPercent()}%`"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">
+                    <span x-text="completedCount()"></span>/<span x-text="totalCount()"></span> lessons completed
+                </p>
+            </div>
+
+            <!-- Quick actions -->
+            <div class="mt-4 flex gap-2">
+                <button class="flex-1 text-xs border rounded-lg py-2 hover:bg-gray-50">
+                    Save
+                </button>
+                <button class="flex-1 text-xs border rounded-lg py-2 hover:bg-gray-50">
+                    Notes
+                </button>
+            </div>
+        </div>
+
+        <!-- Sidebar Search -->
+        <div class="p-4 border-b">
+            <input
+                x-model="sidebarSearch"
+                type="text"
+                placeholder="Search lessons..."
+                class="w-full rounded-lg border px-3 py-2 text-sm"
+            />
+        </div>
+
+        <!-- Modules -->
+        <div class="p-4 space-y-3">
+            <template x-for="module in filteredModules()" :key="module.id">
+                <div class="border rounded-xl overflow-hidden">
+
+                    <!-- Module Header -->
+                    <button
+                        x-on:click="module.open = !module.open"
+                        class="w-full px-4 py-3 bg-gray-50 flex justify-between items-center text-sm font-medium">
+                        <div class="text-left">
+                            <div class="flex items-center gap-2">
+                                <span x-text="module.title"></span>
+                                <span x-show="module.isFinal"
+                                      class="text-[11px] px-2 py-0.5 rounded-full bg-cyan-600 text-white">
+                                    Final
+                                </span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-0.5">
+                                <span x-text="module.duration"></span> ·
+                                <span x-text="moduleProgressText(module)"></span>
+                            </div>
+                        </div>
+                        <span class="text-gray-500" x-text="module.open ? '−' : '+'"></span>
+                    </button>
+
+                    <!-- Lessons -->
+                    <div x-show="module.open" class="divide-y">
+                        <template x-for="lesson in module.lessons" :key="lesson.id">
+                            <button
+                                x-on:click="selectLesson(lesson)"
+                                :disabled="lesson.locked"
+                                :class="lessonRowClass(lesson)"
+                                class="w-full px-4 py-3 text-sm flex gap-3 items-center">
+
+                                <!-- Icon -->
+                                <span class="w-6 text-left">
+                                    <template x-if="lesson.type === 'video'">▶</template>
+                                    <template x-if="lesson.type === 'reading'">📄</template>
+                                    <template x-if="lesson.type === 'quiz'">🧠</template>
+                                </span>
+
+                                <!-- Title -->
+                                <div class="flex-1 text-left">
+                                    <div class="leading-snug" x-text="lesson.title"></div>
+                                    <div class="text-xs text-gray-400 mt-0.5 flex items-center gap-2">
+                                        <span x-text="lesson.duration"></span>
+                                        <span x-show="lesson.type === 'quiz' && lesson.quiz?.kind"
+                                              class="px-2 py-0.5 rounded-full border text-[11px]"
+                                              x-text="lesson.quiz.kind"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="text-xs">
+                                    <span x-show="lesson.completed" class="text-emerald-600">✅</span>
+                                    <span x-show="lesson.locked" class="text-gray-400">🔒</span>
+                                    <span x-show="!lesson.locked && !lesson.completed && lesson.id !== currentLesson.id" class="text-gray-300">•</span>
+                                </div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 flex flex-col">
+
+        <!-- TOP BAR -->
+        <div class="h-14 bg-white border-b px-6 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-xs text-gray-400">Course</span>
+                <span class="text-xs text-gray-400">/</span>
+                <span class="text-xs text-cyan-700 font-medium" x-text="currentModuleTitle()"></span>
+                <span class="text-xs text-gray-400">/</span>
+                <span class="text-xs font-medium text-gray-800" x-text="currentLesson.title"></span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button
+                    x-on:click="markComplete()"
+                    class="text-sm px-3 py-1.5 rounded-lg bg-cyan-600 text-white hover:bg-cyan-700">
+                    Mark complete
+                </button>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="flex-1 overflow-y-auto p-10 space-y-8">
+
+            <!-- HERO PLAYER (VIDEO/READING) -->
+            <div class="rounded-2xl overflow-hidden shadow-lg border bg-white">
+                <div class="relative">
+                    <img
+                        :src="currentLesson.cover"
+                        alt="Lesson cover"
+                        class="w-full h-full object-cover aspect-video"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent"></div>
+
+                    <div class="absolute bottom-5 left-6 right-6 flex items-end justify-between gap-4">
+                        <div class="text-white">
+                            <div class="text-xs text-white/80">
+                                <span class="px-2 py-1 rounded-full bg-white/15 backdrop-blur border border-white/20"
+                                      x-text="currentLesson.typeLabel"></span>
+                            </div>
+                            <h2 class="text-2xl font-bold mt-2" x-text="currentLesson.title"></h2>
+                            <p class="text-sm text-white/85 mt-1 max-w-3xl" x-text="currentLesson.description"></p>
+                        </div>
+
+                        <div class="shrink-0">
+                            <button
+                                x-show="currentLesson.type === 'video'"
+                                class="bg-white/90 text-gray-900 px-5 py-3 rounded-full shadow-lg hover:bg-white flex items-center gap-2">
+                                <span class="text-lg">▶</span>
+                                <span class="font-medium">Play</span>
+                            </button>
+
+                            <button
+                                x-show="currentLesson.type === 'reading'"
+                                class="bg-white/90 text-gray-900 px-5 py-3 rounded-full shadow-lg hover:bg-white flex items-center gap-2">
+                                <span class="text-lg">📄</span>
+                                <span class="font-medium">Read</span>
+                            </button>
+
+                            <button
+                                x-show="currentLesson.type === 'quiz'"
+                                class="bg-white/90 text-gray-900 px-5 py-3 rounded-full shadow-lg hover:bg-white flex items-center gap-2">
+                                <span class="text-lg">🧠</span>
+                                <span class="font-medium">Start quiz</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BODY -->
+            <div class="grid lg:grid-cols-3 gap-8">
+
+                <!-- LEFT: MAIN CONTENT -->
+                <div class="lg:col-span-2 space-y-6">
+
+                    <!-- Tabs -->
+                    <div class="bg-white rounded-xl border">
+                        <div class="px-6 pt-5 border-b flex gap-6">
+                            <button
+                                x-on:click="tab='overview'"
+                                :class="tab==='overview' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-gray-500'"
+                                class="pb-3 border-b-2 text-sm font-medium">
+                                Overview
+                            </button>
+                            <button
+                                x-on:click="tab='materials'"
+                                :class="tab==='materials' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-gray-500'"
+                                class="pb-3 border-b-2 text-sm font-medium">
+                                Materials
+                            </button>
+                            <button
+                                x-on:click="tab='discussion'"
+                                :class="tab==='discussion' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-gray-500'"
+                                class="pb-3 border-b-2 text-sm font-medium">
+                                Discussion
+                            </button>
+                        </div>
+
+                        <div class="p-6">
+                            <!-- Overview -->
+                            <div x-show="tab==='overview'" class="text-sm text-gray-700 space-y-3">
+                                <p x-text="currentLesson.longText"></p>
+
+                                <div class="grid sm:grid-cols-2 gap-3 mt-4">
+                                    <div class="rounded-lg border p-4">
+                                        <div class="text-xs text-gray-500">Estimated time</div>
+                                        <div class="font-semibold" x-text="currentLesson.duration"></div>
+                                    </div>
+                                    <div class="rounded-lg border p-4">
+                                        <div class="text-xs text-gray-500">Lesson type</div>
+                                        <div class="font-semibold" x-text="currentLesson.typeLabel"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Materials -->
+                            <div x-show="tab==='materials'" class="space-y-3">
+                                <template x-for="res in currentLesson.resources" :key="res.id">
+                                    <div class="flex justify-between items-center border rounded-lg p-4 hover:bg-gray-50">
+                                        <div class="flex gap-3 items-center">
+                                            <span class="w-6 text-left">
+                                                <template x-if="res.type === 'video'">▶</template>
+                                                <template x-if="res.type === 'reading'">📄</template>
+                                                <template x-if="res.type === 'download'">⬇</template>
+                                                <template x-if="res.type === 'exercise'">✏</template>
+                                                <template x-if="res.type === 'quiz'">🧠</template>
+                                            </span>
+                                            <div>
+                                                <div class="text-sm font-medium" x-text="res.title"></div>
+                                                <div class="text-xs text-gray-500" x-text="res.note"></div>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs text-gray-400" x-text="res.duration"></span>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Discussion -->
+                            <div x-show="tab==='discussion'" class="space-y-4">
+                                <div class="flex gap-3">
+                                    <div class="h-10 w-10 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-semibold">
+                                        J
+                                    </div>
+                                    <textarea
+                                        class="flex-1 border rounded-lg p-3 text-sm"
+                                        rows="3"
+                                        placeholder="Ask a question or share your thoughts..."></textarea>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button class="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700">
+                                        Post
+                                    </button>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <template x-for="c in currentLesson.comments" :key="c.id">
+                                        <div class="border rounded-lg p-4">
+                                            <div class="flex justify-between text-sm">
+                                                <span class="font-medium" x-text="c.user"></span>
+                                                <span class="text-xs text-gray-400" x-text="c.time"></span>
+                                            </div>
+                                            <p class="text-sm text-gray-700 mt-2" x-text="c.text"></p>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QUIZ UI (only when lesson.type === 'quiz') -->
+                    <div x-show="currentLesson.type === 'quiz'" class="bg-white rounded-xl border overflow-hidden">
+                        <div class="p-6 border-b">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-cyan-700" x-text="currentLesson.quiz.title"></h3>
+                                    <p class="text-sm text-gray-500 mt-1" x-text="currentLesson.quiz.subtitle"></p>
+                                </div>
+                                <span class="text-xs px-3 py-1 rounded-full border bg-cyan-50 text-cyan-700"
+                                      x-text="currentLesson.quiz.kind"></span>
+                            </div>
+
+                            <div class="mt-4 flex items-center gap-4 text-sm text-gray-600">
+                                <span>🧠 <span x-text="currentLesson.quiz.questions.length"></span> questions</span>
+                                <span>⏱ <span x-text="currentLesson.quiz.timeLimit"></span></span>
+                                <span>✅ Passing: <span x-text="currentLesson.quiz.passingScore"></span>%</span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 space-y-6">
+
+                            <!-- Multiple choice -->
+                            <div x-show="currentLesson.quiz.kind === 'multiple-choice'" class="space-y-5">
+                                <template x-for="(q, qi) in currentLesson.quiz.questions" :key="q.id">
+                                    <div class="border rounded-xl p-5">
+                                        <div class="text-sm font-semibold mb-3">
+                                            Q<span x-text="qi+1"></span>. <span x-text="q.text"></span>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <template x-for="(opt, oi) in q.options" :key="oi">
+                                                <label class="flex items-center gap-3 border rounded-lg px-4 py-3 cursor-pointer hover:bg-gray-50">
+                                                    <input type="radio"
+                                                           :name="`q-${q.id}`"
+                                                           class="h-4 w-4 accent-cyan-600">
+                                                    <span class="text-sm" x-text="opt"></span>
+                                                </label>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+
+                                <div class="flex justify-end gap-2">
+                                    <button class="border px-4 py-2 rounded-lg hover:bg-gray-50">Save draft</button>
+                                    <button class="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700">
+                                        Submit answers
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Essay -->
+                            <div x-show="currentLesson.quiz.kind === 'essay'" class="space-y-4">
+                                <template x-for="(q, qi) in currentLesson.quiz.questions" :key="q.id">
+                                    <div class="border rounded-xl p-5">
+                                        <div class="text-sm font-semibold mb-3">
+                                            Prompt <span x-text="qi+1"></span>
+                                        </div>
+                                        <p class="text-sm text-gray-700" x-text="q.text"></p>
+                                        <textarea class="mt-4 w-full border rounded-lg p-3 text-sm"
+                                                  rows="6"
+                                                  placeholder="Write your answer..."></textarea>
+                                        <div class="text-xs text-gray-400 mt-2">
+                                            Tip: be concise, use examples, and explain tradeoffs.
+                                        </div>
+                                    </div>
+                                </template>
+
+                                <div class="flex justify-end gap-2">
+                                    <button class="border px-4 py-2 rounded-lg hover:bg-gray-50">Save draft</button>
+                                    <button class="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700">
+                                        Submit essay
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Coding -->
+                            <div x-show="currentLesson.quiz.kind === 'coding'" class="space-y-4">
+                                <template x-for="(q, qi) in currentLesson.quiz.questions" :key="q.id">
+                                    <div class="border rounded-xl overflow-hidden">
+                                        <div class="p-5 border-b bg-gray-50">
+                                            <div class="text-sm font-semibold">
+                                                Coding Task <span x-text="qi+1"></span>
+                                            </div>
+                                            <p class="text-sm text-gray-700 mt-2" x-text="q.text"></p>
+                                        </div>
+
+                                        <div class="p-5 space-y-4">
+                                            <div class="text-xs text-gray-500">
+                                                Language: <span class="font-medium" x-text="q.language"></span>
+                                            </div>
+
+                                            <textarea
+                                                class="w-full font-mono text-sm border rounded-lg p-3"
+                                                rows="10"
+                                                :placeholder="q.starter"></textarea>
+
+                                            <div class="flex items-center justify-between">
+                                                <div class="text-xs text-gray-500">
+                                                    Run & test is UI only (mock).
+                                                </div>
+                                                <div class="flex gap-2">
+                                                    <button class="border px-4 py-2 rounded-lg hover:bg-gray-50">Run</button>
+                                                    <button class="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700">
+                                                        Submit code
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Prev / Next -->
+                    <div class="flex justify-between">
+                        <button x-on:click="goPrev()" class="px-4 py-2 rounded-lg border hover:bg-gray-50">
+                            ← Previous
+                        </button>
+                        <button x-on:click="goNext()" class="px-4 py-2 rounded-lg bg-cyan-600 text-white hover:bg-cyan-700">
+                            Next →
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT: COURSE SUMMARY -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl border p-6 sticky top-24">
+                        <h3 class="font-semibold text-sm mb-3">About this course</h3>
+                        <p class="text-sm text-gray-600" x-text="course.description"></p>
+
+                        <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
+                            <div class="border rounded-lg p-3">
+                                <div class="text-xs text-gray-500">Level</div>
+                                <div class="font-semibold" x-text="course.level"></div>
+                            </div>
+                            <div class="border rounded-lg p-3">
+                                <div class="text-xs text-gray-500">Duration</div>
+                                <div class="font-semibold" x-text="course.duration"></div>
+                            </div>
+                            <div class="border rounded-lg p-3">
+                                <div class="text-xs text-gray-500">Rating</div>
+                                <div class="font-semibold">⭐ <span x-text="course.rating"></span></div>
+                            </div>
+                            <div class="border rounded-lg p-3">
+                                <div class="text-xs text-gray-500">Learners</div>
+                                <div class="font-semibold" x-text="course.students"></div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <h4 class="text-sm font-semibold mb-2">Skills you'll gain</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <template x-for="s in course.skills" :key="s">
+                                    <span class="text-xs px-2 py-1 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-100"
+                                          x-text="s"></span>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex gap-2">
+                            <button class="flex-1 border rounded-lg py-2 text-sm hover:bg-gray-50">Resources</button>
+                            <button class="flex-1 border rounded-lg py-2 text-sm hover:bg-gray-50">Certificate</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /grid -->
+        </div><!-- /scroll -->
+    </main>
+</div>
+
+<script>
+function learningCourse() {
+    return {
+        /* =======================
+           STATE
+        ======================= */
+        tab: 'overview',
+        sidebarSearch: '',
+        currentLesson: null,
+        currentLessonId: null,
+
+        course: {
+            title: 'Complete Web Development Bootcamp',
+            instructor: 'Jane Smith · Senior Web Instructor',
+            description: 'Build modern web apps from scratch with HTML, CSS, JavaScript and real projects.',
+            level: 'Beginner → Intermediate',
+            duration: '42 hours',
+            rating: 4.8,
+            students: '12,500',
+            skills: ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI', 'APIs', 'Git']
+        },
+
+        modules: [],
+
+        /* =======================
+           INIT
+        ======================= */
+        init() {
+            this.modules = this.buildModules();
+            this.currentLesson = this.modules[0].lessons[0];
+            this.currentLessonId = this.currentLesson.id;
+        },
+
+        /* =======================
+           BUILD DATA
+        ======================= */
+        buildModules() {
+            return [
+                {
+                    id: 'm1',
+                    title: 'Module 1 · Getting Started',
+                    duration: '1h 25m',
+                    open: true,
+                    isFinal: false,
+                    lessons: [
+                        this.video('l1', 'Welcome to the course', '5:00',
+                            'Overview of the course and how to succeed.',
+                            'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80'),
+
+                        this.reading('l2', 'How the Internet Works', '10 min',
+                            'Understand DNS, HTTP, browsers and servers.',
+                            'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80'),
+
+                        this.quizMCQ('q1', 'Module 1 Quiz · Foundations')
+                    ]
+                },
+                {
+                    id: 'm2',
+                    title: 'Module 2 · HTML Fundamentals',
+                    duration: '3h 10m',
+                    open: false,
+                    isFinal: false,
+                    lessons: [
+                        this.video('l3', 'HTML Document Structure', '20:00',
+                            'Learn head, body, semantic structure.',
+                            'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80'),
+
+                        this.reading('l4', 'Semantic HTML', '12 min',
+                            'Write accessible and meaningful markup.',
+                            'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1400&q=80'),
+
+                        this.quizEssay('q2', 'HTML Reflection Quiz')
+                    ]
+                },
+                {
+                    id: 'm3',
+                    title: 'Final Exam · Capstone',
+                    duration: '45 min',
+                    open: false,
+                    isFinal: true,
+                    lessons: [
+                        this.quizMCQ('f1', 'Final Exam · Concepts'),
+                        this.quizCoding('f2', 'Final Exam · Coding')
+                    ]
+                }
+            ];
+        },
+
+        /* =======================
+           FACTORIES
+        ======================= */
+        video(id, title, duration, desc, cover) {
+            return {
+                id,
+                title,
+                duration,
+                type: 'video',
+                typeLabel: 'Video',
+                description: desc,
+                longText: 'Watch the lesson carefully and follow along.',
+                cover,
+                completed: id === 'l1',
+                locked: false,
+                resources: [
+                    { title: 'Video lesson', type: 'video', duration },
+                    { title: 'Slides', type: 'download', duration: '-' }
+                ],
+                comments: []
+            };
+        },
+
+        reading(id, title, duration, desc, cover) {
+            return {
+                id,
+                title,
+                duration,
+                type: 'reading',
+                typeLabel: 'Reading',
+                description: desc,
+                longText: 'Read carefully and highlight key concepts.',
+                cover,
+                completed: false,
+                locked: false,
+                resources: [
+                    { title: 'Reading material', type: 'reading', duration }
+                ],
+                comments: []
+            };
+        },
+
+        quizMCQ(id, title) {
+            return {
+                id,
+                title,
+                duration: '10 min',
+                type: 'quiz',
+                typeLabel: 'Quiz',
+                description: 'Multiple choice quiz.',
+                longText: 'Choose the best answer for each question.',
+                cover: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=80',
+                completed: false,
+                locked: false,
+                quiz: {
+                    kind: 'multiple-choice',
+                    passingScore: 70,
+                    questions: [
+                        {
+                            text: 'What does HTML stand for?',
+                            options: [
+                                'Hyper Text Markup Language',
+                                'High Transfer Machine Language',
+                                'Hyperlink Text Model Language'
+                            ]
+                        }
+                    ]
+                },
+                resources: [],
+                comments: []
+            };
+        },
+
+        quizEssay(id, title) {
+            return {
+                id,
+                title,
+                duration: '15 min',
+                type: 'quiz',
+                typeLabel: 'Essay',
+                description: 'Short written reflection.',
+                longText: 'Explain your reasoning clearly.',
+                cover: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=80',
+                completed: false,
+                locked: false,
+                quiz: {
+                    kind: 'essay',
+                    questions: [
+                        { text: 'Why is semantic HTML important?' }
+                    ]
+                },
+                resources: [],
+                comments: []
+            };
+        },
+
+        quizCoding(id, title) {
+            return {
+                id,
+                title,
+                duration: '20 min',
+                type: 'quiz',
+                typeLabel: 'Coding',
+                description: 'Write a small code solution.',
+                longText: 'Solve the problem using JavaScript.',
+                cover: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1400&q=80',
+                completed: false,
+                locked: false,
+                quiz: {
+                    kind: 'coding',
+                    questions: [
+                        {
+                            text: 'Write a function sum(a, b)',
+                            starter: 'function sum(a, b) {\n  \n}'
+                        }
+                    ]
+                },
+                resources: [],
+                comments: []
+            };
+        },
+
+        /* =======================
+           UI HELPERS
+        ======================= */
+        filteredModules() {
+            if (!this.sidebarSearch) return this.modules;
+            const q = this.sidebarSearch.toLowerCase();
+            return this.modules.map(m => ({
+                ...m,
+                open: true,
+                lessons: m.lessons.filter(l => l.title.toLowerCase().includes(q))
+            })).filter(m => m.lessons.length);
+        },
+
+        selectLesson(lesson) {
+            if (lesson.locked) return;
+            this.currentLesson = lesson;
+            this.currentLessonId = lesson.id;
+            this.tab = 'overview';
+        },
+
+        lessonRowClass(lesson) {
+            if (lesson.id === this.currentLessonId) return 'bg-cyan-50 text-cyan-700';
+            if (lesson.locked) return 'opacity-40 cursor-not-allowed';
+            return 'hover:bg-gray-50';
+        },
+
+        allLessons() {
+            return this.modules.flatMap(m => m.lessons);
+        },
+
+        completedCount() {
+            return this.allLessons().filter(l => l.completed).length;
+        },
+
+        totalCount() {
+            return this.allLessons().length;
+        },
+
+        progressPercent() {
+            return Math.round((this.completedCount() / this.totalCount()) * 100);
+        },
+
+        markComplete() {
+            if (!this.currentLesson.locked) {
+                this.currentLesson.completed = true;
+            }
+        }
+    };
+}
+</script>
+

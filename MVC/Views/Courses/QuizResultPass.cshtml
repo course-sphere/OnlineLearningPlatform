@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Quiz Passed";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-cyan-50 to-white flex items-center justify-center px-6">
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-xl p-10 text-center">
+
+        <div class="mx-auto w-20 h-20 rounded-full bg-cyan-100 flex items-center justify-center mb-6">
+            <svg class="w-10 h-10 text-cyan-600" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M5 13l4 4L19 7" />
+            </svg>
+        </div>
+
+        <h1 class="text-3xl font-bold text-slate-900 mb-2">
+            Congratulations 🎉
+        </h1>
+
+        <p class="text-slate-600 mb-6">
+            You’ve successfully passed the quiz and unlocked the next module.
+        </p>
+
+        <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-slate-50 rounded-xl p-4">
+                <p class="text-sm text-slate-500">Score</p>
+                <p class="text-xl font-bold">85%</p>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+                <p class="text-sm text-slate-500">Time</p>
+                <p class="text-xl font-bold">18 min</p>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+                <p class="text-sm text-slate-500">Status</p>
+                <p class="text-xl font-bold text-cyan-600">Passed</p>
+            </div>
+        </div>
+
+        <div class="flex gap-4 justify-center">
+            <a href="/Courses/Learn/1"
+               class="px-6 py-3 rounded-xl bg-cyan-600 text-white font-medium hover:bg-cyan-700">
+                Continue learning
+            </a>
+            <a href="/Courses"
+               class="px-6 py-3 rounded-xl border border-slate-200 hover:bg-slate-50">
+                Back to courses
+            </a>
+        </div>
+    </div>
+</div>

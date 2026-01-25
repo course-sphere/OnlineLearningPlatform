@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "Reading";
+}
+
+<div class="bg-gray-50 min-h-screen">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+
+        <!-- Breadcrumb -->
+        <div class="text-sm text-gray-500 mb-6">
+            Course / HTML Fundamentals / <span class="text-gray-800 font-medium">Semantic HTML</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-4xl font-bold leading-tight mb-4">
+            Semantic HTML – Writing Meaningful Markup
+        </h1>
+
+        <div class="flex items-center gap-4 text-sm text-gray-500 mb-10">
+            <span>By Jane Smith</span>
+            <span>•</span>
+            <span>12 min read</span>
+            <span>•</span>
+            <span>Updated 2026</span>
+        </div>
+
+        <!-- Hero Image -->
+        <img
+            src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1400&q=80"
+            class="rounded-2xl shadow mb-12"
+            alt="Reading cover" />
+
+        <!-- Content -->
+        <article class="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-cyan-600">
+
+            <p>
+                Semantic HTML is the foundation of accessible, maintainable, and SEO-friendly web applications.
+                In this lesson, you'll learn why semantic elements matter and how to use them effectively.
+            </p>
+
+            <h2>What is Semantic HTML?</h2>
+
+            <p>
+                Semantic HTML elements clearly describe their meaning to both the browser and the developer.
+                Examples include <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>,
+                <code>&lt;main&gt;</code>, and <code>&lt;footer&gt;</code>.
+            </p>
+
+            <blockquote>
+                “Semantic HTML is not optional. It’s the backbone of accessibility.”
+            </blockquote>
+
+            <h2>Why It Matters</h2>
+
+            <ul>
+                <li>Improves accessibility for screen readers</li>
+                <li>Makes code easier to maintain</li>
+                <li>Enhances SEO</li>
+            </ul>
+
+            <h2>Example</h2>
+
+            <pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Blog title&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;p&gt;Content...&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+
+            <p>
+                In the next lesson, you’ll apply semantic HTML to a real layout.
+            </p>
+
+        </article>
+
+        <div class="mt-16 flex justify-between items-center">
+            <a href="/Courses/Learn/1"
+               class="text-sm text-gray-500 hover:underline">
+                ← Back to course
+            </a>
+
+            <a href="/Courses/Learn/1"
+               class="bg-cyan-600 text-white px-6 py-3 rounded-xl shadow hover:bg-cyan-700">
+                Mark as completed →
+            </a>
+        </div>
+    </div>
+</div>
