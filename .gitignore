@@ -1,0 +1,15 @@
+# appsettings
+appsettings.json
+appsettings.*.json
+
+# ASP.NET build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
