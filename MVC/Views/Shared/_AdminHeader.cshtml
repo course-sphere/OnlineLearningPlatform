@@ -1,8 +1,32 @@
-﻿@* _AdminhHeader.cshtml *@
-<div class="admin-header">
-    <span>Admin Dashboard</span>
-    <div class="admin-user">
-        <span>Admin</span>
-        <button>Logout</button>
+﻿<div class="admin-header">
+    <div class="header-left">
+        <h1 class="header-title">@ViewData["Title"]</h1>
+
+        <div class="search-box">
+            <i class="fas fa-search search-btn"></i>
+            <input type="text" class="search-input" placeholder="Search...">
+        </div>
+    </div>
+
+    <div class="header-right">
+        <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+        </div>
+
+        <div class="notification-icon">
+            <i class="fas fa-envelope"></i>
+            <span class="notification-badge">5</span>
+        </div>
+
+        <div class="admin-user">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <div class="user-name">John Doe</div>
+                <div class="user-role">Administrator</div>
+            </div>
+        </div>
     </div>
 </div>

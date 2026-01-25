@@ -1,4 +1,3 @@
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\appsettings.json
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\MVC.staticwebassets.runtime.json
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\MVC.staticwebassets.endpoints.json
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\MVC.exe
@@ -144,3 +143,4 @@ D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\MVC.pdb
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\MVC.genruntimeconfig.cache
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\ref\MVC.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\appsettings.json

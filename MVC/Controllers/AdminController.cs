@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//AdminController.cs
+using Microsoft.AspNetCore.Mvc;
 
 namespace MVC.Controllers
 {

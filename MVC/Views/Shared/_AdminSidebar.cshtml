@@ -1,11 +1,49 @@
-﻿@* _AdminSidebar.cshtml *@
-<div class="admin-sidebar">
-    <h2 class="logo">ADMIN</h2>
-    <ul>
-        <li><a href="/Admin">Dashboard</a></li>
-        <li><a href="/Admin/Users">Users</a></li>
-        <li><a href="/Admin/Payments">Payments</a></li>
-        <li><a href="/Admin/Reports">Financial Reports</a></li>
+﻿<div class="admin-sidebar">
+    <button class="toggle-btn">
+        <i class="fas fa-bars"></i>
+    </button>
 
+    <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span class="logo-text">LMS Admin</span>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li>
+            <a href="/Admin">
+                <i class="fas fa-home"></i>
+                <span class="menu-text">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Users">
+                <i class="fas fa-users"></i>
+                <span class="menu-text">Users</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Payments">
+                <i class="fas fa-credit-card"></i>
+                <span class="menu-text">Payments</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Reports">
+                <i class="fas fa-chart-line"></i>
+                <span class="menu-text">Reports</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Courses">
+                <i class="fas fa-book"></i>
+                <span class="menu-text">Courses</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Admin/Settings">
+                <i class="fas fa-cog"></i>
+                <span class="menu-text">Settings</span>
+            </a>
+        </li>
     </ul>
 </div>
