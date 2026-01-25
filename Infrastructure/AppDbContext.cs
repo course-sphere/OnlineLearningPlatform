@@ -21,7 +21,9 @@ namespace Infrastructure
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Payment> Payments { get; set; }    
+        public DbSet<Payment> Payments { get; set; } 
+        public DbSet<Wallet> Wallets { get; set; }
+        public DbSet<WalletTransaction> WalletTransactions { get; set; }    
         public DbSet<Course> Courses { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<GradedAttempt> GradedAttempts { get; set; }    

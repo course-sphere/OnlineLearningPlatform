@@ -1,11 +1,8 @@
-# Ignore API project
-API/
-
 # appsettings
 appsettings.json
 appsettings.*.json
 
-# ASP.NET
+# ASP.NET build
 bin/
 obj/
 

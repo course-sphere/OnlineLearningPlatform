@@ -5,6 +5,7 @@
         public Guid PaymentId { get; set; }
         public Guid UserId { get; set; }
         public Guid CourseId { get; set; }
+        public Guid EnrollmentId { get; set; }
         public decimal Amount { get; set; }
         public string Method { get; set; }
         public bool IsSuccess { get; set; } = false;

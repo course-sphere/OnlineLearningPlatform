@@ -4,9 +4,9 @@ namespace Application.IServices
 {
     public interface IUserLessonProgressService
     {
-        Task<ApiResponse> StartLessonAsync(Guid lessonId);
-        Task<ApiResponse> UpdateProgressAsync(UpdateUserLessonProgressRequest request);
-        Task<ApiResponse> CompleteLessonAsync(Guid lessonId);
-        Task<ApiResponse> GetProgressByLessonAsync(Guid lessonId);
+        Task<ApiResponse> StartOrUpdateProgressAsync(UpdateUserLessonProgressRequest request);
+        Task<ApiResponse> MarkLessonCompletedAsync(Guid lessonId);
+        Task<ApiResponse> GetLessonProgressAsync(Guid lessonId);
+        Task<ApiResponse> GetLessonProgressByUserAsync(Guid userId);
     }
 }

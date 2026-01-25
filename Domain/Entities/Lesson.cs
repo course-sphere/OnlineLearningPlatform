@@ -10,7 +10,6 @@
         public bool IsGraded { get; set; }
         public int OrderIndex { get; set; }
         public LessonType Type { get; set; }
-
         public Module? Module { get; set; }
         public List<GradedItem>? GradedItems { get; set; }
         public List<UserLessonProgress>? UserLessonProgresses { get; set; }
