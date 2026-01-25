@@ -1,5 +1,4 @@
-﻿//AdminController.cs
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MVC.Controllers
 {
@@ -25,6 +24,12 @@ namespace MVC.Controllers
 
         //https://localhost:7276/Admin/Reports
         public IActionResult Reports()
+        {
+            return View();
+        }
+
+        //https://localhost:7276/Admin/CourseStatistics
+        public IActionResult CourseStatistics()
         {
             return View();
         }
