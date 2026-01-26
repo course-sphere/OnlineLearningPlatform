@@ -248,5 +248,58 @@ namespace Infrastructure.Services
             }
         }
 
+        public async Task<ApiResponse> SubmitCourseForReviewAsync(Guid courseId)
+        {
+            var response = new ApiResponse();
+            try
+            {
+                var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == courseId);
+                if (course == null) return response.SetNotFound("Course not found");
+                course.Status = CourseStatus.PendingApproval;
+
+                await _unitOfWork.SaveChangeAsync();
+                return response.SetOk("Course submitted for review.");
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> GetCoursesByStatusAsync(CourseStatus status)
+        {
+            var response = new ApiResponse();
+            try
+            {
+                var courses = await _unitOfWork.Courses.GetAllAsync(c => c.Status == status && !c.IsDeleted);
+
+                var courseResponses = _mapper.Map<List<CourseResponse>>(courses);
+
+
+                return response.SetOk(courseResponses);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> GetCourseByIdAsync(Guid courseId)
+        {
+            var response = new ApiResponse();
+            try
+            {
+                var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == courseId);
+                if (course == null) return response.SetNotFound("Course not found");
+
+                var courseResponse = _mapper.Map<CourseResponse>(course);
+                return response.SetOk(courseResponse);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
+
     }
 }

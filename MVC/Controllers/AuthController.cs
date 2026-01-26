@@ -48,7 +48,7 @@ namespace MVC.Controllers
                 new ClaimsPrincipal(identity));
             TempData["Success"] = "Login successful!";
 
-            return RedirectToAction("PostLogin");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
