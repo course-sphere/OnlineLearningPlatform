@@ -13,5 +13,8 @@ namespace Application.IServices
         Task<ApiResponse> GetCoursesByInstructorAsync();
         Task<ApiResponse> GetEnrolledCoursesForStudentAsync();
         Task<ApiResponse> ApproveCourseAsync(ApproveCourseRequest request);
+        Task<ApiResponse> SubmitCourseForReviewAsync(Guid courseId);
+        Task<ApiResponse> GetCoursesByStatusAsync(CourseStatus status);
+        Task<ApiResponse> GetCourseByIdAsync(Guid courseId);
     }
 }

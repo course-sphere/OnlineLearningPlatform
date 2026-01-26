@@ -1,4 +1,5 @@
 ﻿using Application.IRepositories;
+using Domain.Entities;
 
 namespace Application
 {
@@ -16,6 +17,7 @@ namespace Application
         public IGradedAttemptRepository GradedAttempts { get; }
         public ISubmissionAnswerOptionRepository SubmissionAnswerOptions { get; }
         public IQuestionSubmissionRepository QuestionSubmissions { get; }
+        public IAnswerOptionRepository AnswerOptions { get; }
         Task SaveChangeAsync();
     }
 }

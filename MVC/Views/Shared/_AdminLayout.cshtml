@@ -3,77 +3,60 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Admin Panel</title>
-    <link rel="stylesheet" href="~/css/admin.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>@ViewData["Title"] - Admin Portal</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/flowbite@latest/dist/flowbite.min.css" rel="stylesheet" />
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
 </head>
-<body>
-    <div class="admin-wrapper">
-        @Html.Partial("_AdminSidebar")
-        <div class="admin-main">
-            @Html.Partial("_AdminHeader")
-            <div class="admin-content">
+<body class="bg-gray-50 text-slate-900"
+      x-data="{
+          sidebarOpen: localStorage.getItem('sidebarOpen') === 'true',
+          toggleSidebar() {
+              this.sidebarOpen = !this.sidebarOpen;
+              localStorage.setItem('sidebarOpen', this.sidebarOpen);
+          }
+      }">
+
+    <div class="flex h-screen overflow-hidden">
+
+        @await Html.PartialAsync("_AdminSidebar")
+
+        <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+
+            @await Html.PartialAsync("_AdminHeader")
+
+            <main class="w-full flex-grow p-6">
                 @RenderBody()
-            </div>
-            @Html.Partial("_AdminFooter")
+            </main>
+
+            @await Html.PartialAsync("_AdminFooter")
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.querySelector('.toggle-btn');
-            const sidebar = document.querySelector('.admin-sidebar');
+    <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
 
-            // Load sidebar state from localStorage
-            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-            if (isCollapsed) {
-                sidebar.classList.add('collapsed');
-            }
+    <partial name="_Notification" />
 
-            // Toggle sidebar
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function() {
-                    sidebar.classList.toggle('collapsed');
-                    localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
-                });
-            }
-
-            // Active menu highlight
-            const currentPath = window.location.pathname;
-            const menuLinks = document.querySelectorAll('.sidebar-menu a');
-
-            menuLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPath) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-
-            // Search functionality
-            const searchInput = document.querySelector('.search-input');
-            const searchBtn = document.querySelector('.search-btn');
-
-            if (searchBtn) {
-                searchBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const searchTerm = searchInput.value.trim();
-                    if (searchTerm) {
-                        console.log('Searching for:', searchTerm);
-                        // Add search logic here
-                    }
-                });
-            }
-
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        searchBtn.click();
-                    }
-                });
-            }
-        });
-    </script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

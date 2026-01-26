@@ -47,7 +47,8 @@ namespace Infrastructure.Services
                 lessonResource.CreatedBy = claim.UserId;    
                 await _unitOfWork.LessonResources.AddAsync(lessonResource);
                 await _unitOfWork.SaveChangeAsync();
-                return response.SetOk(lessonResource);
+                var result = _mapper.Map<LessonResourceResponse>(lessonResource);
+                return response.SetOk(result);
             }
             catch (Exception ex)
             {

@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Requests.Module;
 using Domain.Responses;
 using Domain.Responses.Module;
+using Domain.Responses.Lesson;
 
 namespace Infrastructure.Services
 {
@@ -37,7 +38,8 @@ namespace Infrastructure.Services
                 await _unitOfWork.Modules.AddAsync(module);
                 await _unitOfWork.SaveChangeAsync();
 
-                return response.SetOk($"Created Module {module.Index} {module.Name} successfully ^^");
+                var result = _mapper.Map<ModuleResponse>(module);
+                return response.SetOk(result);
             }
             catch (Exception ex)
             {
@@ -92,14 +94,25 @@ namespace Infrastructure.Services
         public async Task<ApiResponse> GetModulesByCourseAsync(Guid courseId)
         {
             ApiResponse response = new ApiResponse();
-
             try
             {
                 var modules = await _unitOfWork.Modules
                     .GetAllAsync(m => m.CourseId == courseId && !m.IsDeleted);
 
-                var result = _mapper.Map<List<ModuleResponse>>(modules);
-                return response.SetOk(result);
+                var moduleResponses = _mapper.Map<List<ModuleResponse>>(modules);
+
+     
+                foreach (var mod in moduleResponses)
+                {
+                    var lessons = await _unitOfWork.Lessons
+                        .GetAllAsync(l => l.ModuleId == mod.ModuleId && !l.IsDeleted);
+
+                   
+                    mod.Lessons = _mapper.Map<List<LessonResponse>>(lessons)
+                                         .OrderBy(l => l.OrderIndex).ToList();
+                }
+
+                return response.SetOk(moduleResponses.OrderBy(m => m.Index).ToList());
             }
             catch (Exception ex)
             {

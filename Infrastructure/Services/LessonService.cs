@@ -38,7 +38,8 @@ namespace Infrastructure.Services
                 await _unitOfWork.Lessons.AddAsync(lesson);
                 await _unitOfWork.SaveChangeAsync();
 
-                return response.SetOk($"Lesson {lesson.OrderIndex} {lesson.Title} has been created successfully");
+                var result = _mapper.Map<LessonResponse>(lesson);
+                return response.SetOk(result);
             }
             catch (Exception ex)
             {

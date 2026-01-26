@@ -12,5 +12,7 @@
         public GradedAttempt? GradedAttempt { get; set; }
         public Question? Question { get; set; }
         public List<SubmissionAnswerOption>? SelectedOptions { get; set; } = new();
+        public bool IsCorrect { get; set; }
+        public ICollection<SubmissionAnswerOption> SubmissionAnswerOptions { get; set; }
     }
 }
