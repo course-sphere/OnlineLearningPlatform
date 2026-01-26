@@ -1,4 +1,4 @@
-using Application.IServices;
+﻿using Application.IServices;
 using Domain.Entities;
 using Domain.Requests.Course;
 using Microsoft.AspNetCore.Authorization;
@@ -60,19 +60,13 @@ namespace MVC.Controllers
             var request = new ApproveCourseRequest
             {
                 CourseId = courseId,
-                Status = true
+                Status = true,
+                RejectReason = null
             };
 
             var result = await _courseService.ApproveCourseAsync(request);
-            if (result.IsSuccess)
-            {
-                TempData["Success"] = "Course approved successfully!";
-            }
-            else
-            {
-                TempData["Error"] = result.ErrorMessage;
-            }
-            return RedirectToAction("PendingCourses");
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -86,15 +80,8 @@ namespace MVC.Controllers
             };
 
             var result = await _courseService.ApproveCourseAsync(request);
-            if (result.IsSuccess)
-            {
-                TempData["Success"] = "Course rejected.";
-            }
-            else
-            {
-                TempData["Error"] = result.ErrorMessage;
-            }
-            return RedirectToAction("PendingCourses");
+
+            return RedirectToAction("Index");
         }
     }
 }
