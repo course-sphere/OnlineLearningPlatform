@@ -48,7 +48,7 @@ namespace MVC.Controllers
                 new ClaimsPrincipal(identity));
             TempData["Success"] = "Login successful!";
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(PostLogin));
         }
 
         [HttpGet]
@@ -78,7 +78,11 @@ namespace MVC.Controllers
         [Authorize]
         public IActionResult PostLogin()
         {
-            if (User.IsInRole("Instructor"))
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (User.IsInRole("Instructor"))
             {
                 return RedirectToAction("Index", "Instructor");
             }
@@ -86,10 +90,8 @@ namespace MVC.Controllers
             {
                 return RedirectToAction("Index", "Student");
             }
-            else
-            {
-                return RedirectToAction(nameof(Login));
-            }
+
+            return RedirectToAction(nameof(Login));
         }
     }
 }
