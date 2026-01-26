@@ -60,5 +60,45 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(ex.Message);
             }
         }
+
+        public async Task<ApiResponse> SendApproveCourseEmail(string receiverName, string receiverEmail, string courseTitle)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var htmlTemplate = @"
+                <div style='font-family: Arial, sans-serif; color: #333;'>
+                    <h2 style='color: #059669;'>Congratulations! Course Approved</h2>
+                    <p>Hello <b>{{Name}}</b>,</p>
+                    <p>We are pleased to inform you that your course <b>{{CourseTitle}}</b> has been approved and is now live on our platform.</p>
+                    <p>Thank you for your contribution.</p>
+                    <br/>
+                    <p>Best regards,<br/><b>HuyShop Team</b></p>
+                </div>";
+
+                htmlTemplate = htmlTemplate
+                    .Replace("{{Name}}", receiverName)
+                    .Replace("{{CourseTitle}}", courseTitle);
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("HuyShop Learning", _appSettings.SMTP.Email));
+                message.To.Add(new MailboxAddress(receiverName, receiverEmail));
+                message.Subject = "Your course has been approved!";
+
+                message.Body = new BodyBuilder { HtmlBody = htmlTemplate }.ToMessageBody();
+
+                using var client = new SmtpClient();
+                await client.ConnectAsync("smtp.gmail.com", 587, false);
+                await client.AuthenticateAsync(_appSettings.SMTP.Email, _appSettings.SMTP.Password);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+
+                return response.SetOk("Approve email sent");
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
     }
 }

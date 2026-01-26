@@ -214,21 +214,18 @@ namespace Infrastructure.Services
         public async Task<ApiResponse> ApproveCourseAsync(ApproveCourseRequest request)
         {
             ApiResponse response = new ApiResponse();
-
             try
             {
-                var course = await _unitOfWork.Courses
-                    .GetAsync(c => c.CourseId == request.CourseId && !c.IsDeleted);
-                var instructor = await _unitOfWork.Users
-                    .GetAsync(u => u.UserId == course.CreatedBy);
-                if (course == null)
-                    return response.SetNotFound("Course not found");
+                var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == request.CourseId && !c.IsDeleted);
+                if (course == null) return response.SetNotFound("Course not found");
 
-                if (!request.Status && string.IsNullOrEmpty(request.RejectReason))
-                    return response.SetBadRequest("Reject reason is required");
+                var instructor = await _unitOfWork.Users.GetAsync(u => u.UserId == course.CreatedBy);
 
                 if (!request.Status)
                 {
+                    if (string.IsNullOrEmpty(request.RejectReason))
+                        return response.SetBadRequest("Reject reason is required");
+
                     course.Status = CourseStatus.Rejected;
                     course.RejectReason = request.RejectReason;
                     course.UpdatedAt = DateTime.UtcNow;
@@ -237,27 +234,34 @@ namespace Infrastructure.Services
                     _unitOfWork.Courses.Update(course);
                     await _unitOfWork.SaveChangeAsync();
 
-                    // 🔥 SEND EMAIL TO INSTRUCTOR
-                    await _emailService.SendRejectCourseEmail(
-                        receiverName: instructor.FullName,
-                        receiverEmail: instructor.Email,
-                        rejectReason: request.RejectReason,
-                        courseTitle: course.Title
-                    );
+                    if (instructor != null)
+                    {
+                        await _emailService.SendRejectCourseEmail(instructor.FullName, instructor.Email, request.RejectReason, course.Title);
+                    }
 
                     return response.SetOk("Course rejected & email sent");
                 }
                 else
                 {
                     course.Status = CourseStatus.Published;
-                    course.RejectReason = string.Empty;
+                    course.RejectReason = string.Empty; 
                     course.UpdatedAt = DateTime.UtcNow;
                     course.UpdatedBy = _service.GetUserClaim().UserId;
 
                     _unitOfWork.Courses.Update(course);
                     await _unitOfWork.SaveChangeAsync();
 
-                    return response.SetOk("Course approved successfully");
+                    
+                    if (instructor != null)
+                    {
+                        await _emailService.SendApproveCourseEmail(
+                            receiverName: instructor.FullName,
+                            receiverEmail: instructor.Email,
+                            courseTitle: course.Title
+                        );
+                    }
+
+                    return response.SetOk("Course approved & email sent");
                 }
             }
             catch (Exception ex)
