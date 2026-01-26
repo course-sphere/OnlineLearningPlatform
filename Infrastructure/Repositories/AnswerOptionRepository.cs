@@ -1,6 +1,9 @@
-﻿namespace Infrastructure.Repositories
+﻿using Application.IRepositories;
+using Domain.Entities;
+
+namespace Infrastructure.Repositories
 {
-    public class AnswerOptionRepository : GenericRepository<Domain.Entities.AnswerOption>, Application.IRepositories.IAnswerOptionRepository
+    public class AnswerOptionRepository : GenericRepository<AnswerOption>, IAnswerOptionRepository
     {
         public AnswerOptionRepository(AppDbContext context) : base(context)
         {

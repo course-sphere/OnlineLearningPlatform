@@ -9,14 +9,11 @@ namespace Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Lesson> builder)
         {
             builder.HasKey(l => l.LessonId);
-            builder.HasOne(l => l.Course)
-                   .WithMany(c => c.Lessons)
-                   .HasForeignKey(l => l.CourseId)
+
+            builder.HasOne(l => l.Module)
+                   .WithMany(m => m.Lessons)
+                   .HasForeignKey(l => l.ModuleId)
                    .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(l => l.ParentLesson)
-                     .WithMany()
-                     .HasForeignKey(l => l.ParentLessonId)
-                     .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -6,12 +6,28 @@
         public string Title { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
-        public bool? IsPublished { get; set; }
-
-        public List<Lesson>? Lessons { get; set; }
-        public List<Assignment>? Assignments { get; set; } 
-        public List<Quiz>? Quizzes { get; set; }
+        public CourseStatus Status { get; set; } 
+        public decimal Price { get; set; }
+        public string? RejectReason { get; set; }
+        public CourseLevel Level { get; set; }
+        public bool IsFree => Price == 0;
+        public List<Module>? Modules { get; set; }
         public List<Enrollment>? Enrollments { get; set; }
+        public List<Payment>? Payments { get; set; }
+    }
 
+    public enum CourseStatus
+    {
+        Draft,
+        PendingApproval,
+        Published,
+        Rejected
+    }
+
+    public enum CourseLevel
+    {
+        Beginner,
+        Intermediate,
+        Advanced
     }
 }

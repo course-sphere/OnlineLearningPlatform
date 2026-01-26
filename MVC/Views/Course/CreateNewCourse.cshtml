@@ -1,0 +1,53 @@
+﻿@model Domain.Requests.Course.CreateNewCourseRequest
+
+@{
+    ViewData["Title"] = "Create New Course";
+}
+
+<h2 class="mb-4">Create New Course</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="CreateNewCourse"
+      asp-controller="Course"
+      method="post"
+      enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Course Title</label>
+        <input asp-for="Title" class="form-control" placeholder="Enter course title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Course description"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label">Course Image</label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Create Course
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary ms-2">
+        Cancel
+    </a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

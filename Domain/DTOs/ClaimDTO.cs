@@ -5,6 +5,6 @@ namespace Domain.DTOs
     public class ClaimDTO
     {
         public Guid UserId { get; set; }
-        public UserRole Role { get; set; }
+        public Role Role { get; set; }
     }
 }

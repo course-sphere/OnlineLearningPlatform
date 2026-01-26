@@ -1,0 +1,79 @@
+﻿@model MVC.Models.PaymentCheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+        <div class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-900">Secure Checkout</h1>
+            <p class="mt-2 text-slate-600">Review your order details before payment</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="md:flex">
+                <div class="md:w-1/3 bg-slate-100 relative">
+                    <img src="@(Model.ImageUrl ?? "https://placehold.co/600x400?text=Course")"
+                         alt="@Model.CourseName"
+                         class="w-full h-full object-cover absolute inset-0">
+                </div>
+
+                <div class="p-8 md:w-2/3">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 mb-2">
+                                Course
+                            </span>
+                            <h2 class="text-2xl font-bold text-slate-900">@Model.CourseName</h2>
+                            @if (!string.IsNullOrEmpty(Model.InstructorName))
+                            {
+                            <p class="text-sm text-slate-500 mt-1">Instructor: @Model.InstructorName</p>
+                            }
+                        </div>
+                        <div class="text-right">
+                            <p class="text-3xl font-bold text-primary-600">$@Model.Price.ToString("N2")</p>
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-100 my-6">
+
+                    <div class="space-y-3 mb-8">
+                        <div class="flex justify-between text-slate-600">
+                            <span>Subtotal</span>
+                            <span>$@Model.Price.ToString("N2")</span>
+                        </div>
+                        <div class="flex justify-between text-slate-600">
+                            <span>Tax (0%)</span>
+                            <span>$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold text-slate-900 pt-3 border-t border-slate-100">
+                            <span>Total Due</span>
+                            <span>$@Model.Price.ToString("N2")</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <p class="text-sm font-medium text-slate-700 mb-3">Pay with</p>
+                        <div class="flex items-center gap-3 p-4 border border-blue-200 bg-blue-50 rounded-xl cursor-pointer ring-2 ring-blue-500 ring-offset-2">
+                            <img src="https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.png" alt="VnPay" class="h-6 object-contain">
+                            <span class="font-semibold text-slate-900">VnPay Gateway</span>
+                            <i class="fas fa-check-circle text-blue-500 ml-auto text-xl"></i>
+                        </div>
+                    </div>
+
+                    <form asp-action="Checkout" method="post">
+                        <input type="hidden" asp-for="CourseId" />
+                        <button type="submit" class="w-full bg-primary-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-primary-700 transition-colors shadow-lg shadow-primary-500/30 flex items-center justify-center gap-2">
+                            <i class="fas fa-lock"></i>
+                            Pay $@Model.Price.ToString("N2") Securely
+                        </button>
+                    </form>
+
+                    <p class="text-center text-xs text-slate-400 mt-4">
+                        <i class="fas fa-shield-alt"></i> Payments are processed securely by VnPay.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
