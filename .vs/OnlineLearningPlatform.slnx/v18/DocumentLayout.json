@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "D:\\PRN222\\OnlinePlatform\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\gradedattemptservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\gradedattemptservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\iservices\\igradedattemptservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\iservices\\igradedattemptservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\iservices\\igradeditemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\iservices\\igradeditemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\iservices\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\iservices\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|d:\\prn222\\onlineplatform\\infrastructure\\services\\gradeditemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\gradeditemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|d:\\prn222\\onlineplatform\\domain\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|d:\\prn222\\onlineplatform\\domain\\requests\\gradeditem\\creategradeditemrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E528BBC3-1C26-8C35-F682-23718816ADCD}|Domain\\Domain.csproj|solutionrelative:domain\\requests\\gradeditem\\creategradeditemrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|d:\\prn222\\onlineplatform\\application\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F80C4E72-27A0-12B5-0634-DD5C11CFB0C1}|Application\\Application.csproj|solutionrelative:application\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|d:\\prn222\\onlineplatform\\mvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{98A9F9F1-7F5F-4236-80E6-0354B98E6D8F}|MVC\\MVC.csproj|solutionrelative:mvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,60 +30,8 @@
       "DocumentGroups": [
         {
           "DockedHeight": 542,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IGradedAttemptService.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IServices\\IGradedAttemptService.cs",
-              "RelativeDocumentMoniker": "Application\\IServices\\IGradedAttemptService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IServices\\IGradedAttemptService.cs",
-              "RelativeToolTip": "Application\\IServices\\IGradedAttemptService.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAcwBQAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T13:29:29.864Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IGradedItemService.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IServices\\IGradedItemService.cs",
-              "RelativeDocumentMoniker": "Application\\IServices\\IGradedItemService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IServices\\IGradedItemService.cs",
-              "RelativeToolTip": "Application\\IServices\\IGradedItemService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T13:30:06.691Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IUnitOfWork.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IUnitOfWork.cs",
-              "RelativeDocumentMoniker": "Application\\IUnitOfWork.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IUnitOfWork.cs",
-              "RelativeToolTip": "Application\\IUnitOfWork.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBEAAABJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T11:57:21.593Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CreateGradedItemRequest.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Domain\\Requests\\GradedItem\\CreateGradedItemRequest.cs",
-              "RelativeDocumentMoniker": "Domain\\Requests\\GradedItem\\CreateGradedItemRequest.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Domain\\Requests\\GradedItem\\CreateGradedItemRequest.cs",
-              "RelativeToolTip": "Domain\\Requests\\GradedItem\\CreateGradedItemRequest.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAowAoAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T11:27:07.818Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
@@ -103,38 +47,67 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
-            }
-          ]
-        },
-        {
-          "DockedHeight": 542,
-          "SelectedChildIndex": 0,
-          "Children": [
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IEmailService.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Application\\IServices\\IEmailService.cs",
+              "RelativeDocumentMoniker": "Application\\IServices\\IEmailService.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Application\\IServices\\IEmailService.cs",
+              "RelativeToolTip": "Application\\IServices\\IEmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-26T08:51:24.094Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "GradedAttemptService.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\GradedAttemptService.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Services\\GradedAttemptService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\GradedAttemptService.cs",
-              "RelativeToolTip": "Infrastructure\\Services\\GradedAttemptService.cs",
-              "ViewState": "AgIAAA0AAAAAmJmZmZkrwLYAAAAAAAAAAAAAAA==",
+              "Title": "CourseService.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\CourseService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\CourseService.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\CourseService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\CourseService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T12:05:24.521Z",
+              "WhenOpened": "2026-01-26T08:47:49.469Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "GradedItemService.cs",
-              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\GradedItemService.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Services\\GradedItemService.cs",
-              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\GradedItemService.cs",
-              "RelativeToolTip": "Infrastructure\\Services\\GradedItemService.cs",
-              "ViewState": "AgIAABQAAACAZmZmZmYswBkAAABgAAAAAAAAAA==",
+              "Title": "AppSettings.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Domain\\AppSettings.cs",
+              "RelativeDocumentMoniker": "Domain\\AppSettings.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Domain\\AppSettings.cs",
+              "RelativeToolTip": "Domain\\AppSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T11:24:47.448Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-26T08:41:42.824Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\MVC\\appsettings.json",
+              "RelativeDocumentMoniker": "MVC\\appsettings.json",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\MVC\\appsettings.json",
+              "RelativeToolTip": "MVC\\appsettings.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAgwB8AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-26T08:41:18.912Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\EmailService.cs",
+              "ToolTip": "D:\\PRN222\\OnlinePlatform\\Infrastructure\\Services\\EmailService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\EmailService.cs",
+              "ViewState": "AgIAABoAAAAAzMzMzMwEwAgAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-26T08:38:58.631Z"
             }
           ]
         }

@@ -1,4 +1,7 @@
-﻿namespace Domain.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace Domain.Entities
 {
     public class GradedItem : Base
     {
@@ -10,7 +13,6 @@
         public int MaxScore { get; set; }
         public bool IsAutoGraded { get; set; }
 
- 
         public Lesson Lesson { get; set; }
 
         public List<GradedAttempt>? GradedAttempts { get; set; }
@@ -20,6 +22,6 @@
     public enum GradedItemType
     {
         Quiz,
-        Assignment,
+        Assignment
     }
 }

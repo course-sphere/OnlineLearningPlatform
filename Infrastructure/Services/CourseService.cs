@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Requests.Course;
 using Domain.Responses;
 using Domain.Responses.Course;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services
 {
@@ -14,13 +15,15 @@ namespace Infrastructure.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFirebaseStorageService _firebaseStorageService;
         private readonly IClaimService _service;
+        private readonly IEmailService _emailService;
 
-        public CourseService(IMapper mapper, IUnitOfWork unitOfWork, IFirebaseStorageService firebaseStorageService, IClaimService service)
+        public CourseService(IMapper mapper, IUnitOfWork unitOfWork, IFirebaseStorageService firebaseStorageService, IClaimService service, IEmailService emailService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _firebaseStorageService = firebaseStorageService;
             _service = service;
+            _emailService = emailService;
         }
 
         public async Task<ApiResponse> CreateNewCourseAsync(CreateNewCourseRequest request)
@@ -216,29 +219,44 @@ namespace Infrastructure.Services
             {
                 var course = await _unitOfWork.Courses
                     .GetAsync(c => c.CourseId == request.CourseId && !c.IsDeleted);
-
+                var instructor = await _unitOfWork.Users
+                    .GetAsync(u => u.UserId == course.CreatedBy);
                 if (course == null)
                     return response.SetNotFound("Course not found");
-                if (request.Status == false && string.IsNullOrEmpty(request.RejectReason))
-                    return response.SetBadRequest("Reject reason is required when rejecting a course");
-                if (request.Status == false)
+
+                if (!request.Status && string.IsNullOrEmpty(request.RejectReason))
+                    return response.SetBadRequest("Reject reason is required");
+
+                if (!request.Status)
                 {
                     course.Status = CourseStatus.Rejected;
                     course.RejectReason = request.RejectReason;
                     course.UpdatedAt = DateTime.UtcNow;
                     course.UpdatedBy = _service.GetUserClaim().UserId;
+
                     _unitOfWork.Courses.Update(course);
                     await _unitOfWork.SaveChangeAsync();
-                    return response.SetOk("Course rejected successfully");
+
+                    // 🔥 SEND EMAIL TO INSTRUCTOR
+                    await _emailService.SendRejectCourseEmail(
+                        receiverName: instructor.FullName,
+                        receiverEmail: instructor.Email,
+                        rejectReason: request.RejectReason,
+                        courseTitle: course.Title
+                    );
+
+                    return response.SetOk("Course rejected & email sent");
                 }
-                else 
+                else
                 {
                     course.Status = CourseStatus.Published;
+                    course.RejectReason = string.Empty;
                     course.UpdatedAt = DateTime.UtcNow;
-                    course.RejectReason = "";
                     course.UpdatedBy = _service.GetUserClaim().UserId;
+
                     _unitOfWork.Courses.Update(course);
                     await _unitOfWork.SaveChangeAsync();
+
                     return response.SetOk("Course approved successfully");
                 }
             }

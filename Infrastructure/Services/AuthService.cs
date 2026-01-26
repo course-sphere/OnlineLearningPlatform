@@ -66,25 +66,49 @@ namespace Infrastructure.Services
                 }
 
                 var pass = CreatePasswordHash(request.Password);
-                if (request.Role == "Admin") return response.SetBadRequest("Role must be specified");
+                if (request.Role == "Admin") { return response.SetBadRequest("Role must be specified"); }
+                else if (request.Role == "Instructor")
+                {
+                    User user = new User()
+                    {
+                        PasswordHash = pass.PasswordHash,
+                        PasswordSalt = pass.PasswordSalt,
+                        Email = request.Email,
+                        FullName = request.FullName,
+                        IsVerfied = true,
+                        PhoneNumber = request.PhoneNumber,
+                        Role = Role.Instructor
+                    };
+                    if (request.ImageFile != null)
+                    {
+                        user.Image = await _firebaseStorageService.UploadUserImage(user.UserId.ToString(), request.ImageFile);
+                    }
+                    await _unitOfWork.Users.AddAsync(user);
+                    await _unitOfWork.SaveChangeAsync();
 
-                User user = new User()
-                {
-                    PasswordHash = pass.PasswordHash,
-                    PasswordSalt = pass.PasswordSalt,
-                    Email = request.Email,
-                    FullName = request.FullName,
-                    IsVerfied = true,
-                    PhoneNumber = request.PhoneNumber
-                };
-                if (request.ImageFile != null)
-                {
-                    user.Image = await _firebaseStorageService.UploadUserImage(user.UserId.ToString(), request.ImageFile);
+                    return response.SetOk(user);
                 }
-                await _unitOfWork.Users.AddAsync(user);
-                await _unitOfWork.SaveChangeAsync();
+                else
+                {
+                    User user = new User()
+                    {
+                        PasswordHash = pass.PasswordHash,
+                        PasswordSalt = pass.PasswordSalt,
+                        Email = request.Email,
+                        FullName = request.FullName,
+                        IsVerfied = true,
+                        PhoneNumber = request.PhoneNumber,
+                        Role = Role.Student
+                    };
+                    if (request.ImageFile != null)
+                    {
+                        user.Image = await _firebaseStorageService.UploadUserImage(user.UserId.ToString(), request.ImageFile);
+                    }
+                    await _unitOfWork.Users.AddAsync(user);
+                    await _unitOfWork.SaveChangeAsync();
 
-                return response.SetOk(user);
+                    return response.SetOk(user);
+                }
             }
             catch (Exception ex)
             {
