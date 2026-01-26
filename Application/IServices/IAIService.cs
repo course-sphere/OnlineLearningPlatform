@@ -1,6 +1,6 @@
 ﻿namespace Application.IServices
 {
-    public interface IOllamaService
+    public interface IAIService
     {
         Task<string> GetAIResponseAsync(string prompt);
     }

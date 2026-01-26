@@ -11,13 +11,8 @@ namespace Application.IServices
     public interface IGradedAttemptService
     {
         Task<ApiResponse> StartAttemptAsync(Guid gradedItemId);
-        Task<ApiResponse> SubmitAnswerAsync(
-            Guid attemptId,
-            Guid questionId,
-            string answer);
+        Task<ApiResponse> SubmitAnswerAsync(Guid attemptId, Guid questionId, string answer);
         Task<ApiResponse> SubmitAttemptAsync(Guid attemptId);
-        Task<ApiResponse> GradeAssignmentAsync(
-            Guid attemptId,
-            decimal score);
+        Task<ApiResponse> GradeAssignmentAsync(Guid attemptId, decimal score);
     }
 }

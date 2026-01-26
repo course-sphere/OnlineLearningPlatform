@@ -50,10 +50,7 @@ namespace Infrastructure.Services
 
             return response.SetOk(attempt.GradedAttemptId);
         }
-        public async Task<ApiResponse> SubmitAnswerAsync(
-            Guid attemptId,
-            Guid questionId,
-            string answer)
+        public async Task<ApiResponse> SubmitAnswerAsync(Guid attemptId, Guid questionId, string answer)
         {
             ApiResponse response = new ApiResponse();
 
@@ -153,9 +150,7 @@ namespace Infrastructure.Services
                     : "Attempt auto graded successfully");
         }
 
-        public async Task<ApiResponse> GradeAssignmentAsync(
-            Guid attemptId,
-            decimal score)
+        public async Task<ApiResponse> GradeAssignmentAsync(Guid attemptId, decimal score)
         {
             ApiResponse response = new ApiResponse();
 
