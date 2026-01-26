@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Portal</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/flowbite@latest/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+        /* Ẩn element khi Alpine chưa load xong */
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900"
+      x-data="{
+          sidebarOpen: localStorage.getItem('sidebarOpen') === 'true',
+          toggleSidebar() {
+              this.sidebarOpen = !this.sidebarOpen;
+              localStorage.setItem('sidebarOpen', this.sidebarOpen);
+          }
+      }">
+
+    <div class="flex h-screen overflow-hidden">
+
+        @await Html.PartialAsync("_AdminSidebar")
+
+        <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+
+            @await Html.PartialAsync("_AdminHeader")
+
+            <main class="w-full flex-grow p-6">
+                @RenderBody()
+            </main>
+
+            @await Html.PartialAsync("_AdminFooter")
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
+</body>
+</html>

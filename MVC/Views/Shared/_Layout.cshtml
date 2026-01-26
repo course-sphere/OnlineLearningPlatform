@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CourseSphere</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/flowbite@latest/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col antialiased">
+
+    <header class="sticky top-0 z-50">
+        @await Html.PartialAsync("_Header")
+    </header>
+
+    <main class="flex-1 w-full max-w-screen-2xl mx-auto p-4 md:p-6 lg:p-8">
+        @RenderBody()
+    </main>
+
+    <div class="container mx-auto px-4 mt-4">
+        @if (TempData["Success"] != null)
+    {
+        <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 absolute top-20 right-5 z-50 animate-bounce" role="alert">
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                <i class="fas fa-check"></i>
+            </div>
+            <div class="ml-3 text-sm font-normal">@TempData["Success"]</div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <script>
+            setTimeout(() => {
+                const toast = document.getElementById('toast-success');
+                if (toast) toast.style.display = 'none';
+            }, 3000);
+        </script>
+    }
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        @await Html.PartialAsync("_Footer")
+    </footer>
+
+    <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <partial name="_Notification" />
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
