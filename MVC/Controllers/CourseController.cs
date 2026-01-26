@@ -1,5 +1,5 @@
 ﻿using Application.IServices;
-using Domain.Entities; // <-- Quan trọng: Để dùng được CourseStatus
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MVC.Controllers
