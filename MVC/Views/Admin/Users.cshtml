@@ -1,0 +1,164 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Users Management";
+}
+
+<div class="table-container">
+    <div class="table-header">
+        <h2><i class="fas fa-users"></i> Manage Users</h2>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-edit">
+                <i class="fas fa-download"></i> Export
+            </button>
+            <button class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add User
+            </button>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Registered</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>#001</strong></td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="user-avatar" style="width: 35px; height: 35px; font-size: 14px;">
+                            JD
+                        </div>
+                        <strong>John Doe</strong>
+                    </div>
+                </td>
+                <td>test@gmail.com</td>
+                <td><span class="status-badge status-success">Student</span></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>Jan 15, 2024</td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>#002</strong></td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="user-avatar" style="width: 35px; height: 35px; font-size: 14px;">
+                            SE
+                        </div>
+                        <strong>Sarah Emily</strong>
+                    </div>
+                </td>
+                <td>student@edu.com</td>
+                <td><span class="status-badge status-success">Student</span></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>Jan 20, 2024</td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>#003</strong></td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="user-avatar" style="width: 35px; height: 35px; font-size: 14px; background: var(--warning-color);">
+                            MJ
+                        </div>
+                        <strong>Michael Johnson</strong>
+                    </div>
+                </td>
+                <td>instructor@lms.com</td>
+                <td><span class="status-badge status-warning">Instructor</span></td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+                <td>Jan 22, 2024</td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>#004</strong></td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="user-avatar" style="width: 35px; height: 35px; font-size: 14px; background: var(--success-color);">
+                            EB
+                        </div>
+                        <strong>Emily Brown</strong>
+                    </div>
+                </td>
+                <td>emily.b@example.com</td>
+                <td><span class="status-badge status-success">Student</span></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>Jan 18, 2024</td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>#005</strong></td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="user-avatar" style="width: 35px; height: 35px; font-size: 14px; background: var(--info-color);">
+                            DW
+                        </div>
+                        <strong>David Wilson</strong>
+                    </div>
+                </td>
+                <td>david.w@company.com</td>
+                <td><span class="status-badge status-warning">Instructor</span></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>Jan 10, 2024</td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <div class="pagination-info">
+            Showing 1-5 of 156 users
+        </div>
+        <div class="pagination-buttons">
+            <button class="btn">Previous</button>
+            <button class="btn btn-primary">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button class="btn">...</button>
+            <button class="btn">32</button>
+            <button class="btn">Next</button>
+        </div>
+    </div>
+</div>
