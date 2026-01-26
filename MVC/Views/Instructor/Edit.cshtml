@@ -249,7 +249,11 @@
                 this.showModuleModal = true;
             },
             async createModule() {
-                if (!this.newModule.name) return alert('Name required');
+                // SỬA: Thay alert bằng notify Error
+                if (!this.newModule.name) {
+                    window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'Module Name is required!', type: 'error' } }));
+                    return;
+                }
                 this.isProcessing = true;
                 try {
                     const payload = { courseId, ...this.newModule };
@@ -260,8 +264,10 @@
                     if (res.ok) {
                         this.modules.push({ ...data.result, lessons: [] });
                         this.showModuleModal = false;
+                        // SỬA: Thay alert bằng notify Success
                         window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'Module created successfully!', type: 'success' } }));
                     } else {
+                        // SỬA: Thay alert bằng notify Error
                         window.dispatchEvent(new CustomEvent('notify', { detail: { message: data.message || 'Error creating module', type: 'error' } }));
                     }
                 } catch (e) { console.error(e); }
@@ -270,13 +276,18 @@
             deleteModule(id) {
                 if (!confirm('Delete this module?')) return;
                 this.modules = this.modules.filter(m => m.moduleId !== id);
+                window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'Module deleted', type: 'success' } }));
             },
             openLessonModal(moduleId) {
                 this.newLesson = { title: '', content: '', moduleId: moduleId };
                 this.showLessonModal = true;
             },
             async createLesson() {
-                if (!this.newLesson.title) return alert('Title required');
+                // SỬA: Validation notify
+                if (!this.newLesson.title) {
+                    window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'Lesson Title is required!', type: 'error' } }));
+                    return;
+                }
                 this.isProcessing = true;
                 try {
                     const res = await fetch('/Instructor/CreateLesson', {
@@ -290,7 +301,12 @@
                             module.lessons.push(data.result);
                         }
                         this.showLessonModal = false;
-                    } else alert(data.message || 'Error');
+                        // SỬA: Success notify
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'Lesson created successfully!', type: 'success' } }));
+                    } else {
+                        // SỬA: Error notify
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: data.message || 'Error creating lesson', type: 'error' } }));
+                    }
                 } catch (e) { console.error(e); }
                 finally { this.isProcessing = false; }
             },
@@ -313,7 +329,10 @@
                 finally { this.isLoadingResources = false; }
             },
             async uploadResource() {
-                if (!this.newResource.title || !this.newResource.file) return alert('Missing info');
+                if (!this.newResource.title || !this.newResource.file) {
+                    window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'Please provide both Title and File', type: 'error' } }));
+                    return;
+                }
                 this.isUploading = true;
                 const formData = new FormData();
                 formData.append('LessonId', this.currentLesson.lessonId);
@@ -325,16 +344,23 @@
                     });
                     const data = await res.json();
                     if (res.ok) {
-                        alert('Upload successful!');
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'Upload successful!', type: 'success' } }));
+
                         this.fetchResources(this.currentLesson.lessonId);
                         this.newResource = { title: '', file: null };
-                    } else alert('Upload failed: ' + (data.message || 'Unknown error'));
-                } catch (e) { console.error(e); alert('Upload error'); }
+                    } else {
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'Upload failed: ' + (data.message || 'Unknown error'), type: 'error' } }));
+                    }
+                } catch (e) {
+                    console.error(e);
+                    window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'System error during upload', type: 'error' } }));
+                }
                 finally { this.isUploading = false; }
             },
             async deleteResource(id) {
                 if (!confirm('Delete this file?')) return;
                 this.resources = this.resources.filter(r => r.lessonResourceId !== id);
+                window.dispatchEvent(new CustomEvent('notify', { detail: { message: 'File deleted', type: 'success' } }));
             }
         }
     }
