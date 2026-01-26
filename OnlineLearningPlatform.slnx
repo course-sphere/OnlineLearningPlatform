@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="AI/AI.pyproj" Type="888888a0-9f3d-457c-b088-3a5042f75d52" Id="783d4a85-d929-4422-b80c-49525fc986a8" />
+  <Project Path="API/API.csproj" Id="068ea667-e4ff-40d7-b6d8-f5e1752b52db" />
   <Project Path="Application/Application.csproj" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="Infrastructure/Infrastructure.csproj" />

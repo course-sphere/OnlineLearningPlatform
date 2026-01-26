@@ -10,9 +10,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Requests\Assignment\" />
-    <Folder Include="Requests\AnswerOption\" />
-  </ItemGroup>
-
 </Project>

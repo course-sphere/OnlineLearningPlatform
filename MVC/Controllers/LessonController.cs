@@ -22,11 +22,11 @@ namespace MVC.Controllers
         [Authorize(Roles = "Instructor,Admin")]
         [HttpGet]
         [Route("CreateNewLesson/Lesson")]
-        public IActionResult CreateNewLesson(Guid courseId)
+        public IActionResult CreateNewLesson(Guid moduleId)
         {
-            var request = new CreateNewLessonRequest
+            var request = new CreateNewLessonForModuleRequest
             {
-                CourseId = courseId
+                ModuleId = moduleId
             };
             return View(request);
         }
@@ -34,14 +34,14 @@ namespace MVC.Controllers
         [Authorize(Roles = "Instructor,Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateNewLesson(CreateNewLessonRequest request)
+        public async Task<IActionResult> CreateNewLesson(CreateNewLessonForModuleRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return View(request);
             }
 
-            var result = await _service.CreateNewLesson(request);
+            var result = await _service.CreateNewLessonForModuleAsync(request);
 
             if (!result.IsSuccess)
             {

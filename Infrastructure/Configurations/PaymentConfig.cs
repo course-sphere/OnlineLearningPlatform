@@ -13,6 +13,14 @@ namespace Infrastructure.Configurations
                    .WithMany(u => u.Payments)
                    .HasForeignKey(p => p.UserId)
                    .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(p => p.Course)
+                     .WithMany(c => c.Payments)
+                     .HasForeignKey(p => p.CourseId)
+                     .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(p => p.Enrollment)
+                   .WithMany(e => e.Payments)
+                   .HasForeignKey(p => p.EnrollmentId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -13,6 +13,7 @@
         public bool IsFree => Price == 0;
         public List<Module>? Modules { get; set; }
         public List<Enrollment>? Enrollments { get; set; }
+        public List<Payment>? Payments { get; set; }
     }
 
     public enum CourseStatus

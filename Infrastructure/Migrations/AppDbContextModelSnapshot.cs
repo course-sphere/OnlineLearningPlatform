@@ -123,6 +123,9 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid>("CourseId")
                         .HasColumnType("uuid");
 
@@ -132,8 +135,14 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime?>("EnrolledAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<decimal>("ProgressPercent")
+                        .HasColumnType("numeric");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -262,9 +271,6 @@ namespace Infrastructure.Migrations
                     b.Property<int>("EstimatedMinutes")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("Index")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -295,6 +301,57 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ModuleId");
 
                     b.ToTable("Lessons");
+                });
+
+            modelBuilder.Entity("Domain.Entities.LessonResource", b =>
+                {
+                    b.Property<Guid>("LessonResourceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<long?>("DurationInSeconds")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDownloadable")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("LessonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("OrderIndex")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ResourceType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ResourceUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("LessonResourceId");
+
+                    b.HasIndex("LessonId");
+
+                    b.ToTable("LessonResources");
                 });
 
             modelBuilder.Entity("Domain.Entities.Module", b =>
@@ -359,14 +416,18 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("EnrollmentId")
+                        .HasColumnType("uuid");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsSuccess")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Method")
-                        .HasColumnType("integer");
+                    b.Property<string>("Method")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -380,6 +441,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("PaymentId");
 
                     b.HasIndex("CourseId");
+
+                    b.HasIndex("EnrollmentId");
 
                     b.HasIndex("UserId");
 
@@ -580,55 +643,91 @@ namespace Infrastructure.Migrations
                         new
                         {
                             UserId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAt = new DateTime(2026, 1, 22, 15, 50, 19, 854, DateTimeKind.Utc).AddTicks(9767),
+                            CreatedAt = new DateTime(2026, 1, 24, 10, 38, 30, 134, DateTimeKind.Utc).AddTicks(3353),
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             Email = "Student1@gmail.com",
                             FullName = "Student1",
                             IsDeleted = false,
                             IsVerfied = true,
-                            PasswordHash = new byte[] { 21, 235, 95, 93, 39, 14, 75, 198, 64, 106, 23, 115, 251, 218, 157, 161, 42, 155, 192, 244, 73, 97, 63, 140, 39, 24, 180, 246, 159, 53, 43, 217, 128, 71, 129, 2, 178, 253, 208, 100, 62, 64, 8, 66, 131, 237, 109, 60, 242, 101, 145, 167, 136, 218, 252, 17, 35, 108, 215, 36, 167, 225, 247, 26 },
-                            PasswordSalt = new byte[] { 138, 73, 0, 161, 62, 100, 163, 132, 136, 199, 176, 253, 121, 62, 8, 6, 197, 27, 200, 178, 147, 170, 106, 21, 160, 115, 154, 234, 208, 123, 134, 124, 244, 202, 66, 45, 126, 128, 229, 119, 195, 214, 58, 47, 36, 238, 137, 3, 36, 163, 143, 24, 70, 252, 68, 65, 179, 131, 25, 143, 19, 254, 120, 176, 65, 167, 46, 197, 28, 120, 167, 39, 115, 243, 240, 69, 147, 86, 133, 200, 102, 65, 186, 97, 53, 56, 237, 169, 192, 85, 2, 50, 130, 224, 4, 43, 140, 184, 178, 144, 37, 241, 252, 177, 60, 15, 225, 138, 125, 186, 98, 128, 71, 208, 77, 63, 28, 19, 90, 148, 59, 241, 169, 135, 45, 82, 66, 9 },
+                            PasswordHash = new byte[] { 7, 85, 7, 161, 35, 199, 22, 228, 75, 128, 44, 102, 6, 104, 122, 254, 1, 80, 138, 27, 58, 243, 179, 127, 123, 162, 29, 46, 104, 178, 159, 93, 247, 69, 73, 105, 13, 102, 127, 208, 32, 58, 201, 139, 87, 250, 154, 143, 90, 127, 31, 74, 38, 154, 81, 45, 112, 130, 220, 122, 59, 38, 19, 173 },
+                            PasswordSalt = new byte[] { 155, 179, 51, 73, 203, 44, 238, 47, 147, 117, 128, 75, 101, 72, 38, 42, 63, 167, 103, 116, 134, 202, 241, 167, 56, 153, 114, 71, 160, 81, 110, 14, 80, 98, 151, 116, 233, 112, 197, 169, 84, 118, 245, 186, 140, 64, 200, 143, 232, 115, 121, 125, 171, 19, 164, 73, 91, 220, 178, 111, 194, 79, 192, 90, 45, 150, 114, 128, 128, 194, 74, 46, 77, 95, 15, 72, 139, 87, 94, 42, 241, 234, 223, 172, 171, 23, 91, 49, 235, 251, 158, 162, 178, 51, 216, 99, 216, 72, 203, 243, 243, 108, 135, 189, 131, 17, 147, 141, 68, 72, 77, 249, 191, 100, 187, 64, 36, 159, 21, 141, 48, 93, 234, 223, 211, 202, 2, 174 },
                             Role = 0
                         },
                         new
                         {
                             UserId = new Guid("22222222-2222-2222-2222-222222222222"),
-                            CreatedAt = new DateTime(2026, 1, 22, 15, 50, 19, 854, DateTimeKind.Utc).AddTicks(9773),
+                            CreatedAt = new DateTime(2026, 1, 24, 10, 38, 30, 134, DateTimeKind.Utc).AddTicks(3360),
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             Email = "Student2@gmail.com",
                             FullName = "Student2",
                             IsDeleted = false,
                             IsVerfied = true,
-                            PasswordHash = new byte[] { 163, 124, 213, 223, 134, 59, 200, 187, 97, 134, 82, 24, 95, 24, 55, 197, 176, 94, 175, 82, 5, 216, 65, 66, 16, 99, 46, 243, 1, 4, 129, 221, 236, 240, 104, 31, 125, 64, 236, 141, 6, 166, 200, 70, 147, 92, 6, 173, 136, 59, 152, 17, 177, 72, 220, 104, 221, 55, 26, 28, 234, 172, 74, 128 },
-                            PasswordSalt = new byte[] { 61, 178, 164, 20, 193, 33, 188, 65, 110, 106, 110, 176, 245, 37, 29, 63, 162, 14, 47, 152, 240, 195, 204, 109, 47, 207, 20, 64, 190, 118, 63, 139, 21, 8, 32, 35, 120, 185, 212, 242, 121, 62, 103, 22, 163, 59, 241, 230, 235, 206, 189, 5, 51, 86, 182, 54, 228, 125, 213, 105, 209, 138, 32, 32, 217, 134, 29, 208, 145, 243, 18, 82, 9, 123, 196, 58, 241, 181, 24, 109, 245, 137, 84, 155, 108, 58, 39, 221, 172, 199, 80, 151, 128, 103, 191, 74, 62, 219, 192, 143, 243, 110, 94, 200, 184, 93, 174, 96, 6, 172, 131, 171, 93, 129, 23, 26, 151, 159, 111, 164, 53, 22, 7, 98, 173, 43, 169, 155 },
+                            PasswordHash = new byte[] { 17, 155, 239, 21, 242, 217, 24, 12, 220, 129, 99, 191, 78, 123, 59, 120, 184, 15, 227, 76, 20, 139, 197, 201, 88, 227, 120, 60, 105, 190, 79, 4, 12, 204, 117, 156, 217, 114, 105, 86, 64, 75, 22, 60, 151, 143, 118, 98, 93, 177, 116, 24, 232, 166, 229, 86, 17, 163, 83, 74, 92, 159, 121, 194 },
+                            PasswordSalt = new byte[] { 35, 109, 80, 189, 214, 150, 245, 189, 255, 211, 156, 105, 236, 89, 218, 83, 135, 48, 238, 117, 1, 66, 177, 98, 203, 242, 128, 204, 14, 233, 88, 255, 163, 76, 240, 199, 242, 199, 246, 35, 207, 149, 1, 229, 195, 149, 221, 10, 113, 48, 175, 167, 91, 218, 144, 25, 125, 180, 12, 133, 175, 210, 83, 174, 106, 16, 154, 107, 20, 97, 131, 154, 151, 196, 32, 103, 141, 23, 71, 139, 119, 161, 166, 217, 21, 168, 109, 63, 138, 30, 0, 231, 152, 172, 76, 213, 215, 145, 95, 212, 42, 192, 211, 13, 186, 80, 228, 49, 185, 183, 61, 199, 194, 195, 178, 209, 22, 151, 130, 198, 22, 178, 239, 214, 62, 192, 253, 169 },
                             Role = 0
                         },
                         new
                         {
                             UserId = new Guid("33333333-3333-3333-3333-333333333333"),
-                            CreatedAt = new DateTime(2026, 1, 22, 15, 50, 19, 854, DateTimeKind.Utc).AddTicks(9775),
+                            CreatedAt = new DateTime(2026, 1, 24, 10, 38, 30, 134, DateTimeKind.Utc).AddTicks(3362),
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             Email = "Employer@gmail.com",
                             FullName = "Instructor",
                             IsDeleted = false,
                             IsVerfied = true,
-                            PasswordHash = new byte[] { 164, 74, 96, 80, 40, 138, 19, 45, 59, 109, 178, 214, 227, 113, 131, 222, 241, 162, 38, 140, 171, 169, 114, 126, 26, 153, 8, 61, 115, 156, 53, 53, 210, 86, 233, 109, 157, 118, 218, 194, 78, 68, 78, 105, 221, 208, 106, 91, 135, 135, 164, 220, 234, 82, 157, 237, 108, 50, 251, 121, 247, 217, 249, 231 },
-                            PasswordSalt = new byte[] { 151, 213, 87, 53, 169, 126, 193, 6, 193, 166, 14, 53, 93, 148, 232, 26, 162, 166, 20, 225, 209, 69, 120, 89, 104, 158, 76, 86, 212, 222, 201, 156, 186, 101, 187, 45, 19, 61, 2, 202, 249, 213, 211, 143, 132, 136, 254, 178, 15, 53, 72, 180, 136, 102, 239, 149, 165, 20, 92, 4, 118, 67, 135, 219, 138, 221, 200, 59, 190, 191, 184, 142, 231, 221, 123, 187, 181, 18, 19, 130, 107, 30, 58, 194, 129, 226, 110, 106, 199, 185, 188, 94, 252, 22, 118, 70, 93, 248, 67, 44, 128, 129, 113, 1, 13, 190, 61, 21, 144, 9, 249, 147, 206, 108, 141, 49, 8, 15, 249, 89, 214, 61, 116, 178, 87, 216, 99, 171 },
+                            PasswordHash = new byte[] { 112, 213, 143, 217, 132, 108, 8, 93, 176, 91, 73, 253, 25, 14, 24, 215, 8, 218, 176, 243, 31, 15, 208, 212, 212, 191, 162, 161, 218, 131, 15, 244, 103, 71, 12, 128, 81, 28, 116, 71, 237, 201, 233, 184, 153, 146, 136, 41, 74, 247, 21, 60, 150, 46, 223, 102, 213, 8, 137, 24, 172, 138, 179, 252 },
+                            PasswordSalt = new byte[] { 230, 30, 142, 155, 15, 215, 60, 170, 138, 159, 252, 161, 198, 170, 33, 69, 49, 5, 179, 16, 29, 132, 105, 48, 167, 89, 140, 91, 64, 233, 129, 114, 194, 20, 227, 118, 130, 211, 121, 114, 183, 221, 74, 216, 104, 99, 220, 218, 121, 125, 166, 208, 213, 84, 155, 147, 27, 80, 194, 147, 207, 18, 188, 164, 247, 88, 83, 50, 24, 181, 200, 14, 106, 155, 148, 129, 42, 60, 194, 254, 27, 104, 240, 134, 169, 62, 72, 75, 112, 127, 45, 239, 150, 87, 84, 34, 14, 102, 243, 189, 173, 160, 132, 139, 17, 123, 88, 219, 114, 221, 44, 234, 105, 29, 83, 103, 57, 186, 135, 23, 146, 44, 173, 77, 46, 1, 29, 135 },
                             Role = 0
                         },
                         new
                         {
                             UserId = new Guid("44444444-4444-4444-4444-444444444444"),
-                            CreatedAt = new DateTime(2026, 1, 22, 15, 50, 19, 854, DateTimeKind.Utc).AddTicks(9777),
+                            CreatedAt = new DateTime(2026, 1, 24, 10, 38, 30, 134, DateTimeKind.Utc).AddTicks(3364),
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             Email = "Admin@gmail.com",
                             FullName = "Admin",
                             IsDeleted = false,
                             IsVerfied = true,
-                            PasswordHash = new byte[] { 30, 227, 159, 26, 167, 45, 104, 65, 136, 129, 161, 195, 111, 113, 211, 245, 201, 77, 243, 28, 59, 169, 102, 12, 118, 4, 190, 70, 202, 63, 12, 228, 21, 16, 164, 163, 56, 178, 83, 8, 237, 83, 252, 252, 35, 243, 174, 178, 23, 158, 224, 237, 93, 177, 17, 234, 195, 252, 129, 162, 48, 121, 18, 69 },
-                            PasswordSalt = new byte[] { 199, 187, 100, 62, 34, 211, 229, 241, 9, 217, 176, 25, 181, 17, 3, 150, 106, 40, 169, 127, 179, 53, 85, 69, 199, 175, 108, 99, 113, 11, 239, 2, 228, 98, 105, 136, 186, 152, 132, 119, 174, 27, 147, 248, 85, 46, 186, 171, 36, 69, 71, 8, 221, 2, 226, 0, 134, 67, 90, 52, 231, 236, 41, 218, 171, 172, 47, 230, 172, 243, 247, 140, 136, 64, 79, 161, 151, 210, 75, 218, 34, 56, 123, 72, 44, 246, 30, 179, 145, 158, 21, 167, 78, 230, 220, 89, 29, 155, 11, 70, 207, 39, 112, 4, 150, 158, 183, 193, 175, 188, 238, 30, 7, 83, 246, 59, 20, 117, 43, 182, 142, 173, 69, 225, 238, 75, 103, 39 },
+                            PasswordHash = new byte[] { 32, 203, 47, 221, 59, 130, 102, 33, 217, 168, 222, 240, 247, 204, 251, 5, 2, 141, 100, 109, 17, 179, 112, 94, 24, 73, 196, 228, 159, 147, 29, 78, 218, 148, 244, 8, 76, 158, 62, 151, 57, 223, 80, 150, 209, 175, 43, 225, 147, 68, 137, 116, 76, 29, 30, 74, 144, 116, 219, 244, 64, 62, 29, 217 },
+                            PasswordSalt = new byte[] { 38, 161, 222, 130, 21, 216, 158, 81, 123, 165, 29, 39, 219, 215, 172, 170, 155, 204, 104, 40, 239, 235, 124, 105, 174, 28, 137, 88, 112, 208, 239, 130, 215, 181, 29, 186, 1, 207, 215, 126, 230, 105, 72, 43, 123, 30, 55, 230, 140, 23, 186, 120, 143, 191, 186, 191, 71, 107, 211, 135, 118, 126, 125, 117, 49, 239, 103, 48, 210, 12, 125, 75, 144, 9, 236, 191, 94, 129, 208, 33, 177, 136, 121, 103, 149, 248, 81, 135, 41, 158, 221, 91, 104, 206, 194, 50, 165, 173, 154, 229, 1, 211, 164, 156, 136, 67, 175, 253, 151, 46, 31, 97, 217, 35, 15, 244, 29, 236, 47, 144, 62, 10, 107, 19, 59, 22, 142, 218 },
                             Role = 0
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.UserLessonProgress", b =>
+                {
+                    b.Property<Guid>("LessonProgressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("CompletionPercent")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastAccessedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("LastWatchedSecond")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("LessonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("LessonProgressId");
+
+                    b.HasIndex("LessonId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLessonProgresses");
                 });
 
             modelBuilder.Entity("Domain.Entities.AnswerOption", b =>
@@ -702,6 +801,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("Module");
                 });
 
+            modelBuilder.Entity("Domain.Entities.LessonResource", b =>
+                {
+                    b.HasOne("Domain.Entities.Lesson", "Lesson")
+                        .WithMany("LessonResources")
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+                });
+
             modelBuilder.Entity("Domain.Entities.Module", b =>
                 {
                     b.HasOne("Domain.Entities.Course", "Course")
@@ -716,8 +826,14 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Payment", b =>
                 {
                     b.HasOne("Domain.Entities.Course", "Course")
-                        .WithMany()
+                        .WithMany("Payments")
                         .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Enrollment", "Enrollment")
+                        .WithMany("Payments")
+                        .HasForeignKey("EnrollmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -728,6 +844,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+
+                    b.Navigation("Enrollment");
 
                     b.Navigation("User");
                 });
@@ -781,6 +899,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("QuestionSubmission");
                 });
 
+            modelBuilder.Entity("Domain.Entities.UserLessonProgress", b =>
+                {
+                    b.HasOne("Domain.Entities.Lesson", "Lesson")
+                        .WithMany("UserLessonProgresses")
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("UserLessonProgresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Entities.AnswerOption", b =>
                 {
                     b.Navigation("SubmissionAnswerOptions");
@@ -791,6 +928,13 @@ namespace Infrastructure.Migrations
                     b.Navigation("Enrollments");
 
                     b.Navigation("Modules");
+
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Enrollment", b =>
+                {
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("Domain.Entities.GradedAttempt", b =>
@@ -808,6 +952,10 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
                 {
                     b.Navigation("GradedItems");
+
+                    b.Navigation("LessonResources");
+
+                    b.Navigation("UserLessonProgresses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Module", b =>
@@ -834,6 +982,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("GradedAttempts");
 
                     b.Navigation("Payments");
+
+                    b.Navigation("UserLessonProgresses");
                 });
 #pragma warning restore 612, 618
         }

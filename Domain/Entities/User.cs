@@ -16,6 +16,7 @@
         public List<Enrollment>? Enrollments { get; set; }
         public List<Payment>? Payments { get; set; }
         public List<GradedAttempt>? GradedAttempts { get; set; }
+        public List<UserLessonProgress>? UserLessonProgresses { get; set; }
     }
 
     public enum Role

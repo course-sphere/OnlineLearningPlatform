@@ -86,7 +86,7 @@ namespace Infrastructure.Repositories
         }
 
         public async Task<int> CountAsync() => await _dbSet.CountAsync();
-
+        public async Task<int> CountAsync(Expression<Func<T, bool>> filter) => await _dbSet.CountAsync(filter);
         public void Update(T entity)
         {
             _dbSet.Update(entity);

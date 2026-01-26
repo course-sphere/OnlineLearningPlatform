@@ -2,7 +2,7 @@
 appsettings.json
 appsettings.*.json
 
-# ASP.NET
+# ASP.NET build
 bin/
 obj/
 
@@ -13,3 +13,17 @@ obj/
 
 # Logs
 *.log
+# Rider / VS Code
+.idea/
+.vscode/
+
+# EF Core
+*.db
+*.db-shm
+*.db-wal
+
+# Publish output
+publish/
+
+# Windows
+Thumbs.db
