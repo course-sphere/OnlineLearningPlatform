@@ -22,13 +22,9 @@ D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.AI.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.AI.Abstractions.dll
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
@@ -53,7 +49,6 @@ D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\System.IO.Pipelines.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\System.Numerics.Tensors.dll
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\System.Text.Encodings.Web.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\System.Text.Json.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
@@ -108,7 +103,6 @@ D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Application.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Domain.dll
@@ -136,7 +130,6 @@ D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\staticwebassets.development.json
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\MVC.csproj.Up2Date
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\MVC.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\refint\MVC.dll
@@ -144,3 +137,10 @@ D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\MVC.genruntimeconfig.cache
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\ref\MVC.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\appsettings.json
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\MVC\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

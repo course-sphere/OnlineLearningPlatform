@@ -24,7 +24,6 @@ D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\RazorPage\obj\Debug\n
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\RazorPage\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\RazorPage\obj\Debug\net8.0\staticwebassets.development.json
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\RazorPage\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\RazorPage\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\RazorPage\obj\Debug\net8.0\RazorPage.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\RazorPage\obj\Debug\net8.0\refint\RazorPage.dll
 D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\RazorPage\obj\Debug\net8.0\RazorPage.pdb
