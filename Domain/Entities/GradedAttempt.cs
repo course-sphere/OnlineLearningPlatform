@@ -13,6 +13,7 @@
         public User? User { get; set; }
         public GradedItem? GradedItem { get; set; }
         public List<QuestionSubmission>? QuestionSubmissions { get; set; }
+        public bool IsSubmitted { get; set; }
     }
 
     public enum GradedAttemptStatus

@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.IRepositories;
+using Domain.Entities;
 using Infrastructure.Repositories;
 
 namespace Infrastructure
@@ -22,6 +23,8 @@ namespace Infrastructure
         public ISubmissionAnswerOptionRepository SubmissionAnswerOptions { get; }
         public ILessonResourceRepository LessonResources { get; }
         public IUserLessonProgressRepository LessonProgresses { get; }
+
+
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -52,6 +55,11 @@ namespace Infrastructure
             {
                 throw new Exception("Error while saving changes", ex);
             }
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }
