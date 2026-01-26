@@ -1,0 +1,143 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-cards">
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Total Users</div>
+            </div>
+            <div class="card-icon primary">
+                <i class="fas fa-users"></i>
+            </div>
+        </div>
+        <div class="card-value">1,284</div>
+        <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+12% from last month</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Total Revenue</div>
+            </div>
+            <div class="card-icon success">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+        </div>
+        <div class="card-value">$45,231</div>
+        <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+8% from last month</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Active Courses</div>
+            </div>
+            <div class="card-icon warning">
+                <i class="fas fa-book-open"></i>
+            </div>
+        </div>
+        <div class="card-value">42</div>
+        <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+3 new courses</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Enrollments</div>
+            </div>
+            <div class="card-icon info">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+        </div>
+        <div class="card-value">3,842</div>
+        <div class="card-change negative">
+            <i class="fas fa-arrow-down"></i>
+            <span>-2% from last month</span>
+        </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="table-header">
+        <h2>Recent Activities</h2>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-primary">
+                <i class="fas fa-download"></i> Export
+            </button>
+            <button class="btn btn-edit">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>User</th>
+                <th>Activity</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>10:30 AM</td>
+                <td>
+                    <strong>test@gmail.com</strong>
+                </td>
+                <td>Payment received - Web Development Bootcamp</td>
+                <td><strong>$50.00</strong></td>
+                <td><span class="status-badge status-success">Success</span></td>
+            </tr>
+            <tr>
+                <td>09:15 AM</td>
+                <td>
+                    <strong>user@example.com</strong>
+                </td>
+                <td>New user registration</td>
+                <td>-</td>
+                <td><span class="status-badge status-success">Success</span></td>
+            </tr>
+            <tr>
+                <td>08:45 AM</td>
+                <td>
+                    <strong>student@edu.com</strong>
+                </td>
+                <td>Course enrollment - Python for Beginners</td>
+                <td><strong>$35.00</strong></td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+            </tr>
+            <tr>
+                <td>08:20 AM</td>
+                <td>
+                    <strong>john.doe@mail.com</strong>
+                </td>
+                <td>Payment received - Data Science Fundamentals</td>
+                <td><strong>$120.00</strong></td>
+                <td><span class="status-badge status-success">Success</span></td>
+            </tr>
+            <tr>
+                <td>07:55 AM</td>
+                <td>
+                    <strong>sarah@company.com</strong>
+                </td>
+                <td>Course completion - UI/UX Design Masterclass</td>
+                <td>-</td>
+                <td><span class="status-badge status-success">Success</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

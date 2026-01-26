@@ -1,0 +1,16 @@
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\bin\Debug\net8.0\Application.deps.json
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\bin\Debug\net8.0\Application.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\bin\Debug\net8.0\Application.pdb
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\bin\Debug\net8.0\Domain.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\bin\Debug\net8.0\Domain.pdb
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Application.csproj.AssemblyReference.cache
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Application.sourcelink.json
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Applicat.44B5EDA2.Up2Date
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Application.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\refint\Application.dll
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\Application.pdb
+D:\academy\KY7\PRN222\Project_GR\UI\OnlineLearningPlatform\Application\obj\Debug\net8.0\ref\Application.dll

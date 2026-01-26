@@ -1,0 +1,388 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Course Statistics";
+}
+
+<div class="dashboard-cards">
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Total Courses</div>
+            </div>
+            <div class="card-icon primary">
+                <i class="fas fa-book"></i>
+            </div>
+        </div>
+        <div class="card-value">42</div>
+        <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+5 new this month</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Total Enrollments</div>
+            </div>
+            <div class="card-icon success">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+        </div>
+        <div class="card-value">3,842</div>
+        <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+15% from last month</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Completion Rate</div>
+            </div>
+            <div class="card-icon info">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+        </div>
+        <div class="card-value">68%</div>
+        <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+3% improvement</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Avg. Rating</div>
+            </div>
+            <div class="card-icon warning">
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        <div class="card-value">4.6</div>
+        <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>Based on 2,341 reviews</span>
+        </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="table-header">
+        <h2><i class="fas fa-chart-bar"></i> Course Performance Statistics</h2>
+        <div class="d-flex gap-10">
+            <button class="btn btn-edit">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+            <button class="btn btn-primary">
+                <i class="fas fa-download"></i> Export Report
+            </button>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Instructor</th>
+                <th>Students</th>
+                <th>Completion</th>
+                <th>Avg. Rating</th>
+                <th>Revenue</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="course-info-wrapper">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            WD
+                        </div>
+                        <div>
+                            <div class="course-name">Web Development Bootcamp</div>
+                            <div class="course-category">Full Stack Development</div>
+                        </div>
+                    </div>
+                </td>
+                <td>John Smith</td>
+                <td><strong>845</strong></td>
+                <td>
+                    <div class="completion-bar-wrapper">
+                        <div class="completion-bar">
+                            <div class="completion-bar-fill" style="width: 72%; background: var(--success-color);"></div>
+                        </div>
+                        <span class="completion-percentage">72%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="rating-wrapper">
+                        <i class="fas fa-star"></i>
+                        <strong>4.8</strong>
+                        <span class="rating-count">(234)</span>
+                    </div>
+                </td>
+                <td><strong style="color: var(--success-color);">$42,250</strong></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="course-info-wrapper">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            DS
+                        </div>
+                        <div>
+                            <div class="course-name">Data Science Fundamentals</div>
+                            <div class="course-category">Python & Machine Learning</div>
+                        </div>
+                    </div>
+                </td>
+                <td>Sarah Johnson</td>
+                <td><strong>623</strong></td>
+                <td>
+                    <div class="completion-bar-wrapper">
+                        <div class="completion-bar">
+                            <div class="completion-bar-fill" style="width: 65%; background: var(--info-color);"></div>
+                        </div>
+                        <span class="completion-percentage">65%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="rating-wrapper">
+                        <i class="fas fa-star"></i>
+                        <strong>4.7</strong>
+                        <span class="rating-count">(189)</span>
+                    </div>
+                </td>
+                <td><strong style="color: var(--success-color);">$74,760</strong></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="course-info-wrapper">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            UX
+                        </div>
+                        <div>
+                            <div class="course-name">UI/UX Design Masterclass</div>
+                            <div class="course-category">Product Design</div>
+                        </div>
+                    </div>
+                </td>
+                <td>Michael Chen</td>
+                <td><strong>512</strong></td>
+                <td>
+                    <div class="completion-bar-wrapper">
+                        <div class="completion-bar">
+                            <div class="completion-bar-fill" style="width: 78%; background: var(--success-color);"></div>
+                        </div>
+                        <span class="completion-percentage">78%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="rating-wrapper">
+                        <i class="fas fa-star"></i>
+                        <strong>4.9</strong>
+                        <span class="rating-count">(298)</span>
+                    </div>
+                </td>
+                <td><strong style="color: var(--success-color);">$46,080</strong></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="course-info-wrapper">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            DM
+                        </div>
+                        <div>
+                            <div class="course-name">Digital Marketing Course</div>
+                            <div class="course-category">SEO & Social Media</div>
+                        </div>
+                    </div>
+                </td>
+                <td>Emily Davis</td>
+                <td><strong>438</strong></td>
+                <td>
+                    <div class="completion-bar-wrapper">
+                        <div class="completion-bar">
+                            <div class="completion-bar-fill" style="width: 58%; background: var(--warning-color);"></div>
+                        </div>
+                        <span class="completion-percentage">58%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="rating-wrapper">
+                        <i class="fas fa-star"></i>
+                        <strong>4.5</strong>
+                        <span class="rating-count">(156)</span>
+                    </div>
+                </td>
+                <td><strong style="color: var(--success-color);">$32,850</strong></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="course-info-wrapper">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333;">
+                            PY
+                        </div>
+                        <div>
+                            <div class="course-name">Python for Beginners</div>
+                            <div class="course-category">Programming Basics</div>
+                        </div>
+                    </div>
+                </td>
+                <td>David Wilson</td>
+                <td><strong>1,124</strong></td>
+                <td>
+                    <div class="completion-bar-wrapper">
+                        <div class="completion-bar">
+                            <div class="completion-bar-fill" style="width: 82%; background: var(--success-color);"></div>
+                        </div>
+                        <span class="completion-percentage">82%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="rating-wrapper">
+                        <i class="fas fa-star"></i>
+                        <strong>4.6</strong>
+                        <span class="rating-count">(487)</span>
+                    </div>
+                </td>
+                <td><strong style="color: var(--success-color);">$39,340</strong></td>
+                <td><span class="status-badge status-success">Active</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="course-info-wrapper">
+                        <div class="course-icon" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%); color: #333;">
+                            MB
+                        </div>
+                        <div>
+                            <div class="course-name">Mobile App Development</div>
+                            <div class="course-category">React Native</div>
+                        </div>
+                    </div>
+                </td>
+                <td>Alex Thompson</td>
+                <td><strong>298</strong></td>
+                <td>
+                    <div class="completion-bar-wrapper">
+                        <div class="completion-bar">
+                            <div class="completion-bar-fill" style="width: 45%; background: var(--danger-color);"></div>
+                        </div>
+                        <span class="completion-percentage">45%</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="rating-wrapper">
+                        <i class="fas fa-star"></i>
+                        <strong>4.3</strong>
+                        <span class="rating-count">(112)</span>
+                    </div>
+                </td>
+                <td><strong style="color: var(--success-color);">$26,820</strong></td>
+                <td><span class="status-badge status-pending">Review</span></td>
+                <td>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-edit">
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <div class="pagination-info">
+            Showing 1-6 of 42 courses
+        </div>
+        <div class="pagination-buttons">
+            <button class="btn">Previous</button>
+            <button class="btn btn-primary">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button class="btn">...</button>
+            <button class="btn">7</button>
+            <button class="btn">Next</button>
+        </div>
+    </div>
+</div>
+
+<div class="report-grid">
+    <div class="report-box">
+        <h3>
+            <i class="fas fa-trophy"></i> Top Performing Courses
+        </h3>
+        <p>
+            <strong>1. Python for Beginners</strong> - 82% completion
+        </p>
+        <p>
+            <strong>2. UI/UX Design Masterclass</strong> - 78% completion
+        </p>
+        <p>
+            <strong>3. Web Development Bootcamp</strong> - 72% completion
+        </p>
+    </div>
+
+    <div class="report-box" style="background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);">
+        <h3>
+            <i class="fas fa-chart-pie"></i> Engagement Metrics
+        </h3>
+        <p>
+            <strong>Active Students:</strong> <b>2,847</b> (74%)
+        </p>
+        <p>
+            <strong>Avg. Study Time:</strong> <b>4.5 hrs/week</b>
+        </p>
+        <p>
+            <strong>Certificate Issued:</strong> <b>1,234</b> (32%)
+        </p>
+    </div>
+</div>
