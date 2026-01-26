@@ -103,5 +103,23 @@ namespace Infrastructure.Services
                 _ => ResourceType.Link
             };
         }
+
+        public async Task<string> UploadQuestionSubmissionFile(IFormFile? file)
+        {
+            string firebaseBucket = _config["Firebase:Bucket"];
+
+            var firebaseStorage = new FirebaseStorage(firebaseBucket);
+
+            string fileName = $"{Guid.NewGuid().ToString()}_{Path.GetFileName(file.FileName)}";
+
+            fileName = fileName.Replace("/", "-");
+
+            var task = firebaseStorage.Child("QuestionSubmission").Child("ShortAnswer").Child(fileName);
+
+            var stream = file.OpenReadStream();
+            await task.PutAsync(stream);
+
+            return await task.GetDownloadUrlAsync();
+        }
     }
 }

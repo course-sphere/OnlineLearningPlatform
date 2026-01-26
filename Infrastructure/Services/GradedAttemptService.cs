@@ -3,6 +3,7 @@ using Application.IServices;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Responses;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -13,12 +14,14 @@ namespace Infrastructure.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IClaimService _claimService;
         private readonly IMapper _mapper;
+        private readonly IFirebaseStorageService _storage;
 
-        public GradedAttemptService(IUnitOfWork unitOfWork, IClaimService claimService, IMapper mapper)
+        public GradedAttemptService(IUnitOfWork unitOfWork, IClaimService claimService, IMapper mapper, IFirebaseStorageService storage)
         {
             _unitOfWork = unitOfWork;
             _claimService = claimService;
             _mapper = mapper;
+            _storage = storage;
         }
 
         public async Task<ApiResponse> StartAttemptAsync(Guid gradedItemId)
@@ -50,7 +53,7 @@ namespace Infrastructure.Services
 
             return response.SetOk(attempt.GradedAttemptId);
         }
-        public async Task<ApiResponse> SubmitAnswerAsync(Guid attemptId, Guid questionId, string answer)
+        public async Task<ApiResponse> SubmitShortAnswerAsync(Guid attemptId, Guid questionId, string answer, IFormFile? file)
         {
             ApiResponse response = new ApiResponse();
 
@@ -68,7 +71,8 @@ namespace Infrastructure.Services
                 QuestionSubmissionId = Guid.NewGuid(),
                 GradedAttemptId = attemptId,
                 QuestionId = questionId,
-                AnswerText = answer
+                AnswerText = answer,
+                FileUrl = file != null ? await _storage.UploadQuestionSubmissionFile(file) : null,
             };
 
             await _unitOfWork.QuestionSubmissions.AddAsync(submission);
@@ -115,14 +119,19 @@ namespace Infrastructure.Services
                     }
 
                     // ✅ MultipleChoice / TrueFalse
-                    var correctAnswer = question.AnswerOptions!
-                        .FirstOrDefault(x => x.IsCorrect);
-
-                    if (correctAnswer != null &&
-                        submission.AnswerText == correctAnswer.Text)
+                    var correctAnswerIds = question.AnswerOptions!
+                        .Where(x => x.IsCorrect)
+                        .Select(a => a.AnswerOptionId)
+                        .ToHashSet();
+                    //Dap an student chon
+                    var selectedAnswerIds = submission.SelectedOptions!
+                        .Select(s => s.AnswerOptionId)
+                        .ToHashSet();
+                    bool isCorrect = selectedAnswerIds.SetEquals(correctAnswerIds);
+                    if (isCorrect)
                     {
                         submission.Score = question.Points;
-                        totalScore += submission.Score.Value;
+                        totalScore += question.Points;
                     }
                     else
                     {
