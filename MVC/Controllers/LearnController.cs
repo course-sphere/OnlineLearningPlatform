@@ -22,37 +22,26 @@ namespace MVC.Controllers
             _progressService = progressService;
         }
 
-        // GET: /Learn/Index/{courseId}
         public async Task<IActionResult> Index(Guid id)
         {
             var userId = _claimService.GetUserClaim().UserId;
-
-            // 1. Get Course Info
-            var course = await _unitOfWork.Courses.GetQueryable()
-                .FirstOrDefaultAsync(c => c.CourseId == id);
-
+            var course = await _unitOfWork.Courses.GetQueryable().FirstOrDefaultAsync(c => c.CourseId == id);
             if (course == null) return NotFound();
 
-            // 2. Get User Progress
             var userProgress = await _unitOfWork.UserLessonProgress.GetQueryable()
                 .Where(p => p.UserId == userId && p.IsCompleted)
-                .Select(p => p.LessonId)
-                .ToListAsync();
+                .Select(p => p.LessonId).ToListAsync();
             var completedSet = new HashSet<Guid>(userProgress);
 
-            // 3. Get Modules (Fix: Dùng 'Index' thay vì 'OrderIndex')
             var modules = await _unitOfWork.Modules.GetQueryable()
-                .Where(m => m.CourseId == id)
-                .OrderBy(m => m.Index)
-                .ToListAsync();
+                .Where(m => m.CourseId == id).OrderBy(m => m.Index).ToListAsync();
 
-            // 4. MAP DATA
             var model = new CourseStudentLearningResponse
             {
                 CourseId = course.CourseId,
                 Title = course.Title,
-                Instructor = "CourseSphere Instructor", // Entity chưa map User nên hardcode
-                Description = course.Description ?? "Welcome to the course!",
+                Instructor = "CourseSphere Instructor",
+                Description = course.Description ?? "",
                 Level = course.Level.ToString(),
                 Modules = new List<ModuleStudentResponse>()
             };
@@ -62,74 +51,49 @@ namespace MVC.Controllers
                 var moduleDto = new ModuleStudentResponse
                 {
                     Id = module.ModuleId,
-                    Title = module.Name, // Fix: Entity dùng 'Name'
+                    Title = module.Name,
                     IsFinal = false,
                     Lessons = new List<LessonStudentResponse>()
                 };
-
-                // Lấy Lessons + Resources + Quiz
                 var lessons = await _unitOfWork.Lessons.GetQueryable()
                     .Where(l => l.ModuleId == module.ModuleId)
                     .Include(l => l.LessonResources)
                     .Include(l => l.GradedItems).ThenInclude(g => g.Questions).ThenInclude(q => q.AnswerOptions)
-                    .OrderBy(l => l.OrderIndex)
-                    .ToListAsync();
+                    .OrderBy(l => l.OrderIndex).ToListAsync();
 
                 foreach (var lesson in lessons)
                 {
-                    // Logic: Lấy Video đầu tiên trong Resource làm bài giảng chính
                     var mainVideo = lesson.LessonResources?.FirstOrDefault(r => r.ResourceType == ResourceType.Video);
-
                     var lessonDto = new LessonStudentResponse
                     {
                         Id = lesson.LessonId,
                         Title = lesson.Title,
-                        // Fix: Entity Lesson không có Description, dùng Content đỡ hoặc để trống
                         Description = "",
                         Content = lesson.Content,
-
-                        // Fix: Lấy URL từ Resource vì Lesson không có VideoUrl
                         VideoUrl = mainVideo?.ResourceUrl,
-
-                        // Fix: Dùng EstimatedMinutes và ép kiểu về string
                         Duration = lesson.EstimatedMinutes + "m",
-
                         Completed = completedSet.Contains(lesson.LessonId),
                         Type = MapType(lesson.Type),
                         TypeLabel = lesson.Type.ToString(),
-
-                        // Fix: Dùng ResourceUrl thay vì Url
-                        Resources = lesson.LessonResources?
-                            .Where(r => r.ResourceType != ResourceType.Video)
-                            .Select(r => new ResourceStudentResponse
-                            {
-                                Id = r.LessonResourceId,
-                                Title = r.Title,
-                                Url = r.ResourceUrl, // Fix tên trường
-                                Type = "download"
-                            }).ToList() ?? new List<ResourceStudentResponse>()
+                        Resources = lesson.LessonResources?.Where(r => r.ResourceType != ResourceType.Video)
+                            .Select(r => new ResourceStudentResponse { Id = r.LessonResourceId, Title = r.Title, Url = r.ResourceUrl, Type = "download" }).ToList() ?? new List<ResourceStudentResponse>()
                     };
-
-                    // Check Quiz (Lấy GradedItem đầu tiên)
                     var quizItem = lesson.GradedItems?.FirstOrDefault();
                     if (quizItem != null)
                     {
-                        lessonDto.Type = "quiz"; // UI cần type là quiz để hiện giao diện thi
+                        lessonDto.Type = "quiz";
                         lessonDto.Quiz = new QuizStudentResponse
                         {
                             Id = quizItem.GradedItemId,
                             Title = "Quiz: " + lesson.Title,
                             Kind = "multiple-choice",
+                            PassingScore = 50,
                             Questions = quizItem.Questions?.Select(q => new QuestionStudentResponse
                             {
                                 Id = q.QuestionId,
                                 Text = q.Content,
-                                Points = (int)q.Points, // Fix: Ép kiểu decimal -> int
-                                Options = q.AnswerOptions?.Select(o => new AnswerOptionDTO
-                                {
-                                    Id = o.AnswerOptionId,
-                                    Text = o.Text
-                                }).ToList() ?? new List<AnswerOptionDTO>()
+                                Points = (int)q.Points,
+                                Options = q.AnswerOptions?.Select(o => new AnswerOptionDTO { Id = o.AnswerOptionId, Text = o.Text }).ToList() ?? new List<AnswerOptionDTO>()
                             }).ToList() ?? new List<QuestionStudentResponse>()
                         };
                     }
@@ -137,7 +101,6 @@ namespace MVC.Controllers
                 }
                 model.Modules.Add(moduleDto);
             }
-
             return View(model);
         }
 
@@ -145,22 +108,81 @@ namespace MVC.Controllers
         public async Task<IActionResult> CompleteLesson(Guid id)
         {
             var result = await _progressService.MarkLessonCompletedAsync(id);
-            if (result.IsSuccess) return Ok();
-            return BadRequest(result.ErrorMessage);
+            if (result.IsSuccess)
+            {
+                var userId = _claimService.GetUserClaim().UserId;
+                var lesson = await _unitOfWork.Lessons.GetQueryable().Include(l => l.Module).FirstOrDefaultAsync(l => l.LessonId == id);
+                if (lesson != null)
+                {
+                    var courseId = lesson.Module.CourseId;
+                    var totalLessons = await _unitOfWork.Lessons.GetQueryable().CountAsync(l => l.Module.CourseId == courseId);
+                    var completedCount = await _unitOfWork.UserLessonProgress.GetQueryable()
+                        .CountAsync(p => p.UserId == userId && p.IsCompleted && p.Lesson.Module.CourseId == courseId);
+
+                    var newPercent = totalLessons == 0 ? 0 : (int)((double)completedCount / totalLessons * 100);
+                    return Ok(new { percent = newPercent, completed = true });
+                }
+            }
+            return Ok(new { percent = 0, completed = true });
         }
 
-        // Helper map Enum sang string cho UI
-        private string MapType(LessonType type)
+        [HttpPost]
+        public async Task<IActionResult> SubmitQuiz([FromBody] QuizSubmissionModel model)
         {
-            return type switch
+            int correctCount = 0;
+            int totalQuestions = model.Answers.Count;
+
+            foreach (var ans in model.Answers)
             {
-                LessonType.Video => "video",
-                LessonType.Reading => "reading",
-                // Map cả Assignment thành Quiz để hiện giao diện làm bài
-                LessonType.PracticeAssignment => "quiz",
-                LessonType.GradedAssignment => "quiz",
-                _ => "video"
-            };
+                var option = await _unitOfWork.AnswerOptions.GetQueryable()
+                    .FirstOrDefaultAsync(o => o.AnswerOptionId == ans.Value);
+
+                if (option != null && option.IsCorrect) correctCount++;
+            }
+
+            double score = totalQuestions == 0 ? 0 : ((double)correctCount / totalQuestions) * 100;
+            bool isPassed = score >= 50;
+
+            if (isPassed)
+            {
+                return Ok(new { passed = true, redirectUrl = "/Learn/QuizResultPass", score = score });
+            }
+            else
+            {
+                return Ok(new { passed = false, redirectUrl = "/Learn/QuizResultFail", score = score });
+            }
         }
+
+        // 👇 ĐÃ GỘP: CHỈ GIỮ LẠI PHIÊN BẢN CÓ THAM SỐ
+        [HttpGet]
+        public IActionResult QuizResultPass(double score, Guid courseId)
+        {
+            ViewBag.Score = score;
+            ViewBag.CourseId = courseId;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult QuizResultFail(double score, Guid courseId)
+        {
+            ViewBag.Score = score;
+            ViewBag.CourseId = courseId;
+            return View();
+        }
+
+        private string MapType(LessonType type) => type switch
+        {
+            LessonType.Video => "video",
+            LessonType.Reading => "reading",
+            LessonType.PracticeAssignment => "quiz",
+            LessonType.GradedAssignment => "quiz",
+            _ => "video"
+        };
+    }
+
+    public class QuizSubmissionModel
+    {
+        public Guid QuizId { get; set; }
+        public Dictionary<Guid, Guid> Answers { get; set; }
     }
 }

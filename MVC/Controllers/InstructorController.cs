@@ -8,6 +8,7 @@ using Domain.Requests.Module;
 using Domain.Requests.Question;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore; // Nhớ thêm dòng này
 
 namespace MVC.Controllers
 {
@@ -20,6 +21,7 @@ namespace MVC.Controllers
         private readonly ILessonResourceService _resourceService;
         private readonly IQuestionService _questionService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IClaimService _claimService; // Thêm ClaimService vào đây
 
         public InstructorController(
             ICourseService courseService,
@@ -27,7 +29,8 @@ namespace MVC.Controllers
             ILessonService lessonService,
             ILessonResourceService resourceService,
             IQuestionService questionService,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IClaimService claimService) // Inject thêm ClaimService
         {
             _courseService = courseService;
             _moduleService = moduleService;
@@ -35,7 +38,23 @@ namespace MVC.Controllers
             _resourceService = resourceService;
             _questionService = questionService;
             _unitOfWork = unitOfWork;
+            _claimService = claimService;
         }
+
+        // 👇👇👇 ACTION DASHBOARD (Của Gói 3 - Dashboard Giáo viên)
+        public async Task<IActionResult> Dashboard()
+        {
+            var userId = _claimService.GetUserClaim().UserId;
+
+            // Trick: Lấy khóa học do user này tạo
+            var myCourses = await _unitOfWork.Courses.GetQueryable()
+                .Where(c => c.CreatedBy == userId)
+                .OrderByDescending(c => c.CreatedAt)
+                .ToListAsync();
+
+            return View(myCourses);
+        }
+        // 👆👆👆 HẾT PHẦN DASHBOARD
 
         public async Task<IActionResult> Index()
         {

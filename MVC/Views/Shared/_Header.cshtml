@@ -22,29 +22,25 @@
                     </a>
                     <a asp-controller="Course" asp-action="Index"
                        class="inline-flex items-center px-3 pt-1 text-sm font-medium border-b-2 transition-all
-                              @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Course" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
+                              @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Course" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
                         Explore
                     </a>
 
-                    @if (User.IsInRole("Student"))
+                    @if (User.Identity.IsAuthenticated)
                     {
-                    <a href="/Student/MyLearning"
+                    <a asp-controller="Enrollment" asp-action="MyCourses"
                        class="inline-flex items-center px-3 pt-1 text-sm font-medium border-b-2 transition-all
-                                  @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Student" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
+                                  @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Enrollment" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
                         My Learning
                     </a>
                     }
 
                     @if (User.IsInRole("Instructor"))
                     {
-                    <a asp-controller="Instructor" asp-action="Index"
+                    <a asp-controller="Instructor" asp-action="Dashboard"
                        class="inline-flex items-center px-3 pt-1 text-sm font-medium border-b-2 transition-all
-                                  @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Instructor" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
-                        My Courses
-                    </a>
-                    <a asp-controller="Instructor" asp-action="Create"
-                       class="inline-flex items-center px-3 pt-1 text-sm font-medium text-slate-600 hover:text-primary-600 border-b-2 border-transparent hover:border-primary-100 transition-all">
-                        <i class="fas fa-plus-circle mr-1.5"></i> Teach
+                                  @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Instructor" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
+                        Instructor
                     </a>
                     }
                 </div>
@@ -55,6 +51,7 @@
                     <input type="text"
                            class="block w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-full bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-300 focus:ring-2 focus:ring-slate-100 sm:text-sm transition-all"
                            placeholder="Search for courses...">
+                    <i class="fas fa-search absolute left-3 top-2 text-slate-400 text-xs"></i>
                 </div>
             </div>
 
@@ -70,11 +67,6 @@
                 }
                 else
                 {
-                <button class="text-slate-500 hover:text-slate-900 p-2 relative rounded-full hover:bg-slate-100 transition-colors">
-                    <i class="far fa-bell text-lg"></i>
-                    <span class="absolute top-1.5 right-1.5 h-2 w-2 bg-rose-500 rounded-full border-2 border-white"></span>
-                </button>
-
                 <div class="ml-1 relative">
                     <button @@click="userDropdownOpen = !userDropdownOpen"
                             @@click.away="userDropdownOpen = false"
@@ -113,30 +105,19 @@
                         </div>
 
                         <div class="py-1">
-                            @if (User.IsInRole("Student"))
-                                {
-                            <a href="/Student/MyLearning" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                            <a asp-controller="Enrollment" asp-action="MyCourses" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
                                 <i class="fas fa-graduation-cap mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> My Learning
                             </a>
-                            <a href="#" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                <i class="far fa-heart mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Wishlist
-                            </a>
-                                }
+
                             @if (User.IsInRole("Instructor"))
                                 {
-                            <a asp-controller="Instructor" asp-action="Index" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                            <a asp-controller="Instructor" asp-action="Dashboard" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
                                 <i class="fas fa-chalkboard-teacher mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Dashboard
-                            </a>
-                            <a asp-controller="Instructor" asp-action="Create" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                <i class="fas fa-plus-circle mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Create Course
                             </a>
                                 }
                         </div>
 
                         <div class="py-1">
-                            <a href="/Account/Profile" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                <i class="fas fa-cog mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Settings
-                            </a>
                             <form asp-controller="Auth" asp-action="Logout" method="post" class="block w-full">
                                 <button type="submit" class="w-full text-left group flex items-center px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 transition-colors">
                                     <i class="fas fa-sign-out-alt mr-3 text-rose-400 group-hover:text-rose-600 w-4 text-center"></i> Sign out
@@ -160,9 +141,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <a asp-controller="Home" asp-action="Index" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:bg-slate-100 hover:border-slate-300 hover:text-slate-800">Home</a>
             <a asp-controller="Course" asp-action="Index" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:bg-slate-100 hover:border-slate-300 hover:text-slate-800">Explore</a>
-            @if (User.IsInRole("Instructor"))
+            @if (User.Identity.IsAuthenticated)
             {
-            <a asp-controller="Instructor" asp-action="Index" class="block pl-3 pr-4 py-2 border-l-4 border-primary-500 text-base font-medium text-primary-700 bg-primary-50">My Courses</a>
+            <a asp-controller="Enrollment" asp-action="MyCourses" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:bg-slate-100 hover:border-slate-300 hover:text-slate-800">My Learning</a>
             }
         </div>
 

@@ -1,0 +1,20 @@
+@model Domain.Entities.Course
+@{ Layout = null; }
+
+<div style="width: 800px; padding: 50px; border: 10px solid #787878; margin: 0 auto; text-align: center; font-family: serif;">
+    <div style="width: 700px; padding: 20px; text-align: center; border: 5px solid #787878;">
+        <span style="font-size:50px; font-weight:bold">Certificate of Completion</span>
+        <br><br>
+        <span style="font-size:25px"><i>This is to certify that</i></span>
+        <br><br>
+        <span style="font-size:30px"><b>Student Name</b></span><br /><br />
+        <span style="font-size:25px"><i>has completed the course</i></span> <br /><br />
+        <span style="font-size:30px">@Model.Title</span> <br /><br />
+        <span style="font-size:20px">with score of <b>100%</b></span> <br /><br />
+        <span style="font-size:25px"><i>Dated</i></span><br>
+        <span style="font-size:25px">@DateTime.Now.ToString("dd/MM/yyyy")</span>
+    </div>
+</div>
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="window.print()" style="padding: 10px 20px; cursor: pointer;">Print Certificate</button>
+</div>
