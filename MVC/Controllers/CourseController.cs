@@ -20,11 +20,11 @@ namespace MVC.Controllers
             return View(result.Result);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
-            var result = await _courseService.GetCourseByIdAsync(id);
-            if (!result.IsSuccess) return NotFound();
-
+            var result = await _courseService.GetCourseDetailAsync(id);
+            if (!result.IsSuccess) return RedirectToAction("Index");
             return View(result.Result);
         }
     }

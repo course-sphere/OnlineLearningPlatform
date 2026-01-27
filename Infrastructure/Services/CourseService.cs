@@ -67,20 +67,57 @@ namespace Infrastructure.Services
 
         public async Task<ApiResponse> GetCourseDetailAsync(Guid courseId)
         {
-            ApiResponse response = new ApiResponse();
             try
             {
                 var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == courseId);
-                if (course == null)
+                if (course == null) return new ApiResponse().SetNotFound("Course not found");
+
+                var instructor = await _unitOfWork.Users.GetAsync(u => u.UserId == course.CreatedBy);
+
+                var modules = await _unitOfWork.Modules.GetAllAsync(m => m.CourseId == courseId);
+                var modulesData = new List<CourseDetailModule>();
+
+                foreach (var m in modules.OrderBy(x => x.Index))
                 {
-                    return response.SetNotFound("Course not found");
+                    var lessons = await _unitOfWork.Lessons.GetAllAsync(l => l.ModuleId == m.ModuleId && !l.IsDeleted);
+
+                    modulesData.Add(new CourseDetailModule
+                    {
+                        ModuleId = m.ModuleId,
+                        Title = m.Name,
+                        Lessons = lessons.OrderBy(l => l.OrderIndex).Select(l => new CourseDetailLesson
+                        {
+                            LessonId = l.LessonId,
+                            Title = l.Title,
+                            Duration = l.EstimatedMinutes > 0 ? $"{l.EstimatedMinutes} min" : "10 min",
+                            Type = l.Type.ToString()
+                        }).ToList()
+                    });
                 }
-                var courseResponse = _mapper.Map<CourseResponse>(course);
-                return response.SetOk(courseResponse);
+
+                // 4. Map kết quả
+                var result = new CourseDetailResponse
+                {
+                    CourseId = course.CourseId,
+                    Title = course.Title,
+                    Description = course.Description,
+                    Price = course.Price,
+                    Image = string.IsNullOrEmpty(course.Image) ? "https://placehold.co/600x400?text=No+Image" : course.Image,
+                    Level = course.Level.ToString(),
+                    Category = "Web Development",
+                    Rating = 4.8,
+                    Students = 1250,
+                    Duration = "12h 30m",
+                    InstructorName = instructor?.FullName ?? "CourseSphere Instructor",
+                    InstructorId = instructor?.UserId ?? Guid.Empty,
+                    Modules = modulesData
+                };
+
+                return new ApiResponse().SetOk(result);
             }
             catch (Exception ex)
             {
-                return response.SetBadRequest(message: ex.Message);
+                return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
 
@@ -437,6 +474,8 @@ namespace Infrastructure.Services
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
+
+        
 
     }
 }

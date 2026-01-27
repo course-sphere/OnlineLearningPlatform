@@ -1,0 +1,223 @@
+﻿@using Domain.Responses.Course
+@using System.Text.Json
+@using System.Globalization
+@model CourseDetailResponse
+
+@{
+    ViewData["Title"] = Model.Title;
+
+    var courseData = new
+    {
+        modules = Model.Modules.Select(m => new
+        {
+            title = m.Title,
+            lessons = m.Lessons.Select(l => new
+            {
+                title = l.Title,
+                duration = l.Duration ?? "10m",
+                type = l.Type
+            }).ToList()
+        }).ToList()
+    };
+
+    var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+    var courseJson = JsonSerializer.Serialize(courseData, jsonOptions);
+}
+
+<div x-data="courseDetail()" class="bg-zinc-50 min-h-screen font-sans text-zinc-900 pb-20 pt-8">
+
+    <div class="container mx-auto px-4 md:px-6">
+
+        <div class="grid lg:grid-cols-3 gap-8 items-start">
+
+            <div class="lg:col-span-2 space-y-8">
+
+                <div class="bg-white rounded-3xl p-8 md:p-10 shadow-lg shadow-zinc-200/50 border border-zinc-100 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-zinc-50 to-transparent rounded-bl-full -z-0 opacity-50"></div>
+
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-6 text-sm font-medium">
+                            <span class="text-primary-700 bg-primary-50 px-3 py-1 rounded-full border border-primary-100 text-xs font-bold uppercase tracking-wider">
+                                @Model.Category
+                            </span>
+                            <i class="fas fa-chevron-right text-[10px] text-zinc-300"></i>
+                            <span class="text-zinc-500 capitalize">@Model.Level</span>
+                        </div>
+
+                        <h1 class="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 mb-6 leading-tight">
+                            @Model.Title
+                        </h1>
+
+                        <div class="flex flex-wrap items-center gap-6 md:gap-10 border-t border-zinc-100 pt-6">
+                            <div class="flex items-center gap-3">
+                                <div class="h-12 w-12 rounded-full bg-zinc-900 text-white flex items-center justify-center font-bold text-lg shadow-md ring-4 ring-zinc-50">
+                                    @Model.InstructorName?.Substring(0, 1).ToUpper()
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Created by</p>
+                                    <p class="text-sm font-bold text-zinc-900">@Model.InstructorName</p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <div class="flex items-center gap-1 text-amber-500">
+                                    <span class="font-black text-xl text-zinc-900">@Model.Rating</span>
+                                    <div class="text-xs flex"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                </div>
+                                <p class="text-xs text-zinc-400 font-medium">@Model.Students ratings</p>
+                            </div>
+
+                            <div class="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase">
+                                <i class="fas fa-globe text-zinc-300"></i> English
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-zinc-200 rounded-3xl p-8 shadow-sm">
+                    <h3 class="text-xl font-bold text-zinc-900 mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center"><i class="fas fa-check"></i></span>
+                        What you'll learn
+                    </h3>
+                    <ul class="grid sm:grid-cols-2 gap-y-4 gap-x-8">
+                        <li class="flex gap-3 items-start text-sm text-zinc-600">
+                            <i class="fas fa-check text-emerald-500 mt-1 text-xs"></i>
+                            <span>Build robust applications from scratch.</span>
+                        </li>
+                        <li class="flex gap-3 items-start text-sm text-zinc-600">
+                            <i class="fas fa-check text-emerald-500 mt-1 text-xs"></i>
+                            <span>Master industry-standard tools.</span>
+                        </li>
+                        <li class="flex gap-3 items-start text-sm text-zinc-600">
+                            <i class="fas fa-check text-emerald-500 mt-1 text-xs"></i>
+                            <span>Understand core concepts deeply.</span>
+                        </li>
+                        <li class="flex gap-3 items-start text-sm text-zinc-600">
+                            <i class="fas fa-check text-emerald-500 mt-1 text-xs"></i>
+                            <span>Deploy projects to production.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border border-zinc-200 rounded-3xl p-8 shadow-sm">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-zinc-900">Course Content</h3>
+                        <div class="text-xs font-medium text-zinc-400 bg-zinc-100 px-3 py-1 rounded-full">
+                            <span x-text="modules.length"></span> sections • <span x-text="modules.reduce((acc, m) => acc + m.lessons.length, 0)"></span> lectures
+                        </div>
+                    </div>
+
+                    <div class="border border-zinc-200 rounded-xl overflow-hidden divide-y divide-zinc-100 bg-zinc-50/30">
+                        <template x-for="(module, index) in modules" :key="index">
+                            <div x-data="{ open: index === 0 }">
+                                <button @@click="open = !open" class="w-full px-6 py-4 flex justify-between items-center bg-white hover:bg-zinc-50 transition-colors text-left group border-l-4 border-transparent" :class="open ? 'border-zinc-900' : ''">
+                                    <div class="flex items-center gap-4">
+                                        <i class="fas fa-chevron-down text-xs text-zinc-400 transition-transform duration-300 group-hover:text-zinc-900" :class="open ? 'rotate-180' : ''"></i>
+                                        <span class="font-bold text-zinc-800 text-sm" x-text="module.title"></span>
+                                    </div>
+                                    <span class="text-xs font-medium text-zinc-400" x-text="module.lessons.length + ' lessons'"></span>
+                                </button>
+                                <div x-show="open" x-collapse>
+                                    <div class="px-2 py-2">
+                                        <template x-for="lesson in module.lessons">
+                                            <div class="flex justify-between items-center px-4 py-3 rounded-lg hover:bg-white hover:shadow-sm transition-all cursor-default mx-2 border border-transparent hover:border-zinc-100">
+                                                <div class="flex items-center gap-3">
+                                                    <i class="fas text-xs w-5 text-center text-zinc-400"
+                                                       :class="{'fa-play': lesson.type === 'Video', 'fa-book': lesson.type === 'Reading', 'fa-question': lesson.type === 'Quiz'}"></i>
+                                                    <span class="text-sm text-zinc-600 font-medium" x-text="lesson.title"></span>
+                                                </div>
+                                                <span class="text-xs text-zinc-400" x-text="lesson.duration"></span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-zinc-200 rounded-3xl p-8 shadow-sm">
+                    <h3 class="text-xl font-bold text-zinc-900 mb-6">Description</h3>
+                    <div class="prose prose-zinc prose-sm max-w-none text-zinc-600">
+                        <p class="whitespace-pre-line leading-relaxed">@Model.Description</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="lg:col-span-1 relative">
+                <div class="sticky top-24">
+
+                    <div class="bg-white rounded-3xl shadow-xl shadow-zinc-300/40 border border-zinc-200 overflow-hidden">
+
+                        <div class="aspect-video bg-zinc-100 relative group cursor-pointer border-b border-zinc-100">
+                            <img src="@(string.IsNullOrEmpty(Model.Image) ? "https://placehold.co/600x400?text=No+Image" : Model.Image)"
+                                 class="w-full h-full object-cover transition-opacity hover:opacity-90">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-16 h-16 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-play text-zinc-900 text-xl ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-8">
+                            <div class="mb-8">
+                                @if (Model.Price == 0) {
+                                <span class="block text-4xl font-black text-zinc-900 mb-1">Free</span>
+                                <span class="text-sm text-zinc-500 font-medium">Enroll and start learning now!</span>
+                                } else {
+                                <div class="flex items-baseline gap-3 mb-1">
+                                    <span class="text-4xl font-black text-zinc-900">@Model.Price.ToString("C", new CultureInfo("en-US"))</span>
+                                    <span class="text-lg text-zinc-400 line-through decoration-1">$199.99</span>
+                                </div>
+                                <span class="inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-0.5 rounded">85% OFF</span>
+                                }
+                            </div>
+
+                            <div class="space-y-4">
+                                @if (Model.Price == 0) {
+                                <form asp-controller="Enrollment" asp-action="FreeEnroll" method="post">
+                                    <input type="hidden" name="courseId" value="@Model.CourseId" />
+                                    <button type="submit" class="w-full py-4 bg-zinc-900 hover:bg-black text-white rounded-2xl font-bold text-lg shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                                        <span>Enroll Now</span>
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </form>
+                                } else {
+                                <form asp-controller="Payment" asp-action="Checkout" method="post">
+                                    <input type="hidden" name="courseId" value="@Model.CourseId" />
+                                    <button type="submit" class="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-2xl font-bold text-lg shadow-lg shadow-primary-200 hover:-translate-y-1 transition-all duration-300">
+                                        Buy Now
+                                    </button>
+                                </form>
+                                <button class="w-full py-3 bg-white border-2 border-zinc-100 text-zinc-700 rounded-2xl font-bold hover:border-zinc-900 hover:text-zinc-900 transition-all">
+                                    Add to Cart
+                                </button>
+                                }
+                            </div>
+
+                            <p class="text-center text-[10px] text-zinc-400 font-medium mt-6">30-Day Money-Back Guarantee</p>
+
+                            <div class="mt-8 pt-6 border-t border-zinc-100">
+                                <h4 class="font-bold text-zinc-900 mb-4 text-xs uppercase tracking-wide">Includes:</h4>
+                                <ul class="space-y-3 text-sm text-zinc-600">
+                                    <li class="flex items-center gap-3"><i class="fas fa-video w-5 text-center text-zinc-400"></i> <span>@Model.Duration on-demand video</span></li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-file-alt w-5 text-center text-zinc-400"></i> <span>Assignments</span></li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-infinity w-5 text-center text-zinc-400"></i> <span>Full lifetime access</span></li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-mobile-alt w-5 text-center text-zinc-400"></i> <span>Access on mobile</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function courseDetail() {
+        return { ... @Html.Raw(courseJson) }
+    }
+</script>
