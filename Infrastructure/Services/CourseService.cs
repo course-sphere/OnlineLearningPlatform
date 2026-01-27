@@ -438,5 +438,63 @@ namespace Infrastructure.Services
             }
         }
 
+        // Trong CourseService.cs
+
+        public async Task<ApiResponse> GetCourseDetailForStudentAsync(Guid courseId)
+        {
+            try
+            {
+                // 1. Lấy thông tin Course
+                var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == courseId);
+                if (course == null) return new ApiResponse().SetNotFound("Course not found");
+
+                var instructor = await _unitOfWork.Users.GetAsync(u => u.UserId == course.CreatedBy);
+
+                // 2. Lấy Modules & Lessons (Query thủ công để gom hết vào 1 cục)
+                var modules = await _unitOfWork.Modules.GetAllAsync(m => m.CourseId == courseId);
+                var responseModules = new List<StudentModuleResponse>();
+
+                foreach (var m in modules.OrderBy(x => x.Index))
+                {
+                    // Lấy lessons active
+                    var lessons = await _unitOfWork.Lessons.GetAllAsync(l => l.ModuleId == m.ModuleId && !l.IsDeleted);
+
+                    responseModules.Add(new StudentModuleResponse
+                    {
+                        Title = m.Name,
+                        Lessons = lessons.OrderBy(l => l.OrderIndex).Select(l => new StudentLessonResponse
+                        {
+                            Title = l.Title,
+                            Duration = l.EstimatedMinutes > 0 ? $"{l.EstimatedMinutes} min" : "10 min",
+                            Type = l.Type.ToString() // Enum to String
+                        }).ToList()
+                    });
+                }
+
+                // 3. Map sang DTO Student (Không dùng AutoMapper để tránh lỗi config)
+                var response = new StudentCourseDetailResponse
+                {
+                    CourseId = course.CourseId,
+                    Title = course.Title,
+                    Description = course.Description,
+                    Price = course.Price,
+                    Image = string.IsNullOrEmpty(course.Image) ? "https://placehold.co/600x400?text=No+Image" : course.Image,
+                    Level = course.Level.ToString(),
+                    Category = "Web Development", // Fake hoặc lấy từ DB
+                    Rating = 4.8, // Fake
+                    Students = 1250, // Fake
+                    Duration = "12h 30m", // Fake
+                    InstructorName = instructor?.FullName ?? "Instructor",
+                    Modules = responseModules
+                };
+
+                return new ApiResponse().SetOk(response);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest(ex.Message);
+            }
+        }
+
     }
 }

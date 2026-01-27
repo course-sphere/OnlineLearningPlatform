@@ -14,17 +14,24 @@ namespace MVC.Controllers
         }
 
         public async Task<IActionResult> Index()
-        { 
+        {
             var result = await _courseService.GetCoursesByStatusAsync(CourseStatus.Published);
-
             return View(result.Result);
         }
 
+
+        [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
-            var result = await _courseService.GetCourseByIdAsync(id);
-            if (!result.IsSuccess) return NotFound();
+            // Gọi hàm MỚI dành riêng cho Student (Isolation Strategy)
+            var result = await _courseService.GetCourseDetailForStudentAsync(id);
 
+            if (!result.IsSuccess)
+            {
+                return RedirectToAction("Index");
+            }
+
+            // Trả về View với DTO mới (StudentCourseDetailResponse)
             return View(result.Result);
         }
     }
