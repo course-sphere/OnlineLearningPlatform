@@ -1,6 +1,7 @@
 @using Domain.Requests.Course
 @model List<GetAllCourseForAdminResponse>
     @{
+    Layout = "_AdminLayout";
     ViewData["Title"] = "Pending Courses";
     }
 
@@ -80,6 +81,11 @@
                                             class="px-3 py-2 bg-white border border-rose-200 text-rose-600 rounded-lg text-sm font-medium hover:bg-rose-50 transition-all">
                                         <i class="fas fa-times mr-1"></i> Reject
                                     </button>
+
+                                    <a href="/Admin/PreviewCourse/@course.CourseId" target="_blank"
+                                       class="px-3 py-2 bg-white border border-slate-200 text-slate-600 rounded-lg text-sm font-medium hover:bg-slate-50 transition-all">
+                                        <i class="fas fa-eye mr-1"></i> Detail
+                                    </a>
 
                                     <div x-show="showReject" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" x-cloak>
                                         <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md text-left" @@click.away="showReject = false">

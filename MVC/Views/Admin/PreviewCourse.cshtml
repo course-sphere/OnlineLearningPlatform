@@ -1,0 +1,380 @@
+﻿@using Domain.Responses.Course
+@model CourseLearningResponse
+@{
+    ViewData["Title"] = "Course Preview";
+    Layout = null; // Full màn hình, không dính Header/Footer của Admin
+
+    var jsonOptions = new System.Text.Json.JsonSerializerOptions
+    {
+        PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+    };
+    var courseJson = System.Text.Json.JsonSerializer.Serialize(Model, jsonOptions);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview: @Model.Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900">
+
+    <div class="h-16 bg-white border-b flex items-center justify-between px-6 sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <a href="/Admin/Index" class="text-slate-500 hover:text-slate-800 transition-colors">
+                <i class="fas fa-arrow-left"></i> Back to Admin
+            </a>
+            <div class="h-6 w-px bg-slate-200 mx-2"></div>
+            <span class="font-bold text-slate-800">Preview Mode</span>
+            <span class="text-xs px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded border border-yellow-200">
+                You are viewing as a Student
+            </span>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-xs">
+                    AD
+                </div>
+                <span class="text-sm font-medium">Administrator</span>
+            </div>
+        </div>
+    </div>
+
+    <div x-data="learningCourse()" x-init="init()" class="h-[calc(100vh-64px)] flex bg-gray-50" x-cloak>
+
+        <aside class="w-96 bg-white border-r flex flex-col h-full">
+            <div class="p-6 border-b shrink-0">
+                <div class="flex items-start justify-between gap-3">
+                    <div>
+                        <h2 class="font-bold text-sm leading-snug text-slate-900" x-text="course.title"></h2>
+                        <p class="text-xs text-slate-500 mt-1" x-text="course.instructor"></p>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <div class="flex justify-between text-xs mb-1 text-slate-600 font-medium">
+                        <span>Progress</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-cyan-600 h-1.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 border-b bg-slate-50/50 shrink-0">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                    <input x-model="sidebarSearch"
+                           type="text"
+                           placeholder="Search lessons..."
+                           class="w-full rounded-lg border-slate-200 pl-8 py-2 text-sm focus:ring-cyan-500 focus:border-cyan-500 shadow-sm" />
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-4 space-y-3">
+                <template x-for="module in filteredModules()" :key="module.id">
+                    <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                        <button @@click="module.open = !module.open"
+                                class="w-full px-4 py-3 bg-slate-50 flex justify-between items-center text-sm font-medium hover:bg-slate-100 transition-colors">
+                            <div class="text-left">
+                                <div class="text-slate-800" x-text="module.title"></div>
+                                <div class="text-xs text-slate-500 mt-0.5" x-text="`${module.lessons.length} lessons`"></div>
+                            </div>
+                            <i class="fas fa-chevron-down text-slate-400 text-xs transition-transform" :class="{ 'rotate-180': module.open }"></i>
+                        </button>
+
+                        <div x-show="module.open" class="divide-y divide-slate-100">
+                            <template x-for="lesson in module.lessons" :key="lesson.id">
+                                <button @@click="selectLesson(lesson)"
+                                        :class="lessonRowClass(lesson)"
+                                        class="w-full px-4 py-3 text-sm flex gap-3 items-center transition-colors">
+
+                                    <span class="w-6 text-center text-slate-400">
+                                        <i class="fas" :class="{
+                                            'fa-play-circle': lesson.type === 'video',
+                                            'fa-file-alt': lesson.type === 'reading',
+                                            'fa-clipboard-question': lesson.type === 'quiz'
+                                        }"></i>
+                                    </span>
+
+                                    <div class="flex-1 text-left truncate">
+                                        <div class="truncate text-slate-700 font-medium" x-text="lesson.title"></div>
+                                        <div class="text-[10px] text-slate-400 flex items-center gap-1">
+                                            <i class="far fa-clock"></i> <span x-text="lesson.duration"></span>
+                                        </div>
+                                    </div>
+                                </button>
+                            </template>
+                            <div x-show="module.lessons.length === 0" class="p-3 text-xs text-center text-slate-400 italic">
+                                No lessons in this module.
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col h-full overflow-hidden">
+
+            <div class="h-14 bg-white border-b px-6 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-slate-400">Current:</span>
+                    <span class="font-bold text-slate-800" x-text="currentLesson?.title || 'Select a lesson'"></span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="px-3 py-1.5 rounded border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50">
+                        <i class="fas fa-bug"></i> Report Issue
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-8 bg-slate-50">
+                <div class="max-w-4xl mx-auto space-y-8" x-show="currentLesson">
+
+                    <div class="rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white relative aspect-video group">
+
+                        <template x-if="currentLesson?.type === 'video' && currentLesson.videoUrl">
+                            <iframe :src="getEmbedUrl(currentLesson.videoUrl)" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </template>
+
+                        <template x-if="currentLesson?.type !== 'video' || !currentLesson.videoUrl">
+                            <div class="w-full h-full relative">
+                                <img :src="currentLesson?.cover" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-white p-6 text-center">
+                                    <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur flex items-center justify-center mb-4 text-3xl">
+                                        <i class="fas" :class="{
+                                            'fa-book-open': currentLesson?.type === 'reading',
+                                            'fa-pencil-alt': currentLesson?.type === 'quiz',
+                                            'fa-video-slash': currentLesson?.type === 'video'
+                                        }"></i>
+                                    </div>
+                                    <h1 class="text-3xl font-bold" x-text="currentLesson?.title"></h1>
+                                    <p class="text-white/80 mt-2 max-w-lg" x-text="currentLesson?.description || 'No description available.'"></p>
+
+                                    <button x-show="currentLesson?.type === 'quiz'" class="mt-6 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-full font-bold transition-all shadow-lg flex items-center gap-2">
+                                        <span>Start Quiz</span> <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-8">
+                        <div class="col-span-2 space-y-6">
+                            <div class="flex border-b border-slate-200">
+                                <button @@click="tab='overview'" :class="tab==='overview' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-500'" class="pb-3 px-1 border-b-2 text-sm font-medium mr-6 transition-colors">Overview</button>
+                                <button @@click="tab='resources'" :class="tab==='resources' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-500'" class="pb-3 px-1 border-b-2 text-sm font-medium mr-6 transition-colors">Resources</button>
+                                <button x-show="currentLesson?.type === 'quiz'" @@click="tab='quiz'" :class="tab==='quiz' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-500'" class="pb-3 px-1 border-b-2 text-sm font-medium transition-colors">Questions</button>
+                            </div>
+
+                            <div x-show="tab === 'overview'" class="text-slate-700 leading-relaxed text-sm">
+                                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                                    <h3 class="font-bold text-slate-900 mb-2">Lesson Content</h3>
+                                    <div x-html="currentLesson?.content || currentLesson?.description" class="prose prose-sm max-w-none text-slate-600"></div>
+                                </div>
+                            </div>
+
+                            <div x-show="tab === 'resources'" class="space-y-3">
+                                <template x-for="res in currentLesson?.resources" :key="res.id">
+                                    <div class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:border-cyan-200 transition-colors group">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-cyan-50 group-hover:text-cyan-600 transition-colors">
+                                                <i class="fas fa-file-download"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium text-slate-900 text-sm" x-text="res.title"></div>
+                                                <div class="text-xs text-slate-400">Downloadable Resource</div>
+                                            </div>
+                                        </div>
+                                        <a :href="res.url" target="_blank" class="px-3 py-1.5 text-xs font-medium bg-slate-50 text-slate-600 rounded border border-slate-200 hover:bg-white hover:text-cyan-700 transition-colors">
+                                            Download
+                                        </a>
+                                    </div>
+                                </template>
+                                <div x-show="!currentLesson?.resources || currentLesson?.resources.length === 0" class="text-center py-8 text-slate-400 text-sm">
+                                    No resources attached.
+                                </div>
+                            </div>
+
+                            <div x-show="tab === 'quiz' && currentLesson?.quiz" class="space-y-4">
+                                <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
+                                    <div class="flex items-center gap-2 text-blue-800 font-bold text-sm mb-1">
+                                        <i class="fas fa-info-circle"></i> Quiz Preview
+                                    </div>
+                                    <p class="text-xs text-blue-600">
+                                        This is a preview of the questions. Passing Score: <span class="font-bold" x-text="currentLesson?.quiz?.passingScore + '%'"></span>
+                                    </p>
+                                </div>
+
+                                <template x-for="(q, idx) in currentLesson?.quiz?.questions" :key="q.id">
+                                    <div class="bg-white border border-slate-200 rounded-xl p-5">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <h4 class="font-bold text-slate-900 text-sm">
+                                                <span class="text-slate-400 mr-1" x-text="`Q${idx + 1}.`"></span>
+                                                <span x-text="q.text"></span>
+                                            </h4>
+                                            <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-1 rounded" x-text="`${q.points} pts`"></span>
+                                        </div>
+                                        <div class="space-y-2 pl-4 border-l-2 border-slate-100">
+                                            <template x-for="opt in q.options">
+                                                <div class="flex items-center gap-2 text-sm text-slate-600">
+                                                    <div class="w-4 h-4 rounded-full border border-slate-300"></div>
+                                                    <span x-text="opt"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm sticky top-0">
+                                <h3 class="font-bold text-slate-900 text-sm mb-4">Lesson Details</h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-500">Duration</span>
+                                        <span class="font-medium text-slate-900" x-text="currentLesson?.duration"></span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-500">Type</span>
+                                        <span class="font-medium capitalize text-slate-900" x-text="currentLesson?.typeLabel"></span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-500">Last Updated</span>
+                                        <span class="font-medium text-slate-900">Today</span>
+                                    </div>
+                                    <hr class="border-slate-100" />
+                                    <button class="w-full py-2 bg-slate-50 text-slate-600 font-medium text-sm rounded-lg hover:bg-slate-100 border border-slate-200 transition-colors">
+                                        <i class="far fa-bookmark mr-1"></i> Bookmark
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function learningCourse() {
+            return {
+                serverData: @Html.Raw(courseJson),
+                course: {},
+                modules: [],
+                currentLesson: null,
+                currentLessonId: null,
+                sidebarSearch: '',
+                tab: 'overview',
+
+                init() {
+                    // Map General Info
+                    this.course = {
+                        title: this.serverData.title,
+                        instructor: this.serverData.instructor,
+                        description: this.serverData.description || 'No description.'
+                    };
+
+                    // Map Modules & Lessons
+                    this.modules = this.serverData.modules.map((m, idx) => ({
+                        id: m.id,
+                        title: m.title,
+                        duration: m.duration,
+                        open: idx === 0, // Mở module đầu tiên
+                        lessons: m.lessons.map(l => this.mapLesson(l))
+                    }));
+
+                    // Select First Lesson
+                    if (this.modules.length > 0 && this.modules[0].lessons.length > 0) {
+                        this.selectLesson(this.modules[0].lessons[0]);
+                    }
+                },
+
+                mapLesson(l) {
+                    return {
+                        id: l.id,
+                        title: l.title,
+                        duration: l.duration,
+                        type: l.type, // 'video', 'reading', 'quiz'
+                        typeLabel: l.typeLabel,
+                        description: l.description,
+                        content: l.content,
+                        videoUrl: l.videoUrl,
+                        cover: l.cover || 'https://placehold.co/800x450/e2e8f0/64748b?text=Course+Material',
+                        resources: l.resources || [],
+                        quiz: l.quiz
+                    };
+                },
+
+                filteredModules() {
+                    if (!this.sidebarSearch) return this.modules;
+                    const q = this.sidebarSearch.toLowerCase();
+                    return this.modules.map(m => ({
+                        ...m,
+                        open: true,
+                        lessons: m.lessons.filter(l => l.title.toLowerCase().includes(q))
+                    })).filter(m => m.lessons.length > 0);
+                },
+
+                selectLesson(lesson) {
+                    this.currentLesson = lesson;
+                    this.currentLessonId = lesson.id;
+
+                    // Auto switch tabs based on type
+                    if (lesson.type === 'quiz') {
+                        this.tab = 'quiz';
+                    } else if (lesson.type === 'video' || lesson.type === 'reading') {
+                        this.tab = 'overview';
+                    }
+                },
+
+                lessonRowClass(lesson) {
+                    if (lesson.id === this.currentLessonId) return 'bg-cyan-50 text-cyan-700 border-r-2 border-cyan-600';
+                    return 'hover:bg-slate-50 text-slate-500';
+                },
+
+                getEmbedUrl(url) {
+                    if (!url) return '';
+                    // Simple Youtube parser
+                    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                        const videoId = url.split('v=')[1] || url.split('/').pop();
+                        return `https://www.youtube.com/embed/${videoId}`;
+                    }
+                    return url; // Return as-is if not youtube (or extend logic later)
+                }
+            };
+        }
+    </script>
+</body>
+</html>
