@@ -1,4 +1,5 @@
-﻿namespace Domain.Requests.Lesson
+﻿using Domain.Entities;
+namespace Domain.Requests.Lesson
 {
     public class CreateNewLessonForModuleRequest
     {
@@ -6,5 +7,6 @@
         public string Title { get; set; }
         public string Content { get; set; }
         public int OrderIndex { get; set; }
+        public LessonType Type { get; set; }
     }
 }

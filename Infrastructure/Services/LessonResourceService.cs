@@ -30,23 +30,40 @@ namespace Infrastructure.Services
             try
             {
                 var claim = _service.GetUserClaim();
+
+                // 1. Kiểm tra Lesson tồn tại
                 var lesson = await _unitOfWork.Lessons.GetAsync(l => l.LessonId == request.LessonId);
                 if (lesson == null)
                 {
                     return response.SetNotFound("Lesson not found or may have been automatically deleted due to inactivity!!! Please check your course");
                 }
 
-                var lessonResource = _mapper.Map<LessonResource>(request);
                 if (request.File == null)
                 {
                     return response.SetBadRequest(message: "Thêm File vào =,=");
                 }
+
+                // ===> LOGIC TỰ ĐỘNG TÍNH ORDER INDEX <===
+                // 2. Lấy danh sách tài liệu hiện có của bài học này
+                var existingResources = await _unitOfWork.LessonResources.GetAllAsync(r => r.LessonId == request.LessonId && !r.IsDeleted);
+
+                // 3. Tìm số thứ tự lớn nhất + 1
+                int newOrderIndex = existingResources.Any() ? existingResources.Max(r => r.OrderIndex) + 1 : 1;
+
+                var lessonResource = _mapper.Map<LessonResource>(request);
+
+                // 4. Upload lên Firebase
                 var uploadResource = await _storage.UploadLessonResourceAsync(request.LessonId, request.Title, request.File);
+
+                // 5. Gán các thông tin
                 lessonResource.ResourceUrl = uploadResource.Url;
                 lessonResource.ResourceType = uploadResource.Type;
-                lessonResource.CreatedBy = claim.UserId;    
+                lessonResource.CreatedBy = claim.UserId;
+                lessonResource.OrderIndex = newOrderIndex; // <== Gán Index tự động tại đây
+
                 await _unitOfWork.LessonResources.AddAsync(lessonResource);
                 await _unitOfWork.SaveChangeAsync();
+
                 var result = _mapper.Map<LessonResourceResponse>(lessonResource);
                 return response.SetOk(result);
             }
@@ -55,6 +72,7 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(message: ex.Message);
             }
         }
+
         public async Task<ApiResponse> GetResourcesByLessonAsync(Guid lessonId)
         {
             ApiResponse response = new ApiResponse();
@@ -64,11 +82,16 @@ namespace Infrastructure.Services
                 if (lesson == null)
                     return response.SetNotFound("Lesson not found");
 
+                // Lấy resource chưa bị xóa
                 var resources = await _unitOfWork.LessonResources.GetAllAsync(
-                    r => r.LessonId == lessonId
+                    r => r.LessonId == lessonId && !r.IsDeleted
                 );
 
-                var result = _mapper.Map<List<LessonResourceResponse>>(resources);
+                // ===> SẮP XẾP TRƯỚC KHI TRẢ VỀ <===
+                // Frontend sẽ hiển thị đúng thứ tự nhờ dòng này
+                var sortedResources = resources.OrderBy(r => r.OrderIndex).ToList();
+
+                var result = _mapper.Map<List<LessonResourceResponse>>(sortedResources);
                 return response.SetOk(result);
             }
             catch (Exception ex)
@@ -76,6 +99,7 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(ex.Message);
             }
         }
+
         public async Task<ApiResponse> UpdateLessonResourceAsync(Guid resourceId, UpdateLessonResourceRequest request)
         {
             ApiResponse response = new ApiResponse();
@@ -94,8 +118,8 @@ namespace Infrastructure.Services
                 // Update file nếu có
                 if (request.File != null)
                 {
-                    // Xóa file cũ
-                 /*   if (!string.IsNullOrEmpty(resource.ResourceUrl))
+                    // Logic xóa file cũ nếu cần thiết có thể bỏ comment
+                    /* if (!string.IsNullOrEmpty(resource.ResourceUrl))
                     {
                         await _storage.DeleteAsync(resource.ResourceUrl);
                     }*/
@@ -130,13 +154,8 @@ namespace Infrastructure.Services
                 if (resource == null)
                     return response.SetNotFound("Lesson resource not found");
 
-                // Delete file trên Firebase
-       /*         if (!string.IsNullOrEmpty(resource.ResourceUrl))
-                {
-                    await _storage.DeleteAsync(resource.ResourceUrl);
-                }
-*/
                 _unitOfWork.LessonResources.RemoveIdAsync(resource.LessonResourceId);
+
                 await _unitOfWork.SaveChangeAsync();
 
                 return response.SetOk("Lesson resource deleted successfully");
@@ -146,6 +165,5 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(ex.Message);
             }
         }
-
     }
 }
