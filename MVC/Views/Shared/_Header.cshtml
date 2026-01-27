@@ -39,8 +39,13 @@
                     {
                     <a asp-controller="Instructor" asp-action="Dashboard"
                        class="inline-flex items-center px-3 pt-1 text-sm font-medium border-b-2 transition-all
-                                  @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Instructor" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
-                        Instructor
+                                  @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Instructor" && ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
+                        Dashboard
+                    </a>
+
+                    <a asp-controller="Instructor" asp-action="Create"
+                       class="inline-flex items-center px-3 pt-1 text-sm font-medium text-slate-600 hover:text-cyan-700 border-b-2 border-transparent hover:border-cyan-100 transition-all">
+                        <i class="fas fa-plus-circle mr-1.5"></i> Teach
                     </a>
                     }
                 </div>
@@ -48,10 +53,10 @@
 
             <div class="hidden md:flex flex-1 items-center justify-center px-8">
                 <div class="w-full max-w-sm relative">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
                     <input type="text"
                            class="block w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-full bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-300 focus:ring-2 focus:ring-slate-100 sm:text-sm transition-all"
                            placeholder="Search for courses...">
-                    <i class="fas fa-search absolute left-3 top-2 text-slate-400 text-xs"></i>
                 </div>
             </div>
 
@@ -67,6 +72,11 @@
                 }
                 else
                 {
+                <button class="text-slate-500 hover:text-slate-900 p-2 relative rounded-full hover:bg-slate-100 transition-colors">
+                    <i class="far fa-bell text-lg"></i>
+                    <span class="absolute top-1.5 right-1.5 h-2 w-2 bg-rose-500 rounded-full border-2 border-white"></span>
+                </button>
+
                 <div class="ml-1 relative">
                     <button @@click="userDropdownOpen = !userDropdownOpen"
                             @@click.away="userDropdownOpen = false"
@@ -114,6 +124,9 @@
                             <a asp-controller="Instructor" asp-action="Dashboard" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
                                 <i class="fas fa-chalkboard-teacher mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Dashboard
                             </a>
+                            <a asp-controller="Instructor" asp-action="Create" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-plus-circle mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Create Course
+                            </a>
                                 }
                         </div>
 
@@ -144,6 +157,10 @@
             @if (User.Identity.IsAuthenticated)
             {
             <a asp-controller="Enrollment" asp-action="MyCourses" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:bg-slate-100 hover:border-slate-300 hover:text-slate-800">My Learning</a>
+            }
+            @if (User.IsInRole("Instructor"))
+            {
+            <a asp-controller="Instructor" asp-action="Dashboard" class="block pl-3 pr-4 py-2 border-l-4 border-primary-500 text-base font-medium text-primary-700 bg-primary-50">Instructor Dashboard</a>
             }
         </div>
 
