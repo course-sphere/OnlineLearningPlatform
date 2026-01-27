@@ -60,6 +60,7 @@ namespace MVC.Controllers
 
             TempData["Success"] = "Login successful!";
 
+
             // 5. === LOGIC ĐIỀU HƯỚNG THEO ROLE (QUAN TRỌNG) ===
 
             // Lấy Role từ Claims (Check cả 2 key phổ biến)
@@ -120,8 +121,10 @@ namespace MVC.Controllers
         [Authorize] // Phải đăng nhập mới logout được
         public async Task<IActionResult> Logout()
         {
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+
         }
     }
 }
