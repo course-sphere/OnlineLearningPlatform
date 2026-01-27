@@ -3,24 +3,31 @@ using Domain.Entities;
 
 namespace Application
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         IUserRepository Users { get; }
-        ILessonRepository Lessons { get; }
         ICourseRepository Courses { get; }
         IEnrollmentRepository Enrollments { get; }
+        ILessonRepository Lessons { get; }
         IPaymentRepository Payments { get; }
         IModuleRepository Modules { get; }
-        ILessonResourceRepository LessonResources { get; }
-        IUserLessonProgressRepository LessonProgresses { get; }
         IGradedItemRepository GradedItems { get; }
         IGradedAttemptRepository GradedAttempts { get; }
-        ISubmissionAnswerOptionRepository SubmissionAnswerOptions { get; }
         IQuestionSubmissionRepository QuestionSubmissions { get; }
+        ISubmissionAnswerOptionRepository SubmissionAnswerOptions { get; }
+        ILessonResourceRepository LessonResources { get; }
 
-        IGenericRepository<AnswerOption> AnswerOptions { get; }
+        // Cái cũ của bạn (giữ lại nếu code cũ dùng)
+        IUserLessonProgressRepository LessonProgresses { get; }
+
+        // 👇 CÁI MỚI (Dùng cho EnrollmentService)
+        IGenericRepository<UserLessonProgress> UserLessonProgress { get; }
+
+        // Các bảng phụ (nếu cần)
         IGenericRepository<Question> Questions { get; }
+        IGenericRepository<AnswerOption> AnswerOptions { get; }
 
-        Task SaveChangeAsync();
+        // 👇 Phải trả về int
+        Task<int> SaveChangeAsync();
     }
 }

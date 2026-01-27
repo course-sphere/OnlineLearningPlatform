@@ -9,7 +9,6 @@ namespace Infrastructure
     {
         private readonly AppDbContext _context;
 
-        // 1. Khai báo Property (Mỗi cái chỉ khai báo 1 lần)
         public IUserRepository Users { get; }
         public ICourseRepository Courses { get; }
         public IEnrollmentRepository Enrollments { get; }
@@ -21,8 +20,11 @@ namespace Infrastructure
         public IQuestionSubmissionRepository QuestionSubmissions { get; }
         public ISubmissionAnswerOptionRepository SubmissionAnswerOptions { get; }
         public ILessonResourceRepository LessonResources { get; }
+
         public IUserLessonProgressRepository LessonProgresses { get; }
 
+        // 👇 Property Generic (khớp với EnrollmentService)
+        public IGenericRepository<UserLessonProgress> UserLessonProgress { get; private set; }
         public IGenericRepository<Question> Questions { get; private set; }
         public IGenericRepository<AnswerOption> AnswerOptions { get; private set; }
 
@@ -45,16 +47,20 @@ namespace Infrastructure
 
             Questions = new GenericRepository<Question>(context);
             AnswerOptions = new GenericRepository<AnswerOption>(context);
+
+            // 👇 Khởi tạo Generic Repository
+            UserLessonProgress = new GenericRepository<UserLessonProgress>(context);
         }
 
-        public async Task SaveChangeAsync()
+        public async Task<int> SaveChangeAsync()
         {
             try
             {
-                await _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
+                // Log error here if needed
                 throw new Exception("Error while saving changes", ex);
             }
         }
