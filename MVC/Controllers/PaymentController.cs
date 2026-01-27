@@ -1,21 +1,27 @@
 ﻿using Application;
 using Application.IServices;
 using Domain.Requests.Payment;
+using Domain.Responses.Payment; 
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
-// using Infrastructure.Libraries; // Bỏ dòng này nếu IUnitOfWork nằm trong Application
 
 namespace MVC.Controllers
 {
     public class PaymentController : Controller
     {
         private readonly IPaymentService _service;
-        private readonly IUnitOfWork _unitOfWork; // Biến toàn cục có dấu gạch dưới
+        private readonly IEnrollmentService _enrollmentService; // <--- 1. KHAI BÁO THÊM
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PaymentController(IPaymentService service, IUnitOfWork unitOfWork)
+        // 2. INJECT VÀO CONSTRUCTOR
+        public PaymentController(
+            IPaymentService service,
+            IEnrollmentService enrollmentService, 
+            IUnitOfWork unitOfWork)
         {
             _service = service;
-            _unitOfWork = unitOfWork; // Gán tham số vào biến toàn cục
+            _enrollmentService = enrollmentService; // <--- Gán giá trị
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -31,7 +37,6 @@ namespace MVC.Controllers
                 CourseName = course.Title,
                 Price = course.Price,
                 ImageUrl = course.Image,
-                // InstructorName = ... 
             };
 
             return View(model);
@@ -64,12 +69,20 @@ namespace MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Callback()
         {
+            // 1. Xử lý Payment (Validate chữ ký, update DB status = Success)
             var result = await _service.PaymentExecuteAsync(Request.Query);
 
             if (!result.IsSuccess)
             {
                 TempData["Error"] = result.ErrorMessage;
                 return RedirectToAction("Fail");
+            }
+
+            dynamic paymentResponse = result.Result;
+
+            if (paymentResponse != null)
+            {
+                await _enrollmentService.EnrollStudentAsync((Guid)paymentResponse.CourseId);
             }
 
             return RedirectToAction("Success");

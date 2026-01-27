@@ -2,12 +2,12 @@
 @using System.Text.Json
 @using System.Globalization
 
-@* ===> QUAN TRỌNG: DÙNG DTO MỚI (StudentCourseDetailResponse) <=== *@
 @model StudentCourseDetailResponse
 
 @{
     ViewData["Title"] = Model.Title;
 
+    // Chuẩn bị dữ liệu cho Alpine.js
     var courseData = new
     {
         modules = Model.Modules.Select(m => new
@@ -34,7 +34,6 @@
 
         <div class="bg-white rounded-3xl shadow-xl shadow-zinc-200/60 border border-white p-8 md:p-10 relative z-10 mb-12">
             <div class="grid lg:grid-cols-3 gap-10">
-
                 <div class="lg:col-span-2">
                     <div class="flex items-center gap-3 mb-6 text-sm font-medium">
                         <span class="text-primary-700 bg-primary-50 px-3 py-1 rounded-full border border-primary-100">
@@ -72,7 +71,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="hidden lg:block"></div>
             </div>
         </div>
@@ -80,7 +78,6 @@
         <div class="grid lg:grid-cols-3 gap-12 relative">
 
             <div class="lg:col-span-2 space-y-10">
-
                 <div class="bg-white border border-zinc-200 rounded-2xl p-8 shadow-sm">
                     <h3 class="text-xl font-bold text-zinc-900 mb-6">What you'll learn</h3>
                     <ul class="grid sm:grid-cols-2 gap-y-4 gap-x-8">
@@ -142,9 +139,12 @@
 
                         <div class="p-8">
                             <div class="mb-8">
-                                @if (Model.Price == 0) {
+                                @if (Model.Price == 0)
+                                {
                                 <span class="block text-4xl font-black text-zinc-900 mb-1">Free</span>
-                                } else {
+                                }
+                                else
+                                {
                                 <div class="flex items-baseline gap-3 mb-1">
                                     <span class="text-4xl font-black text-zinc-900">@Model.Price.ToString("C", new CultureInfo("en-US"))</span>
                                     <span class="text-lg text-zinc-400 line-through decoration-1">$199.99</span>
@@ -153,20 +153,30 @@
                             </div>
 
                             <div class="space-y-4">
-                                @if (Model.Price == 0) {
+                                @* ===> FIX LOGIC: DÙNG IF-ELSE IF ĐỂ TRÁNH LỖI NESTED RAZOR <=== *@
+
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Context.Request.Path"
+                                   class="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300 rounded-2xl font-bold text-lg shadow-sm transition-all block text-center">
+                                    Login to Enroll
+                                </a>
+                                }
+                                else if (Model.Price == 0)
+                                {
                                 <form asp-controller="Enrollment" asp-action="FreeEnroll" method="post">
                                     <input type="hidden" name="courseId" value="@Model.CourseId" />
                                     <button type="submit" class="w-full py-4 bg-zinc-900 hover:bg-black text-white rounded-2xl font-bold text-lg shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
-                                        <span>Enroll Now</span> <i class="fas fa-arrow-right"></i>
+                                        <span>Enroll Now (Free)</span> <i class="fas fa-arrow-right"></i>
                                     </button>
                                 </form>
-                                } else {
-                                <form asp-controller="Payment" asp-action="Checkout" method="post">
-                                    <input type="hidden" name="courseId" value="@Model.CourseId" />
-                                    <button type="submit" class="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-2xl font-bold text-lg shadow-lg transition-all">
-                                        Buy Now
-                                    </button>
-                                </form>
+                                }
+                                else
+                                {
+                                <a asp-controller="Payment" asp-action="Checkout" asp-route-courseId="@Model.CourseId"
+                                   class="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-2xl font-bold text-lg shadow-lg transition-all block text-center">
+                                    Buy Now
+                                </a>
                                 }
                             </div>
 
