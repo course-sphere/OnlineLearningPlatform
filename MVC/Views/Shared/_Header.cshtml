@@ -1,128 +1,199 @@
-<nav class="bg-white border-b border-gray-200" x-data="{ mobileMenuOpen: false }">
-    <div class="max-w-screen-2xl mx-auto px-4 md:px-6 lg:px-8">
+@using System.Security.Claims
+
+<nav class="bg-white border-b border-slate-200 sticky top-0 z-50 font-sans" x-data="{ mobileMenuOpen: false, userDropdownOpen: false }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
 
-            <div class="flex">
+            <div class="flex gap-8">
                 <div class="flex-shrink-0 flex items-center">
-                    <a asp-controller="Home" asp-action="Index" class="flex items-center gap-2">
-                        <div class="bg-primary-600 text-white p-1.5 rounded-lg">
-                            <i class="fas fa-graduation-cap text-xl"></i>
+                    <a asp-controller="Home" asp-action="Index" class="flex items-center gap-2 group decoration-transparent">
+                        <div class="bg-slate-900 text-white p-1.5 rounded-lg group-hover:bg-slate-800 transition-all shadow-sm">
+                            <i class="fas fa-layer-group text-lg"></i>
                         </div>
-                        <span class="font-bold text-xl tracking-tight text-gray-900">CourseSphere</span>
+                        <span class="font-bold text-xl tracking-tight text-slate-900 group-hover:text-slate-700 transition-colors">CourseSphere</span>
                     </a>
                 </div>
 
-                <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
+                <div class="hidden sm:flex sm:space-x-1">
                     <a asp-controller="Home" asp-action="Index"
-                       class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-900 hover:border-gray-300 transition duration-150 ease-in-out">
+                       class="inline-flex items-center px-3 pt-1 text-sm font-medium border-b-2 transition-all
+                              @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
                         Home
                     </a>
                     <a asp-controller="Course" asp-action="Index"
-                       class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-900 hover:border-gray-300 transition duration-150 ease-in-out">
-                        Explore Courses
+                       class="inline-flex items-center px-3 pt-1 text-sm font-medium border-b-2 transition-all
+                              @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Course" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
+                        Explore
                     </a>
-                    <a asp-controller="Course" asp-action="CreateNewCourse"
-                       class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-primary-600 hover:text-primary-800 transition duration-150 ease-in-out">
-                        Teach on Sphere
+
+                    @if (User.IsInRole("Student"))
+                    {
+                    <a href="/Student/MyLearning"
+                       class="inline-flex items-center px-3 pt-1 text-sm font-medium border-b-2 transition-all
+                                  @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Student" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
+                        My Learning
                     </a>
+                    }
+
+                    @if (User.IsInRole("Instructor"))
+                    {
+                    <a asp-controller="Instructor" asp-action="Index"
+                       class="inline-flex items-center px-3 pt-1 text-sm font-medium border-b-2 transition-all
+                                  @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Instructor" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300")">
+                        My Courses
+                    </a>
+                    <a asp-controller="Instructor" asp-action="Create"
+                       class="inline-flex items-center px-3 pt-1 text-sm font-medium text-slate-600 hover:text-primary-600 border-b-2 border-transparent hover:border-primary-100 transition-all">
+                        <i class="fas fa-plus-circle mr-1.5"></i> Teach
+                    </a>
+                    }
                 </div>
             </div>
 
-            <div class="hidden sm:ml-6 sm:flex sm:items-center sm:gap-4">
-
-                <div class="relative hidden lg:block">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="fas fa-search text-gray-400"></i>
-                    </div>
-                    <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-full leading-5 bg-gray-50 text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 sm:text-sm transition duration-150 ease-in-out" placeholder="Search for courses...">
+            <div class="hidden md:flex flex-1 items-center justify-center px-8">
+                <div class="w-full max-w-sm relative">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text"
+                           class="block w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-full bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-300 focus:ring-2 focus:ring-slate-100 sm:text-sm transition-all"
+                           placeholder="Search for courses...">
                 </div>
-{
-                <li>
-                    <a asp-controller="Admin" asp-action="PendingCourses" class="block px-4 py-2 text-sm text-red-600 font-bold hover:bg-red-50">
-                        <i class="fas fa-user-shield mr-2"></i> Admin Dashboard
-                    </a>
-                </li>
-                <div class="border-t border-gray-100 my-1"></div>
-}
+            </div>
 
-                @if (User.Identity != null && User.Identity.IsAuthenticated)
+            <div class="flex items-center gap-3">
+                @if (!User.Identity.IsAuthenticated)
                 {
-                <div class="ml-3 relative">
-                    <div>
-                        <button type="button" class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown">
-                            <span class="sr-only">Open user menu</span>
-                            <div class="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold border border-primary-200">
-                                @(User.Identity.Name?.Substring(0, 1).ToUpper() ?? "U")
-                            </div>
-                        </button>
-                    </div>
-
-                    <div class="hidden z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="user-dropdown">
-                        <div class="px-4 py-3">
-                            <span class="block text-sm text-gray-900">@User.Identity.Name</span>
-                            <span class="block text-sm font-medium text-gray-500 truncate">Logged in</span>
-                        </div>
-                        <ul class="py-1" aria-labelledby="user-menu-button">
-                            <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Learning</a>
-                            </li>
-                            <li>
-                                <a asp-controller="Auth" asp-action="Logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Sign out</a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="hidden sm:flex items-center gap-3">
+                    <a asp-controller="Auth" asp-action="Login" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Log in</a>
+                    <a asp-controller="Auth" asp-action="Register" class="px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-slate-800 shadow-md transition-all">
+                        Sign up
+                    </a>
                 </div>
                 }
                 else
                 {
-                <div class="flex items-center gap-3">
-                    <a asp-controller="Auth" asp-action="Login" class="text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Log in</a>
-                    <a asp-controller="Auth" asp-action="Register" class="px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 shadow-sm transition-colors">Sign up</a>
+                <button class="text-slate-500 hover:text-slate-900 p-2 relative rounded-full hover:bg-slate-100 transition-colors">
+                    <i class="far fa-bell text-lg"></i>
+                    <span class="absolute top-1.5 right-1.5 h-2 w-2 bg-rose-500 rounded-full border-2 border-white"></span>
+                </button>
+
+                <div class="ml-1 relative">
+                    <button @@click="userDropdownOpen = !userDropdownOpen"
+                            @@click.away="userDropdownOpen = false"
+                            type="button"
+                            class="flex items-center gap-2 focus:outline-none transition-transform active:scale-95">
+                        @{
+                                var avatarUrl = User.FindFirst("Avatar")?.Value;
+                                var fullName = User.Identity.Name ?? "User";
+                                var initial = !string.IsNullOrEmpty(fullName) ? fullName.Substring(0, 1).ToUpper() : "U";
+                        }
+                        @if (!string.IsNullOrEmpty(avatarUrl))
+                            {
+                        <img class="h-9 w-9 rounded-full object-cover border border-slate-200 shadow-sm" src="@avatarUrl" alt="@fullName">
+                            }
+                            else
+                            {
+                        <div class="h-9 w-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold border border-slate-200 shadow-sm">
+                            @initial
+                        </div>
+                            }
+                    </button>
+
+                    <div x-show="userDropdownOpen"
+                         x-transition:enter="transition ease-out duration-100"
+                         x-transition:enter-start="transform opacity-0 scale-95"
+                         x-transition:enter-end="transform opacity-100 scale-100"
+                         x-transition:leave="transition ease-in duration-75"
+                         x-transition:leave-start="transform opacity-100 scale-100"
+                         x-transition:leave-end="transform opacity-0 scale-95"
+                         class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 divide-y divide-slate-100 z-50 origin-top-right"
+                         style="display: none;" x-cloak>
+
+                        <div class="px-4 py-3">
+                            <p class="text-sm font-medium text-slate-900 truncate">@fullName</p>
+                            <p class="text-xs text-slate-500 truncate">@User.FindFirst(ClaimTypes.Email)?.Value</p>
+                        </div>
+
+                        <div class="py-1">
+                            @if (User.IsInRole("Student"))
+                                {
+                            <a href="/Student/MyLearning" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-graduation-cap mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> My Learning
+                            </a>
+                            <a href="#" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                <i class="far fa-heart mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Wishlist
+                            </a>
+                                }
+                            @if (User.IsInRole("Instructor"))
+                                {
+                            <a asp-controller="Instructor" asp-action="Index" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-chalkboard-teacher mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Dashboard
+                            </a>
+                            <a asp-controller="Instructor" asp-action="Create" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-plus-circle mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Create Course
+                            </a>
+                                }
+                        </div>
+
+                        <div class="py-1">
+                            <a href="/Account/Profile" class="group flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-cog mr-3 text-slate-400 group-hover:text-slate-600 w-4 text-center"></i> Settings
+                            </a>
+                            <form asp-controller="Auth" asp-action="Logout" method="post" class="block w-full">
+                                <button type="submit" class="w-full text-left group flex items-center px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 transition-colors">
+                                    <i class="fas fa-sign-out-alt mr-3 text-rose-400 group-hover:text-rose-600 w-4 text-center"></i> Sign out
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 }
-            </div>
 
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button x-on:click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-controls="mobile-menu" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <i class="fas fa-bars text-xl" x-show="!mobileMenuOpen"></i>
-                    <i class="fas fa-times text-xl" x-show="mobileMenuOpen" x-cloak></i>
-                </button>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button @@click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-500 hover:bg-slate-100 focus:outline-none">
+                        <i class="fas" :class="mobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="sm:hidden" id="mobile-menu" x-show="mobileMenuOpen" x-transition x-cloak>
+    <div class="sm:hidden bg-slate-50 border-t border-slate-200 shadow-inner" x-show="mobileMenuOpen" x-collapse x-cloak>
         <div class="pt-2 pb-3 space-y-1">
-            <a asp-controller="Home" asp-action="Index" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">Home</a>
-            <a asp-controller="Course" asp-action="Index" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">Courses</a>
-            <a asp-controller="Course" asp-action="CreateNewCourse" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-primary-600 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-800">Teach on Sphere</a>
+            <a asp-controller="Home" asp-action="Index" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:bg-slate-100 hover:border-slate-300 hover:text-slate-800">Home</a>
+            <a asp-controller="Course" asp-action="Index" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:bg-slate-100 hover:border-slate-300 hover:text-slate-800">Explore</a>
+            @if (User.IsInRole("Instructor"))
+            {
+            <a asp-controller="Instructor" asp-action="Index" class="block pl-3 pr-4 py-2 border-l-4 border-primary-500 text-base font-medium text-primary-700 bg-primary-50">My Courses</a>
+            }
         </div>
 
-        <div class="pt-4 pb-4 border-t border-gray-200">
-            @if (User.Identity != null && User.Identity.IsAuthenticated)
-            {
+        @if (User.Identity.IsAuthenticated)
+        {
+        <div class="pt-4 pb-4 border-t border-slate-200">
             <div class="flex items-center px-4">
                 <div class="flex-shrink-0">
-                    <div class="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold border border-primary-200">
+                    <div class="h-10 w-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold">
                         @(User.Identity.Name?.Substring(0, 1).ToUpper() ?? "U")
                     </div>
                 </div>
                 <div class="ml-3">
-                    <div class="text-base font-medium text-gray-800">@User.Identity.Name</div>
+                    <div class="text-base font-medium text-slate-800">@User.Identity.Name</div>
+                    <div class="text-sm font-medium text-slate-500">@User.FindFirst(ClaimTypes.Email)?.Value</div>
                 </div>
             </div>
             <div class="mt-3 space-y-1">
-                <a asp-controller="Auth" asp-action="Logout" class="block px-4 py-2 text-base font-medium text-red-600 hover:text-red-800 hover:bg-gray-50">Sign out</a>
+                <form asp-controller="Auth" asp-action="Logout" method="post">
+                    <button type="submit" class="block w-full text-left px-4 py-2 text-base font-medium text-rose-600 hover:bg-slate-100">Sign out</button>
+                </form>
             </div>
-            }
-            else
-            {
-            <div class="mt-3 space-y-1 px-4">
-                <a asp-controller="Auth" asp-action="Login" class="block w-full text-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">Log in</a>
-                <a asp-controller="Auth" asp-action="Register" class="block w-full text-center px-4 py-2 mt-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700">Sign up</a>
-            </div>
-            }
         </div>
+        }
+        else
+        {
+        <div class="p-4 gap-3 flex flex-col">
+            <a asp-controller="Auth" asp-action="Login" class="w-full text-center px-4 py-2 border border-slate-300 shadow-sm text-base font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50">Log in</a>
+            <a asp-controller="Auth" asp-action="Register" class="w-full text-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-slate-900 hover:bg-slate-800">Sign up</a>
+        </div>
+        }
     </div>
 </nav>

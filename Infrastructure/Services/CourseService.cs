@@ -214,21 +214,18 @@ namespace Infrastructure.Services
         public async Task<ApiResponse> ApproveCourseAsync(ApproveCourseRequest request)
         {
             ApiResponse response = new ApiResponse();
-
             try
             {
-                var course = await _unitOfWork.Courses
-                    .GetAsync(c => c.CourseId == request.CourseId && !c.IsDeleted);
-                var instructor = await _unitOfWork.Users
-                    .GetAsync(u => u.UserId == course.CreatedBy);
-                if (course == null)
-                    return response.SetNotFound("Course not found");
+                var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == request.CourseId && !c.IsDeleted);
+                if (course == null) return response.SetNotFound("Course not found");
 
-                if (!request.Status && string.IsNullOrEmpty(request.RejectReason))
-                    return response.SetBadRequest("Reject reason is required");
+                var instructor = await _unitOfWork.Users.GetAsync(u => u.UserId == course.CreatedBy);
 
                 if (!request.Status)
                 {
+                    if (string.IsNullOrEmpty(request.RejectReason))
+                        return response.SetBadRequest("Reject reason is required");
+
                     course.Status = CourseStatus.Rejected;
                     course.RejectReason = request.RejectReason;
                     course.UpdatedAt = DateTime.UtcNow;
@@ -237,27 +234,34 @@ namespace Infrastructure.Services
                     _unitOfWork.Courses.Update(course);
                     await _unitOfWork.SaveChangeAsync();
 
-                    // 🔥 SEND EMAIL TO INSTRUCTOR
-                    await _emailService.SendRejectCourseEmail(
-                        receiverName: instructor.FullName,
-                        receiverEmail: instructor.Email,
-                        rejectReason: request.RejectReason,
-                        courseTitle: course.Title
-                    );
+                    if (instructor != null)
+                    {
+                        await _emailService.SendRejectCourseEmail(instructor.FullName, instructor.Email, request.RejectReason, course.Title);
+                    }
 
                     return response.SetOk("Course rejected & email sent");
                 }
                 else
                 {
                     course.Status = CourseStatus.Published;
-                    course.RejectReason = string.Empty;
+                    course.RejectReason = string.Empty; 
                     course.UpdatedAt = DateTime.UtcNow;
                     course.UpdatedBy = _service.GetUserClaim().UserId;
 
                     _unitOfWork.Courses.Update(course);
                     await _unitOfWork.SaveChangeAsync();
 
-                    return response.SetOk("Course approved successfully");
+                    
+                    if (instructor != null)
+                    {
+                        await _emailService.SendApproveCourseEmail(
+                            receiverName: instructor.FullName,
+                            receiverEmail: instructor.Email,
+                            courseTitle: course.Title
+                        );
+                    }
+
+                    return response.SetOk("Course approved & email sent");
                 }
             }
             catch (Exception ex)
@@ -316,6 +320,121 @@ namespace Infrastructure.Services
             catch (Exception ex)
             {
                 return response.SetBadRequest(ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse> GetCourseLearningDetailAsync(Guid courseId)
+        {
+            try
+            {
+                // 1. Get Course & Modules & Lessons
+                // Lưu ý: Cần Include rất sâu. Nếu dùng EF Core thuần thì chuỗi include rất dài.
+                // Tốt nhất là load Course -> Load Modules theo CourseId -> Load Lessons theo ModuleId
+
+                var course = await _unitOfWork.Courses.GetAsync(c => c.CourseId == courseId);
+                if (course == null) return new ApiResponse().SetNotFound("Course not found");
+
+                var instructor = await _unitOfWork.Users.GetAsync(u => u.UserId == course.CreatedBy);
+
+                var response = new CourseLearningResponse
+                {
+                    CourseId = course.CourseId,
+                    Title = course.Title,
+                    Instructor = instructor?.FullName ?? "Instructor",
+                    Description = course.Description,
+                    Level = course.Level.ToString(),
+                    Rating = 5.0, // Fake tạm
+                    Students = 120, // Fake tạm
+                    Duration = "10h 30m"
+                };
+
+                // 2. Get Modules
+                var modules = await _unitOfWork.Modules.GetAllAsync(m => m.CourseId == courseId);
+                modules = modules.OrderBy(m => m.Index).ToList();
+
+                foreach (var mod in modules)
+                {
+                    var modRes = new ModuleLearningResponse
+                    {
+                        Id = mod.ModuleId,
+                        Title = mod.Name,
+                        Duration = "1h" // Tính tổng sau
+                    };
+
+                    // 3. Get Lessons
+                    var lessons = await _unitOfWork.Lessons.GetAllAsync(l => l.ModuleId == mod.ModuleId && !l.IsDeleted);
+                    lessons = lessons.OrderBy(l => l.OrderIndex).ToList();
+
+                    foreach (var lesson in lessons)
+                    {
+                        // Map Lesson Type sang chuỗi UI cần
+                        string type = "reading";
+                        if (lesson.Type == Domain.Entities.LessonType.Video) type = "video";
+                        if (lesson.Type == Domain.Entities.LessonType.GradedAssignment || lesson.Type == Domain.Entities.LessonType.PracticeAssignment) type = "quiz";
+
+                        var lessonRes = new LessonLearningResponse
+                        {
+                            Id = lesson.LessonId,
+                            Title = lesson.Title,
+                            Duration = lesson.EstimatedMinutes + " min",
+                            Type = type,
+                            TypeLabel = lesson.Type.ToString(),
+                            Description = lesson.Content ?? "",
+                            Cover = course.Image // Dùng tạm ảnh course
+                        };
+
+                        // 4. Nếu là Video -> Lấy Resource Video
+                        var resources = await _unitOfWork.LessonResources.GetAllAsync(r => r.LessonId == lesson.LessonId);
+                        if (type == "video")
+                        {
+                            var vid = resources.FirstOrDefault(r => r.ResourceType == Domain.Entities.ResourceType.Video);
+                            lessonRes.VideoUrl = vid?.ResourceUrl;
+                        }
+
+                        // 5. Nếu là Quiz -> Lấy GradedItem & Question
+                        if (type == "quiz")
+                        {
+                            // Load Quiz Data (Vì Generic Repo ko hỗ trợ Include sâu, ta load thủ công)
+                            var gradedItems = await _unitOfWork.GradedItems.GetAllAsync(g => g.LessonId == lesson.LessonId);
+                            var quiz = gradedItems.FirstOrDefault();
+
+                            if (quiz != null)
+                            {
+                                var questions = await _unitOfWork.Questions.GetAllAsync(q => q.GradedItemId == quiz.GradedItemId && !q.IsDeleted);
+
+                                lessonRes.Quiz = new QuizLearningResponse
+                                {
+                                    Id = quiz.GradedItemId,
+                                    Title = lesson.Title,
+                                    Kind = "multiple-choice", // UI chỉ support cái này mượt nhất hiện tại
+                                    PassingScore = 50,
+                                    Questions = new List<QuestionLearningResponse>()
+                                };
+
+                                foreach (var q in questions)
+                                {
+                                    var options = await _unitOfWork.AnswerOptions.GetAllAsync(a => a.QuestionId == q.QuestionId);
+                                    lessonRes.Quiz.Questions.Add(new QuestionLearningResponse
+                                    {
+                                        Id = q.QuestionId,
+                                        Text = q.Content,
+                                        Points = (int)q.Points,
+                                        Options = options.Select(o => o.Text).ToList() // Chỉ lấy Text
+                                    });
+                                }
+                            }
+                        }
+
+                        modRes.Lessons.Add(lessonRes);
+                    }
+                    response.Modules.Add(modRes);
+                }
+
+                return new ApiResponse().SetOk(response);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
 

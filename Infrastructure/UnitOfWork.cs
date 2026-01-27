@@ -9,9 +9,8 @@ namespace Infrastructure
     {
         private readonly AppDbContext _context;
 
+        // 1. Khai báo Property (Mỗi cái chỉ khai báo 1 lần)
         public IUserRepository Users { get; }
-        public IAnswerOptionRepository AnswerOptions { get; }
-        public IQuestionRepository Questions { get; }
         public ICourseRepository Courses { get; }
         public IEnrollmentRepository Enrollments { get; }
         public ILessonRepository Lessons { get; }
@@ -24,14 +23,14 @@ namespace Infrastructure
         public ILessonResourceRepository LessonResources { get; }
         public IUserLessonProgressRepository LessonProgresses { get; }
 
+        public IGenericRepository<Question> Questions { get; private set; }
+        public IGenericRepository<AnswerOption> AnswerOptions { get; private set; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
 
             Users = new UserRepository(context);
-            AnswerOptions = new AnswerOptionRepository(context);
-            Questions = new QuestionRepository(context);
             Courses = new CourseRepository(context);
             Enrollments = new EnrollmentRepository(context);
             Lessons = new LessonRepository(context);
@@ -43,6 +42,9 @@ namespace Infrastructure
             Modules = new ModuleRepository(context);
             LessonResources = new LessonResourceRepository(context);
             LessonProgresses = new UserLessonProgressRepository(context);
+
+            Questions = new GenericRepository<Question>(context);
+            AnswerOptions = new GenericRepository<AnswerOption>(context);
         }
 
         public async Task SaveChangeAsync()

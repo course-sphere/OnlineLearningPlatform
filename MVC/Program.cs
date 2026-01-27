@@ -135,8 +135,12 @@ builder.Services.AddScoped<ILessonService, LessonService>();
 builder.Services.AddScoped<ILessonResourceService, LessonResourceService>();
 builder.Services.AddScoped<IModuleService, ModuleService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 builder.Services.AddHttpClient();
 var app = builder.Build();
 
