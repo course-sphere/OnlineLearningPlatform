@@ -21,5 +21,6 @@ namespace Application.IRepositories
         Task<int> CountAsync(Expression<Func<T, bool>> filter);
         void Update(T entity);
         Task<int> CountTotalPaging(Expression<Func<T, bool>>? filter = null);
+        IQueryable<T> GetQueryable();
     }
 }

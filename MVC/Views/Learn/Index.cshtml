@@ -1,0 +1,231 @@
+﻿@using Domain.Responses.Course
+@model CourseStudentLearningResponse
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = null;
+
+    var jsonOptions = new System.Text.Json.JsonSerializerOptions
+    {
+        PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+    };
+
+    // 👇 FIX LỖI Ở ĐÂY: Khai báo rõ ràng là 'string' và đổi tên biến khác
+    string jsonPayload = System.Text.Json.JsonSerializer.Serialize(Model, jsonOptions);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Model.Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900">
+
+    <div class="h-16 bg-white border-b flex items-center justify-between px-6 sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <a href="/Enrollment/MyCourses" class="text-slate-500 hover:text-slate-800 transition-colors">
+                <i class="fas fa-arrow-left"></i> My Courses
+            </a>
+            <div class="h-6 w-px bg-slate-200 mx-2"></div>
+            <span class="font-bold text-slate-800 truncate max-w-md">@Model.Title</span>
+        </div>
+        <div class="w-8 h-8 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-xs">ME</div>
+    </div>
+
+    <div x-data="learningCourse()" x-init="init()" class="h-[calc(100vh-64px)] flex bg-gray-50" x-cloak>
+
+        <aside class="w-96 bg-white border-r flex flex-col h-full">
+            <div class="p-6 border-b shrink-0">
+                <h2 class="font-bold text-sm leading-snug text-slate-900" x-text="course.title"></h2>
+                <div class="mt-4">
+                    <div class="flex justify-between text-xs mb-1 text-slate-600 font-medium">
+                        <span>Progress</span>
+                        <span><span x-text="progressPercent()"></span>%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-cyan-600 h-1.5 rounded-full" :style="`width: ${progressPercent()}%`"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 space-y-3">
+                <template x-for="module in filteredModules()" :key="module.id">
+                    <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                        <button @@click="module.open = !module.open" class="w-full px-4 py-3 bg-slate-50 flex justify-between items-center text-sm font-medium hover:bg-slate-100">
+                            <span x-text="module.title"></span>
+                            <i class="fas fa-chevron-down text-xs" :class="{ 'rotate-180': module.open }"></i>
+                        </button>
+                        <div x-show="module.open" class="divide-y divide-slate-100">
+                            <template x-for="lesson in module.lessons" :key="lesson.id">
+                                <button @@click="selectLesson(lesson)" :class="lessonRowClass(lesson)" class="w-full px-4 py-3 text-sm flex gap-3 items-center text-left">
+                                    <i class="fas text-slate-400 w-5 text-center"
+                                       :class="{'fa-play-circle': lesson.type === 'video', 'fa-file-alt': lesson.type === 'reading', 'fa-question-circle': lesson.type === 'quiz'}"></i>
+                                    <div class="flex-1">
+                                        <div x-text="lesson.title" class="truncate font-medium"></div>
+                                        <div class="text-[10px] text-slate-400" x-text="lesson.duration"></div>
+                                    </div>
+                                    <i x-show="lesson.completed" class="fas fa-check-circle text-emerald-500"></i>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col h-full overflow-hidden">
+            <div class="h-14 bg-white border-b px-6 flex items-center justify-between shrink-0">
+                <span class="font-bold text-slate-800" x-text="currentLesson?.title"></span>
+                <button @@click="markComplete()" class="px-3 py-1.5 rounded bg-cyan-600 text-white text-sm hover:bg-cyan-700">
+                    Mark as Completed
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-8 bg-slate-50">
+
+                <div x-show="currentLesson?.type === 'video' && currentLesson?.videoUrl" class="aspect-video bg-black rounded-xl overflow-hidden mb-6">
+                    <iframe :src="getEmbedUrl(currentLesson.videoUrl)" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div x-show="currentLesson?.type === 'reading'" class="bg-white p-8 rounded-xl shadow-sm prose max-w-none">
+                    <div x-html="currentLesson.content || currentLesson.description"></div>
+                </div>
+
+                <div x-show="currentLesson?.type === 'quiz'" class="bg-white p-8 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold mb-4" x-text="currentLesson.quiz?.title"></h2>
+                    <template x-for="(q, idx) in currentLesson.quiz?.questions || []" :key="q.id">
+                        <div class="mb-6 p-4 border rounded-lg">
+                            <p class="font-bold mb-3"><span x-text="idx+1"></span>. <span x-text="q.text"></span></p>
+                            <div class="space-y-2">
+                                <template x-for="opt in q.options" :key="opt.id">
+                                    <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                        <input type="radio" :name="'q'+q.id" class="accent-cyan-600 h-4 w-4" />
+                                        <span x-text="opt.text" class="text-sm"></span>
+                                    </label>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function learningCourse() {
+            return {
+                // 👇 DÙNG BIẾN jsonPayload ĐÃ ĐỔI TÊN Ở TRÊN
+                serverData: @Html.Raw(jsonPayload),
+
+                course: {},
+                modules: [],
+                currentLesson: null,
+                currentLessonId: null,
+                sidebarSearch: '',
+
+                init() {
+                    this.course = {
+                        title: this.serverData.title,
+                        instructor: this.serverData.instructor
+                    };
+
+                    this.modules = this.serverData.modules.map((m, idx) => ({
+                        id: m.id,
+                        title: m.title,
+                        open: idx === 0,
+                        lessons: m.lessons.map(l => ({
+                            ...l,
+                            videoUrl: l.videoUrl || '',
+                            quiz: l.quiz || null
+                        }))
+                    }));
+
+                    if (this.modules.length > 0 && this.modules[0].lessons.length > 0) {
+                        this.selectLesson(this.modules[0].lessons[0]);
+                    }
+                },
+
+                filteredModules() {
+                    if (!this.sidebarSearch) return this.modules;
+                    const q = this.sidebarSearch.toLowerCase();
+                    return this.modules.map(m => ({
+                        ...m,
+                        open: true,
+                        lessons: m.lessons.filter(l => l.title.toLowerCase().includes(q))
+                    })).filter(m => m.lessons.length > 0);
+                },
+
+                selectLesson(lesson) {
+                    this.currentLesson = lesson;
+                    this.currentLessonId = lesson.id;
+                },
+
+                lessonRowClass(lesson) {
+                    return lesson.id === this.currentLessonId
+                        ? 'bg-cyan-50 text-cyan-700 border-r-2 border-cyan-600'
+                        : 'hover:bg-slate-50 text-slate-500';
+                },
+
+                allLessons() { return this.modules.flatMap(m => m.lessons); },
+                completedCount() { return this.allLessons().filter(l => l.completed).length; },
+                totalCount() { return this.allLessons().length; },
+                progressPercent() {
+                    const total = this.totalCount();
+                    return total === 0 ? 0 : Math.round((this.completedCount() / total) * 100);
+                },
+
+                getEmbedUrl(url) {
+                    if (!url) return '';
+                    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                        try {
+                            let videoId = '';
+                            if (url.includes('v=')) videoId = url.split('v=')[1].split('&')[0];
+                            else videoId = url.split('/').pop().split('?')[0];
+                            return `https://www.youtube.com/embed/${videoId}`;
+                        } catch (e) { return url; }
+                    }
+                    return url;
+                },
+
+                markComplete() {
+                    if (!this.currentLesson || this.currentLesson.completed) return;
+                    fetch('/Learn/CompleteLesson/' + this.currentLesson.id, { method: 'POST' })
+                        .then(res => {
+                            if (res.ok) {
+                                this.currentLesson.completed = true;
+                            }
+                        });
+                }
+            };
+        }
+    </script>
+</body>
+</html>

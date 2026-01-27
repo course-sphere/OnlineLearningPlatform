@@ -136,6 +136,7 @@ builder.Services.AddScoped<ILessonResourceService, LessonResourceService>();
 builder.Services.AddScoped<IModuleService, ModuleService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IUserLessonProgressService, UserLessonProgressService>();
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
     {

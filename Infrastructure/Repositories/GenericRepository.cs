@@ -16,6 +16,11 @@ namespace Infrastructure.Repositories
             _dbSet = _context.Set<T>();
         }
 
+        public IQueryable<T> GetQueryable()
+        {
+            return _dbSet.AsQueryable();
+        }
+
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);

@@ -25,7 +25,7 @@ namespace Infrastructure
 
         public IGenericRepository<Question> Questions { get; private set; }
         public IGenericRepository<AnswerOption> AnswerOptions { get; private set; }
-
+        public IGenericRepository<UserLessonProgress> UserLessonProgress { get; private set; }
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -45,6 +45,8 @@ namespace Infrastructure
 
             Questions = new GenericRepository<Question>(context);
             AnswerOptions = new GenericRepository<AnswerOption>(context);
+            UserLessonProgress = new GenericRepository<UserLessonProgress>(context);
+
         }
 
         public async Task SaveChangeAsync()
