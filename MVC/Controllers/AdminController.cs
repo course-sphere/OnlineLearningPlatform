@@ -83,5 +83,14 @@ namespace MVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> PreviewCourse(Guid id)
+        {
+            var result = await _courseService.GetCourseLearningDetailAsync(id);
+            if (!result.IsSuccess) return RedirectToAction("Index");
+
+            return View(result.Result);
+        }
     }
 }

@@ -101,5 +101,10 @@ namespace Infrastructure.Repositories
             }
             return await query.CountAsync();
         }
+
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
+        }
     }
 }

@@ -1,64 +1,74 @@
-<aside class="flex flex-col z-20 h-screen bg-white border-r border-gray-200 transition-all duration-300 ease-in-out"
-       :class="sidebarOpen ? 'w-64' : 'w-20'"
+<aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-zinc-200 transform transition-transform duration-300 ease-in-out"
+       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
        x-cloak>
 
-    <div class="flex items-center justify-center h-16 border-b border-gray-200 bg-white">
-        <div class="flex items-center gap-2 font-bold text-xl text-primary-600">
-            <i class="fas fa-graduation-cap text-2xl"></i>
-            <span x-show="sidebarOpen" class="transition-opacity duration-300">LMS Admin</span>
+    <div class="flex items-center justify-center h-16 border-b border-zinc-100">
+        <a href="/Admin/Index" class="flex items-center gap-2">
+            <div class="bg-zinc-900 text-white p-1.5 rounded-lg">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight text-zinc-900">Sphere<span class="text-zinc-400">Admin</span></span>
+        </a>
+    </div>
+
+    <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+
+        <p class="px-4 text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Overview</p>
+
+        <a asp-controller="Admin" asp-action="Index"
+           class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors group
+                  @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "bg-zinc-100 text-zinc-900" : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900")">
+            <i class="fas fa-chart-pie w-5 text-center mr-3 @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "text-zinc-900" : "text-zinc-400")"></i>
+            Dashboard
+        </a>
+
+        <a asp-controller="Admin" asp-action="CourseStatistics"
+           class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors group
+                  @(ViewContext.RouteData.Values["Action"]?.ToString() == "CourseStatistics" ? "bg-zinc-100 text-zinc-900" : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900")">
+            <i class="fas fa-chart-bar w-5 text-center mr-3 @(ViewContext.RouteData.Values["Action"]?.ToString() == "CourseStatistics" ? "text-zinc-900" : "text-zinc-400")"></i>
+            Statistics
+        </a>
+
+        <div class="pt-6 pb-2">
+            <p class="px-4 text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Management</p>
         </div>
-    </div>
 
-    <div class="flex-1 overflow-y-auto py-4">
-        <ul class="space-y-2 px-3">
-            @{
-                string GetActiveClass(string path) => Context.Request.Path.ToString().StartsWith(path)
-                    ? "bg-primary-50 text-primary-600"
-                    : "text-gray-700 hover:bg-gray-100";
-            }
+        <a asp-controller="Admin" asp-action="PendingCourses"
+           class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors group justify-between
+                  @(ViewContext.RouteData.Values["Action"]?.ToString() == "PendingCourses" ? "bg-zinc-100 text-zinc-900" : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900")">
+            <div class="flex items-center">
+                <i class="fas fa-tasks w-5 text-center mr-3 @(ViewContext.RouteData.Values["Action"]?.ToString() == "PendingCourses" ? "text-zinc-900" : "text-zinc-400")"></i>
+                Pending Courses
+            </div>
+            <span class="bg-rose-100 text-rose-600 py-0.5 px-2 rounded-full text-xs font-bold border border-rose-200">3</span>
+        </a>
 
-            <li>
-                <a href="/Admin" class="flex items-center p-3 rounded-lg group transition-colors @GetActiveClass("/Admin")">
-                    <i class="fas fa-home w-6 text-center text-lg"></i>
-                    <span x-show="sidebarOpen" class="ml-3 font-medium whitespace-nowrap">Dashboard</span>
-                </a>
-            </li>
+        <a asp-controller="Admin" asp-action="Users"
+           class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors group
+                  @(ViewContext.RouteData.Values["Action"]?.ToString() == "Users" ? "bg-zinc-100 text-zinc-900" : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900")">
+            <i class="fas fa-users w-5 text-center mr-3 @(ViewContext.RouteData.Values["Action"]?.ToString() == "Users" ? "text-zinc-900" : "text-zinc-400")"></i>
+            Users
+        </a>
 
-            <li>
-                <a href="/Admin/Users" class="flex items-center p-3 rounded-lg group transition-colors @GetActiveClass("/Admin/Users")">
-                    <i class="fas fa-users w-6 text-center text-lg"></i>
-                    <span x-show="sidebarOpen" class="ml-3 font-medium whitespace-nowrap">Users</span>
-                </a>
-            </li>
+        <a asp-controller="Admin" asp-action="Payments"
+           class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors group
+                  @(ViewContext.RouteData.Values["Action"]?.ToString() == "Payments" ? "bg-zinc-100 text-zinc-900" : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900")">
+            <i class="fas fa-credit-card w-5 text-center mr-3 @(ViewContext.RouteData.Values["Action"]?.ToString() == "Payments" ? "text-zinc-900" : "text-zinc-400")"></i>
+            Payments
+        </a>
 
-            <li>
-                <a href="/Admin/Payments" class="flex items-center p-3 rounded-lg group transition-colors @GetActiveClass("/Admin/Payments")">
-                    <i class="fas fa-credit-card w-6 text-center text-lg"></i>
-                    <span x-show="sidebarOpen" class="ml-3 font-medium whitespace-nowrap">Payments</span>
-                </a>
-            </li>
+        <a asp-controller="Admin" asp-action="Reports"
+           class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors group
+                  @(ViewContext.RouteData.Values["Action"]?.ToString() == "Reports" ? "bg-zinc-100 text-zinc-900" : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900")">
+            <i class="fas fa-file-alt w-5 text-center mr-3 @(ViewContext.RouteData.Values["Action"]?.ToString() == "Reports" ? "text-zinc-900" : "text-zinc-400")"></i>
+            Reports
+        </a>
+    </nav>
 
-            <li>
-                <a href="/Admin/Reports" class="flex items-center p-3 rounded-lg group transition-colors @GetActiveClass("/Admin/Reports")">
-                    <i class="fas fa-chart-line w-6 text-center text-lg"></i>
-                    <span x-show="sidebarOpen" class="ml-3 font-medium whitespace-nowrap">Reports</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="/Admin/CourseStatistics" class="flex items-center p-3 rounded-lg group transition-colors @GetActiveClass("/Admin/CourseStatistics")">
-                    <i class="fas fa-chart-bar w-6 text-center text-lg"></i>
-                    <span x-show="sidebarOpen" class="ml-3 font-medium whitespace-nowrap">Course Stats</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="border-t border-gray-200 p-4">
-        <a href="/Account/Logout" class="flex items-center p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-            <i class="fas fa-sign-out-alt w-6 text-center text-lg"></i>
-            <span x-show="sidebarOpen" class="ml-3 font-medium font-bold">Logout</span>
+    <div class="p-4 border-t border-zinc-200">
+        <a asp-controller="Home" asp-action="Index" class="flex items-center px-4 py-3 text-sm font-medium text-zinc-600 rounded-lg hover:bg-zinc-100 hover:text-zinc-900 transition-colors border border-zinc-200 bg-zinc-50">
+            <i class="fas fa-external-link-alt w-5 text-center mr-2"></i>
+            Back to Website
         </a>
     </div>
 </aside>
-

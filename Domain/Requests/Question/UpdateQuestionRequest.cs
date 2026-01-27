@@ -1,19 +1,16 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Domain.Requests.AnswerOption;
 
 namespace Domain.Requests.Question
 {
-    public class CreateQuestionRequest
+    public class UpdateQuestionRequest
     {
-        public Guid GradedItemId { get; set; }
-
+        public Guid QuestionId { get; set; }
         public string Content { get; set; }
-        public QuestionType Type { get; set; }
         public decimal Points { get; set; }
         public string? Explanation { get; set; }
-        public int OrderIndex { get; set; }
+        public QuestionType Type { get; set; }
 
         public List<CreateAnswerOptionRequest>? AnswerOptions { get; set; }
-
     }
 }

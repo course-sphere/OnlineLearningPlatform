@@ -6,6 +6,8 @@ using Domain.Requests.Module;
 using Domain.Responses;
 using Domain.Responses.Module;
 using Domain.Responses.Lesson;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query; 
 
 namespace Infrastructure.Services
 {
@@ -33,8 +35,13 @@ namespace Infrastructure.Services
                     return response.SetNotFound(message: "Course not found or may have been automatically deleted due to inactivity!!!");
                 }
 
+                var existingModules = await _unitOfWork.Modules.GetAllAsync(m => m.CourseId == request.CourseId && !m.IsDeleted);
+                int newIndex = existingModules.Any() ? existingModules.Max(m => m.Index) + 1 : 1;
+
                 var module = _mapper.Map<Module>(request);
                 module.CreatedBy = _service.GetUserClaim().UserId;
+                module.Index = newIndex;
+
                 await _unitOfWork.Modules.AddAsync(module);
                 await _unitOfWork.SaveChangeAsync();
 
@@ -46,13 +53,13 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(message: ex.Message);
             }
         }
+
         public async Task<ApiResponse> DeleteModuleAsync(Guid moduleId)
         {
             ApiResponse response = new ApiResponse();
             try
             {
-                var module = await _unitOfWork.Modules
-                    .GetAsync(m => m.ModuleId == moduleId && !m.IsDeleted);
+                var module = await _unitOfWork.Modules.GetAsync(m => m.ModuleId == moduleId && !m.IsDeleted);
 
                 if (module == null)
                     return response.SetNotFound("Module not found");
@@ -71,14 +78,14 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(ex.Message);
             }
         }
+
         public async Task<ApiResponse> GetModuleDetailAsync(Guid moduleId)
         {
             ApiResponse response = new ApiResponse();
 
             try
             {
-                var module = await _unitOfWork.Modules
-                    .GetAsync(m => m.ModuleId == moduleId && !m.IsDeleted);
+                var module = await _unitOfWork.Modules.GetAsync(m => m.ModuleId == moduleId && !m.IsDeleted);
 
                 if (module == null)
                     return response.SetNotFound("Module not found");
@@ -91,23 +98,24 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(ex.Message);
             }
         }
+
         public async Task<ApiResponse> GetModulesByCourseAsync(Guid courseId)
         {
             ApiResponse response = new ApiResponse();
             try
             {
-                var modules = await _unitOfWork.Modules
-                    .GetAllAsync(m => m.CourseId == courseId && !m.IsDeleted);
+                var modules = await _unitOfWork.Modules.GetAllAsync(m => m.CourseId == courseId && !m.IsDeleted);
 
                 var moduleResponses = _mapper.Map<List<ModuleResponse>>(modules);
 
-     
                 foreach (var mod in moduleResponses)
                 {
-                    var lessons = await _unitOfWork.Lessons
-                        .GetAllAsync(l => l.ModuleId == mod.ModuleId && !l.IsDeleted);
+                    
+                    var lessons = await _unitOfWork.Lessons.GetAllAsync(
+                        filter: l => l.ModuleId == mod.ModuleId && !l.IsDeleted,
+                        include: q => q.Include(l => l.GradedItems)
+                    );
 
-                   
                     mod.Lessons = _mapper.Map<List<LessonResponse>>(lessons)
                                          .OrderBy(l => l.OrderIndex).ToList();
                 }
@@ -119,14 +127,14 @@ namespace Infrastructure.Services
                 return response.SetBadRequest(ex.Message);
             }
         }
+
         public async Task<ApiResponse> UpdateModuleAsync(UpdateModuleRequest request)
         {
             ApiResponse response = new ApiResponse();
 
             try
             {
-                var module = await _unitOfWork.Modules
-                    .GetAsync(m => m.ModuleId == request.ModuleId && !m.IsDeleted);
+                var module = await _unitOfWork.Modules.GetAsync(m => m.ModuleId == request.ModuleId && !m.IsDeleted);
 
                 if (module == null)
                     return response.SetNotFound("Module not found");
