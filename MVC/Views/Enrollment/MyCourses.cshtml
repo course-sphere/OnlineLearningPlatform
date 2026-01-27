@@ -1,0 +1,40 @@
+﻿@using Domain.Entities
+@model List<Enrollment>
+
+    @{ ViewData["Title"] = "My Learning"; }
+
+    <div class="container mx-auto px-6 py-10">
+        <h1 class="text-3xl font-bold mb-8">My Learning</h1>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            @foreach(var item in Model)
+        {
+            <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition bg-white">
+                <div class="h-40 bg-gray-200 relative">
+                    <img src="@(item.Course?.Image ?? "https://placehold.co/600x400")" class="w-full h-full object-cover">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-lg mb-2">@item.Course?.Title</h3>
+
+                    <div class="w-full bg-gray-100 rounded-full h-2 mb-4">
+                        <div class="bg-emerald-500 h-2 rounded-full" style="width: @(item.ProgressPercent)%"></div>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-500">@item.ProgressPercent% Complete</span>
+                        @if(item.ProgressPercent >= 100)
+                        {
+                        <a href="/Certificate/Index?courseId=@item.CourseId" class="text-xs bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold border border-yellow-200">
+                            🏆 Certificate
+                        </a>
+                        }
+                        else
+                        {
+                        <a href="/Learn/Index/@item.CourseId" class="text-sm font-bold text-cyan-700">Continue -></a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </div>

@@ -1,0 +1,44 @@
+@model dynamic
+@{
+    ViewData["Title"] = "Quiz Result";
+    double score = ViewBag.Score ?? 0;
+    string courseId = ViewBag.CourseId?.ToString() ?? "";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-rose-50 to-white flex items-center justify-center px-6">
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-xl p-10 text-center">
+
+        <div class="mx-auto w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center mb-6">
+            <i class="fas fa-times text-4xl text-rose-600"></i>
+        </div>
+
+        <h1 class="text-3xl font-bold text-slate-900 mb-2">
+            Almost there!
+        </h1>
+
+        <p class="text-slate-600 mb-6">
+            You scored <span class="font-bold text-rose-600">@score.ToString("0")%</span>. You need at least 50% to pass. Don't give up!
+        </p>
+
+        <div class="bg-slate-50 rounded-xl p-6 mb-8 text-left border border-slate-100">
+            <p class="font-semibold mb-2 text-slate-800"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>Suggestions:</p>
+            <ul class="list-disc pl-6 text-slate-600 space-y-1">
+                <li>Re-watch the video lessons carefully.</li>
+                <li>Review the reading materials and key concepts.</li>
+                <li>Take your time reading each question.</li>
+            </ul>
+        </div>
+
+        <div class="flex gap-4 justify-center">
+            <a href="/Learn/Index/@courseId"
+               class="px-6 py-3 rounded-xl bg-slate-900 text-white hover:bg-black shadow-lg transition-all">
+                <i class="fas fa-redo-alt mr-2"></i> Retry Quiz
+            </a>
+
+            <a href="/Enrollment/MyCourses"
+               class="px-6 py-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors">
+                Quit for now
+            </a>
+        </div>
+    </div>
+</div>

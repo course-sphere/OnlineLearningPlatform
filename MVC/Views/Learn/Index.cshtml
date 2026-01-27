@@ -1,0 +1,394 @@
+﻿@using Domain.Responses.Course
+@model CourseStudentLearningResponse
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = null;
+
+    var jsonOptions = new System.Text.Json.JsonSerializerOptions
+    {
+        PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+    };
+    string jsonPayload = System.Text.Json.JsonSerializer.Serialize(Model, jsonOptions);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Model.Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <style>
+        /* Tạm thời tắt x-cloak để debug nếu cần, hoặc giữ nguyên để UI không bị giật */
+        [x-cloak] {
+            display: none !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900">
+
+    <div class="h-16 bg-white border-b flex items-center justify-between px-6 sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <a href="/Enrollment/MyCourses" class="text-slate-500 hover:text-slate-800 transition-colors">
+                <i class="fas fa-arrow-left"></i> My Courses
+            </a>
+            <div class="h-6 w-px bg-slate-200 mx-2"></div>
+            <span class="font-bold text-slate-800 truncate max-w-md">@Model.Title</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <a x-show="progressPercent() >= 100"
+               :href="'/Certificate/Index?courseId=' + (course.courseId || '')"
+               class="hidden md:flex items-center gap-2 px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full font-bold text-sm border border-yellow-300 hover:bg-yellow-200 transition-colors" x-cloak>
+                <i class="fas fa-trophy"></i> Get Certificate
+            </a>
+            <div class="w-8 h-8 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-xs">ME</div>
+        </div>
+    </div>
+
+    <div x-data="learningCourse()" x-init="init()" class="h-[calc(100vh-64px)] flex bg-gray-50" x-cloak>
+
+        <aside class="w-96 bg-white border-r flex flex-col h-full shrink-0">
+            <div class="p-6 border-b shrink-0">
+                <h2 class="font-bold text-sm leading-snug text-slate-900" x-text="course.title"></h2>
+                <div class="mt-4">
+                    <div class="flex justify-between text-xs mb-1 text-slate-600 font-medium">
+                        <span>Progress</span>
+                        <span><span x-text="progressPercent()"></span>%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-cyan-600 h-1.5 rounded-full transition-all duration-500" :style="`width: ${progressPercent()}%`"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-4 space-y-3">
+                <template x-if="modules.length === 0">
+                    <div class="text-center text-gray-400 py-4 text-sm">No content available.</div>
+                </template>
+
+                <template x-for="module in filteredModules()" :key="module.id">
+                    <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                        <button @@click="module.open = !module.open" class="w-full px-4 py-3 bg-slate-50 flex justify-between items-center text-sm font-medium hover:bg-slate-100">
+                            <span x-text="module.title"></span>
+                            <i class="fas fa-chevron-down text-xs" :class="{ 'rotate-180': module.open }"></i>
+                        </button>
+                        <div x-show="module.open" class="divide-y divide-slate-100">
+                            <template x-for="lesson in module.lessons" :key="lesson.id">
+                                <button @@click="selectLesson(lesson)" :class="lessonRowClass(lesson)" class="w-full px-4 py-3 text-sm flex gap-3 items-center text-left">
+                                    <i class="fas text-slate-400 w-5 text-center"
+                                       :class="{'fa-play-circle': lesson.type === 'video', 'fa-file-alt': lesson.type === 'reading', 'fa-question-circle': lesson.type === 'quiz'}"></i>
+                                    <div class="flex-1">
+                                        <div x-text="lesson.title" class="truncate font-medium"></div>
+                                        <div class="text-[10px] text-slate-400" x-text="lesson.duration"></div>
+                                    </div>
+                                    <i x-show="lesson.completed" class="fas fa-check-circle text-emerald-500"></i>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col h-full overflow-hidden relative">
+
+            <div class="h-14 bg-white border-b px-6 flex items-center justify-between shrink-0 z-10">
+                <span class="font-bold text-slate-800 truncate" x-text="currentLesson?.title || 'Select a lesson'"></span>
+
+                <button x-show="currentLesson && currentLesson.type !== 'quiz'"
+                        @@click="markComplete()"
+                        class="px-4 py-1.5 rounded bg-cyan-600 text-white text-sm font-medium hover:bg-cyan-700 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        :disabled="currentLesson?.completed">
+                    <i class="fas fa-check" x-show="currentLesson?.completed"></i>
+                    <span x-text="currentLesson?.completed ? 'Completed' : 'Mark as Completed'"></span>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto bg-slate-50">
+
+                <div x-show="!currentLesson" class="h-full flex flex-col items-center justify-center text-gray-400">
+                    <i class="fas fa-book-open text-6xl mb-4 text-gray-200"></i>
+                    <p>Select a lesson from the sidebar to start learning.</p>
+                </div>
+
+                <div x-show="currentLesson?.type === 'video'" class="p-8">
+                    <div x-show="currentLesson?.videoUrl" class="aspect-video bg-black rounded-xl overflow-hidden shadow-lg max-w-5xl mx-auto">
+                        <iframe :src="getEmbedUrl(currentLesson?.videoUrl)" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div x-show="!currentLesson?.videoUrl" class="text-center py-20 text-gray-400">
+                        <i class="fas fa-video-slash text-4xl mb-3"></i>
+                        <p>No video source available.</p>
+                    </div>
+                </div>
+
+                <div x-show="currentLesson?.type === 'reading'" class="min-h-full">
+                    <div class="max-w-4xl mx-auto px-8 py-12 bg-white min-h-full border-x border-slate-100 shadow-sm">
+                        <div class="text-sm text-gray-500 mb-6 flex gap-2">
+                            <span>Course</span> / <span class="text-gray-800 font-medium" x-text="currentLesson?.title"></span>
+                        </div>
+                        <h1 class="text-4xl font-bold leading-tight mb-4 text-slate-900" x-text="currentLesson?.title"></h1>
+
+                        <article class="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-cyan-600 prose-img:rounded-xl text-slate-700"
+                                 x-html="currentLesson?.content || currentLesson?.description || 'No content.'">
+                        </article>
+
+                        <div x-show="currentLesson?.resources && currentLesson?.resources.length > 0" class="mt-12 pt-8 border-t border-slate-100">
+                            <h3 class="text-lg font-bold mb-4">Attached Resources</h3>
+                            <div class="grid gap-4">
+                                <template x-for="res in currentLesson?.resources" :key="res.id">
+                                    <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 transition-colors">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-xl"><i class="fas fa-file-alt"></i></div>
+                                            <div>
+                                                <div class="font-bold text-slate-800" x-text="res.title"></div>
+                                                <div class="text-xs text-gray-500">Resource File</div>
+                                            </div>
+                                        </div>
+                                        <a :href="res.url" target="_blank" class="px-4 py-2 bg-slate-900 text-white text-sm rounded-lg hover:bg-black transition-colors">Open</a>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="mt-16">
+                            <button @@click="markComplete()" class="w-full py-4 bg-cyan-600 text-white rounded-xl font-bold hover:bg-cyan-700 shadow-lg">
+                                Mark as Completed & Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="currentLesson?.type === 'quiz'" class="p-8 max-w-4xl mx-auto">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="border-b pb-6 mb-6">
+                            <h2 class="text-3xl font-bold text-slate-900" x-text="currentLesson?.quiz?.title"></h2>
+                            <p class="text-slate-500 mt-2">Pass this quiz to complete the lesson.</p>
+                        </div>
+
+                        <form id="quizForm">
+                            <template x-for="(q, idx) in currentLesson?.quiz?.questions || []" :key="q.id">
+                                <div class="mb-8 p-6 border border-slate-100 rounded-xl bg-slate-50/50">
+                                    <p class="font-bold text-lg mb-4 text-slate-800">
+                                        <span class="text-cyan-600 mr-2">Q<span x-text="idx+1"></span>.</span>
+                                        <span x-text="q.text"></span>
+                                    </p>
+                                    <div class="space-y-3">
+                                        <template x-for="opt in q.options" :key="opt.id">
+                                            <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-white hover:border-cyan-200 transition-all bg-white group">
+                                                <input type="radio" :name="'q'+q.id" :value="opt.id" class="w-5 h-5 text-cyan-600 border-gray-300 focus:ring-cyan-500" required />
+                                                <span x-text="opt.text" class="ml-3 text-slate-700 font-medium group-hover:text-slate-900"></span>
+                                            </label>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <div class="flex justify-end pt-4">
+                                <button type="button"
+                                        x-on:click="submitQuiz()"
+                                        class="px-8 py-3 bg-cyan-600 text-white rounded-xl font-bold text-lg hover:bg-cyan-700 shadow-lg hover:shadow-cyan-200 transition-all">
+                                    Submit Quiz <i class="fas fa-paper-plane ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function learningCourse() {
+            return {
+                serverData: @Html.Raw(jsonPayload),
+                course: {},
+                modules: [],
+                currentLesson: null,
+                currentLessonId: null,
+                sidebarSearch: '',
+
+                init() {
+                    try {
+                        console.log("Init Data:", this.serverData); // Debug log
+
+                        if (!this.serverData) {
+                            console.error("No data received from server");
+                            return;
+                        }
+
+                        this.course = {
+                            courseId: this.serverData.courseId,
+                            title: this.serverData.title,
+                            instructor: this.serverData.instructor
+                        };
+
+                        this.modules = this.serverData.modules.map((m, idx) => ({
+                            id: m.id,
+                            title: m.title,
+                            open: idx === 0,
+                            lessons: m.lessons.map(l => ({
+                                ...l,
+                                videoUrl: l.videoUrl || '',
+                                quiz: l.quiz || null
+                            }))
+                        }));
+
+                        // Auto-select first lesson
+                        if (this.modules.length > 0 && this.modules[0].lessons.length > 0) {
+                            this.selectLesson(this.modules[0].lessons[0]);
+                        } else {
+                            console.warn("No lessons found in this course.");
+                        }
+                    } catch (e) {
+                        console.error("Error in init:", e);
+                        alert("Error initializing course data. Check console for details.");
+                    }
+                },
+
+                filteredModules() {
+                    if (!this.sidebarSearch) return this.modules;
+                    const q = this.sidebarSearch.toLowerCase();
+                    return this.modules.map(m => ({
+                        ...m,
+                        open: true,
+                        lessons: m.lessons.filter(l => l.title.toLowerCase().includes(q))
+                    })).filter(m => m.lessons.length > 0);
+                },
+
+                selectLesson(lesson) {
+                    this.currentLesson = lesson;
+                    this.currentLessonId = lesson.id;
+                },
+
+                lessonRowClass(lesson) {
+                    return lesson.id === this.currentLessonId
+                        ? 'bg-cyan-50 text-cyan-700 border-r-2 border-cyan-600 font-medium'
+                        : 'hover:bg-slate-50 text-slate-500';
+                },
+
+                allLessons() { return this.modules.flatMap(m => m.lessons); },
+                completedCount() { return this.allLessons().filter(l => l.completed).length; },
+                totalCount() { return this.allLessons().length; },
+                progressPercent() {
+                    const total = this.totalCount();
+                    return total === 0 ? 0 : Math.round((this.completedCount() / total) * 100);
+                },
+
+                getEmbedUrl(url) {
+                    if (!url) return '';
+                    try {
+                        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                            let videoId = '';
+                            if (url.includes('v=')) videoId = url.split('v=')[1].split('&')[0];
+                            else videoId = url.split('/').pop().split('?')[0];
+                            return `https://www.youtube.com/embed/${videoId}`;
+                        }
+                    } catch (e) { return url; }
+                    return url;
+                },
+
+                markComplete() {
+                    if (!this.currentLesson || this.currentLesson.completed) return;
+                    fetch('/Learn/CompleteLesson/' + this.currentLesson.id, { method: 'POST' })
+                        .then(res => res.json())
+                        .then(data => {
+                            this.currentLesson.completed = true;
+                            // Check for Certificate
+                            setTimeout(() => {
+                                if (this.progressPercent() >= 100) {
+                                    if(confirm("Congratulations! You've completed the course. View Certificate now?")) {
+                                        window.location.href = '/Certificate/Index?courseId=' + this.course.courseId;
+                                    }
+                                }
+                            }, 500);
+                        })
+                        .catch(err => console.error("Error marking complete:", err));
+                },
+
+                submitQuiz() {
+                    console.log("Submit clicked!"); // Check xem nút có ăn không
+
+                    let answers = {};
+
+                    // Validate: Check xem có quiz data không
+                    if (!this.currentLesson.quiz || !this.currentLesson.quiz.questions) {
+                        console.error("No quiz data found");
+                        return;
+                    }
+
+                    // 1. Gom đáp án
+                    this.currentLesson.quiz.questions.forEach(q => {
+                        // Tìm input trong DOM
+                        let selected = document.querySelector(`input[name='q${q.id}']:checked`);
+                        if (selected) {
+                            answers[q.id] = selected.value;
+                        }
+                    });
+
+                    console.log("Answers collected:", answers);
+
+                    // Validate: Bắt buộc chọn ít nhất 1 câu (Optional)
+                    if (Object.keys(answers).length === 0) {
+                        alert("Please answer at least one question.");
+                        return;
+                    }
+
+                    // 2. Gửi về server
+                    fetch('/Learn/SubmitQuiz', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            quizId: this.currentLesson.quiz.id,
+                            answers: answers
+                        })
+                    })
+                        .then(res => {
+                            if (!res.ok) throw new Error("HTTP error " + res.status);
+                            return res.json();
+                        })
+                        .then(data => {
+                            console.log("Server response:", data); // Xem server trả về gì
+
+                            if (data.redirectUrl) {
+                                const courseId = this.serverData.courseId;
+                                const finalUrl = `${data.redirectUrl}?score=${data.score}&courseId=${courseId}`;
+                                console.log("Redirecting to:", finalUrl);
+                                window.location.href = finalUrl;
+                            } else {
+                                console.warn("No redirectUrl returned from server");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Error submitting quiz:", err);
+                            alert("Lỗi nộp bài: " + err.message);
+                        });
+                }
+            };
+        }
+    </script>
+</body>
+</html>

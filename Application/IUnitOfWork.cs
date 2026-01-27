@@ -20,6 +20,7 @@ namespace Application
 
         IGenericRepository<AnswerOption> AnswerOptions { get; }
         IGenericRepository<Question> Questions { get; }
+        IGenericRepository<UserLessonProgress> UserLessonProgress { get; }
 
         Task SaveChangeAsync();
     }
