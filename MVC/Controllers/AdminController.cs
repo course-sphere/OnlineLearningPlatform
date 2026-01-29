@@ -66,7 +66,7 @@ namespace MVC.Controllers
 
             var result = await _courseService.ApproveCourseAsync(request);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index"); 
         }
 
         [HttpPost]
