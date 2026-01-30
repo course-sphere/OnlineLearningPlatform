@@ -1,7 +1,7 @@
 ﻿using Application.IServices;
 using Domain.Responses;
 using Domain.Entities;
-using Domain.Entities;
+using Domain.Requests.Course;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models.Dashboard;
@@ -16,10 +16,18 @@ namespace MVC.Controllers
     public class AdminController : Controller
     {
         private readonly IDashboardService _dashboardService;
+        private readonly ICourseService _courseService;
 
-        public AdminController(IDashboardService dashboardService)
+        public AdminController(IDashboardService dashboardService, ICourseService courseService)
         {
             _dashboardService = dashboardService;
+            _courseService = courseService;
+        }
+
+        // https://localhost:7276/Admin - redirect to Dashboard
+        public IActionResult Index()
+        {
+            return RedirectToAction("Dashboard");
         }
 
         // ===== DASHBOARD =====
@@ -62,13 +70,12 @@ namespace MVC.Controllers
             return View(vm);
         }
 
-
         // ===== USER MANAGEMENT =====
         public async Task<IActionResult> Users(
-    int pageNumber = 1,
-    int pageSize = 10,
-    string searchTerm = null,
-    Role? roleFilter = null)
+            int pageNumber = 1,
+            int pageSize = 10,
+            string searchTerm = null,
+            Role? roleFilter = null)
         {
             var response = await _dashboardService
                 .GetUsersPaginatedAsync(pageNumber, pageSize, searchTerm, roleFilter);
@@ -168,13 +175,56 @@ namespace MVC.Controllers
             return RedirectToAction(nameof(Users));
         }
 
-        // ===== OTHER PAGES =====
-        public IActionResult CourseStatistics()
+        // ===== COURSE MANAGEMENT =====
+        // https://localhost:7276/Admin/PendingCourses
+        [HttpGet]
+        public async Task<IActionResult> PendingCourses()
         {
-            return View();
+            var result = await _courseService.GetAllCourseForAdminAsync(CourseStatus.PendingApproval);
+            return View(result.Result);
         }
 
-        public IActionResult PendingCourses()
+        [HttpPost]
+        public async Task<IActionResult> Approve(Guid courseId)
+        {
+            var request = new ApproveCourseRequest
+            {
+                CourseId = courseId,
+                Status = true,
+                RejectReason = null
+            };
+
+            var result = await _courseService.ApproveCourseAsync(request);
+
+            return RedirectToAction("PendingCourses");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Reject(Guid courseId, string rejectReason)
+        {
+            var request = new ApproveCourseRequest
+            {
+                CourseId = courseId,
+                Status = false,
+                RejectReason = rejectReason
+            };
+
+            var result = await _courseService.ApproveCourseAsync(request);
+
+            return RedirectToAction("PendingCourses");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PreviewCourse(Guid id)
+        {
+            var result = await _courseService.GetCourseLearningDetailAsync(id);
+            if (!result.IsSuccess) return RedirectToAction("PendingCourses");
+
+            return View(result.Result);
+        }
+
+        // ===== OTHER PAGES =====
+        public IActionResult CourseStatistics()
         {
             return View();
         }
