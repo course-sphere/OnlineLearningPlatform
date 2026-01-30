@@ -1,96 +1,192 @@
 ﻿using Application.IServices;
+using Domain.Responses;
 using Domain.Entities;
-using Domain.Requests.Course;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MVC.Models.Dashboard;
+using MVC.Models.UserManagement;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MVC.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private readonly ICourseService _courseService;
+        private readonly IDashboardService _dashboardService;
 
-        public AdminController(ICourseService courseService)
+        public AdminController(IDashboardService dashboardService)
         {
-            _courseService = courseService;
+            _dashboardService = dashboardService;
+        }
+
+        // ===== DASHBOARD =====
+        public async Task<IActionResult> Dashboard()
+        {
+            var vm = new DashboardViewModel();
+
+            var totalUsers = await _dashboardService.GetTotalUsersAsync();
+            var totalCourses = await _dashboardService.GetTotalCoursesAsync();
+            var activeCourses = await _dashboardService.GetActiveCoursesAsync();
+            var totalEnrollments = await _dashboardService.GetTotalEnrollmentsAsync();
+            var totalRevenue = await _dashboardService.GetTotalRevenueAsync();
+            var enrollmentsRes = await _dashboardService.GetLatestEnrollmentsAsync();
+
+            if (totalUsers.IsSuccess) vm.TotalUsers = (int)totalUsers.Result;
+            if (totalCourses.IsSuccess) vm.TotalCourses = (int)totalCourses.Result;
+            if (activeCourses.IsSuccess) vm.ActiveCourses = (int)activeCourses.Result;
+            if (totalEnrollments.IsSuccess) vm.TotalEnrollments = (int)totalEnrollments.Result;
+
+            vm.TotalRevenue = totalRevenue.IsSuccess && totalRevenue.Result != null
+                ? Convert.ToDecimal(totalRevenue.Result)
+                : 0;
+
+            if (enrollmentsRes.IsSuccess)
+            {
+                var data = enrollmentsRes.Result as List<LatestEnrollmentResult>;
+                if (data != null)
+                {
+                    vm.LatestEnrollments = data.Select(e => new LatestEnrollmentVM
+                    {
+                        EnrolledAt = e.EnrolledAt,
+                        UserEmail = e.UserEmail,
+                        CourseName = e.CourseName,
+                        Progress = e.Progress,
+                        Status = e.Status
+                    }).ToList();
+                }
+            }
+
+            return View(vm);
         }
 
 
-        // https://localhost:7276/Admin
-        public IActionResult Index()
+        // ===== USER MANAGEMENT =====
+        public async Task<IActionResult> Users(
+    int pageNumber = 1,
+    int pageSize = 10,
+    string searchTerm = null,
+    Role? roleFilter = null)
         {
-            return View("Dashboard");
+            var response = await _dashboardService
+                .GetUsersPaginatedAsync(pageNumber, pageSize, searchTerm, roleFilter);
+
+            var vm = new UserManagementViewModel
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                SearchTerm = searchTerm,
+                RoleFilter = roleFilter
+            };
+
+            if (!response.IsSuccess || response.Result == null)
+            {
+                TempData["ErrorMessage"] = response.ErrorMessage ?? "Failed to load users";
+                return View(vm);
+            }
+
+            var result = response.Result as PagedUsersResult;
+
+            if (result == null)
+            {
+                TempData["ErrorMessage"] = "Invalid users data format";
+                return View(vm);
+            }
+
+            var users = result.Users;
+
+            if (users != null)
+            {
+                vm.Users = users.Select(u => new UserViewModel
+                {
+                    UserId = u.UserId,
+                    FullName = u.FullName ?? "",
+                    Email = u.Email ?? "",
+                    PhoneNumber = u.PhoneNumber ?? "",
+                    Role = u.Role,
+                    IsVerfied = u.IsVerfied,
+                    Image = u.Image,
+                    CreatedAt = u.CreatedAt
+                }).ToList();
+            }
+
+            vm.TotalCount = result.TotalCount;
+            vm.TotalPages = result.TotalPages;
+
+            return View(vm);
         }
 
-        // https://localhost:7276/Admin/Users
-        public IActionResult Users()
+        // GET: /Admin/EditUser/{id}
+        public async Task<IActionResult> EditUser(Guid id)
         {
-            return View();
+            var response = await _dashboardService.GetUserByIdAsync(id);
+
+            if (!response.IsSuccess || response.Result == null)
+            {
+                TempData["ErrorMessage"] = "User not found";
+                return RedirectToAction(nameof(Users));
+            }
+
+            return View(response.Result);
         }
 
-        // https://localhost:7276/Admin/Payments
-        public IActionResult Payments()
+        // POST: /Admin/UpdateUser
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(Guid userId, string fullName, string email, string phoneNumber, Role role)
         {
-            return View();
+            var response = await _dashboardService.UpdateUserAsync(userId, fullName, email, phoneNumber, role);
+
+            if (response.IsSuccess)
+            {
+                TempData["SuccessMessage"] = "User updated successfully";
+                return RedirectToAction(nameof(Users));
+            }
+            else
+            {
+                TempData["ErrorMessage"] = response.ErrorMessage ?? "Update user failed";
+                return RedirectToAction(nameof(EditUser), new { id = userId });
+            }
         }
 
-        // https://localhost:7276/Admin/Reports
-        public IActionResult Reports()
+        // POST: /Admin/DeleteUser
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(Guid userId)
         {
-            return View();
+            var response = await _dashboardService.DeleteUserAsync(userId);
+
+            if (response.IsSuccess)
+            {
+                TempData["SuccessMessage"] = "User deleted successfully";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = response.ErrorMessage ?? "Delete user failed";
+            }
+
+            return RedirectToAction(nameof(Users));
         }
 
-        // https://localhost:7276/Admin/CourseStatistics
+        // ===== OTHER PAGES =====
         public IActionResult CourseStatistics()
         {
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> PendingCourses()
+        public IActionResult PendingCourses()
         {
-            var result = await _courseService.GetAllCourseForAdminAsync(CourseStatus.PendingApproval);
-            return View(result.Result);
+            return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Approve(Guid courseId)
+        public IActionResult Payments()
         {
-            var request = new ApproveCourseRequest
-            {
-                CourseId = courseId,
-                Status = true,
-                RejectReason = null
-            };
-
-            var result = await _courseService.ApproveCourseAsync(request);
-
-            return RedirectToAction("Index");
+            return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Reject(Guid courseId, string rejectReason)
+        public IActionResult Reports()
         {
-            var request = new ApproveCourseRequest
-            {
-                CourseId = courseId,
-                Status = false,
-                RejectReason = rejectReason
-            };
-
-            var result = await _courseService.ApproveCourseAsync(request);
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> PreviewCourse(Guid id)
-        {
-            var result = await _courseService.GetCourseLearningDetailAsync(id);
-            if (!result.IsSuccess) return RedirectToAction("Index");
-
-            return View(result.Result);
+            return View();
         }
     }
 }
