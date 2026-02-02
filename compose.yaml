@@ -1,0 +1,43 @@
+services:
+  database:
+    image: postgres:latest
+    container_name: course-sphere-mvc-database
+    restart: on-failure:5
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASS}
+      POSTGRES_DB: ${PG_DB}
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: course-sphere-mvc-cloudbeaver
+    restart: on-failure:5
+    volumes:
+      - cloudbeaver:/opt/cloudbeaver/workspace
+    networks:
+      - internal
+  mvc:
+    image: ${REGISTRY}/mvc:latest
+    container_name: course-sphere-mvc
+    restart: on-failure:5
+    depends_on:
+      - database
+    network:
+      - internal
+
+volumes:
+  database:
+    name: course-sphere-mvc-database
+    external: true
+  cloudbeaver:
+    name: course-sphere-mvc-cloudbeaver
+    external: true
+
+networks:
+  internal:
+    name: course-sphere-network
+    external: true
