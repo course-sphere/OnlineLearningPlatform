@@ -1,3 +1,4 @@
 services:
   mvc:
     image: ${REGISTRY}/mvc:latest
+    build:
